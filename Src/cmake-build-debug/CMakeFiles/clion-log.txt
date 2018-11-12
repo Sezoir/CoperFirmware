@@ -1,0 +1,5 @@
+"C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\development\mbed_Clion\STM32F767ZI\Copter
+-- Add a local project.cmake file to add your own targets.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug

@@ -1,0 +1,126 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: C:/Users/joshm_000/AppData/Roaming/GNU MCU Eclipse/arm-none-eabi-gcc/7.2.1-1.1.5/.content/bin/arm-none-eabi-gcc.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+c:/users/joshm_000/appdata/roaming/gnu mcu eclipse/arm-none-eabi-gcc/7.2.1-1.1.5/.content/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: C:/Users/joshm_000/AppData/Roaming/GNU MCU Eclipse/arm-none-eabi-gcc/7.2.1-1.1.5/.content/bin/arm-none-eabi-g++.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+c:/users/joshm_000/appdata/roaming/gnu mcu eclipse/arm-none-eabi-gcc/7.2.1-1.1.5/.content/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe" "cmTC_94492/fast"
+C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_94492.dir\build.make CMakeFiles/cmTC_94492.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_94492.dir/CMakeCCompilerABI.c.obj
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR19DD~1.EXE    -o CMakeFiles\cmTC_94492.dir\CMakeCCompilerABI.c.obj   -c "C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\share\cmake-3.10\Modules\CMakeCCompilerABI.c"
+Linking C executable cmTC_94492
+"C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_94492.dir\link.txt --verbose=1
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR19DD~1.EXE     -v CMakeFiles/cmTC_94492.dir/CMakeCCompilerABI.c.obj  -o cmTC_94492 
+Using built-in specs.
+COLLECT_GCC=C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR19DD~1.EXE
+COLLECT_LTO_WRAPPER=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/lto-wrapper.exe
+Target: arm-none-eabi
+Configured with: /Host/Work/arm-none-eabi-gcc-7.2.1-1.1/gcc/configure --prefix=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc --libexecdir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/lib --infodir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/info --mandir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/man --htmldir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/html --pdfdir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/pdf --build=x86_64-unknown-linux-gnu --host=x86_64-w64-mingw32 --target=arm-none-eabi --with-pkgversion='GNU MCU Eclipse ARM Embedded GCC\x2C 64-bits' --enable-languages=c,c++ --enable-mingw-wildcard --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --with-gnu-as --with-gnu-ld --with-newlib --with-headers=yes --with-python-dir=share/gcc-arm-none-eabi --with-sysroot=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/arm-none-eabi --with-multilib-list=rmprofile --disable-rpath --disable-build-format-warnings --with-system-zlib
+Thread model: single
+gcc version 7.2.1 20170904 (release) [ARM/embedded-7-branch revision 255204] (GNU MCU Eclipse ARM Embedded GCC, 64-bits) 
+COMPILER_PATH=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_94492'
+ c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/collect2.exe --sysroot=c:\users\joshm_~1\appdata\roaming\gnumcu~1\arm-no~1\721-11~1.5\conten~1\bin\../arm-none-eabi -X -o cmTC_94492 c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crti.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtbegin.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/crt0.o -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1 -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../arm-none-eabi/lib CMakeFiles/cmTC_94492.dir/CMakeCCompilerABI.c.obj --start-group -lgcc -lc --end-group c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtend.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtn.o
+c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make.exe[1]: *** [CMakeFiles\cmTC_94492.dir\build.make:97: cmTC_94492] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make.exe: *** [Makefile:125: cmTC_94492/fast] Error 2
+
+
+
+Detecting C [-std=c11] compiler features failed to compile with the following output:
+Change Dir: C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe" "cmTC_a60e9/fast"
+C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_a60e9.dir\build.make CMakeFiles/cmTC_a60e9.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a60e9.dir/feature_tests.c.obj
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR19DD~1.EXE   -std=c11 -o CMakeFiles\cmTC_a60e9.dir\feature_tests.c.obj   -c C:\development\mbed_Clion\STM32F767ZI\Copter\cmake-build-debug\CMakeFiles\feature_tests.c
+Linking C executable cmTC_a60e9
+"C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_a60e9.dir\link.txt --verbose=1
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR19DD~1.EXE      CMakeFiles/cmTC_a60e9.dir/feature_tests.c.obj  -o cmTC_a60e9 
+c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make.exe[1]: *** [CMakeFiles\cmTC_a60e9.dir\build.make:97: cmTC_a60e9] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make.exe: *** [Makefile:125: cmTC_a60e9/fast] Error 2
+
+
+
+Detecting CXX compiler ABI info failed to compile with the following output:
+Change Dir: C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe" "cmTC_c9535/fast"
+C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_c9535.dir\build.make CMakeFiles/cmTC_c9535.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_c9535.dir/CMakeCXXCompilerABI.cpp.obj
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE     -o CMakeFiles\cmTC_c9535.dir\CMakeCXXCompilerABI.cpp.obj -c "C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\share\cmake-3.10\Modules\CMakeCXXCompilerABI.cpp"
+Linking CXX executable cmTC_c9535
+"C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_c9535.dir\link.txt --verbose=1
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE      -v CMakeFiles/cmTC_c9535.dir/CMakeCXXCompilerABI.cpp.obj  -o cmTC_c9535 
+Using built-in specs.
+COLLECT_GCC=C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE
+COLLECT_LTO_WRAPPER=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/lto-wrapper.exe
+Target: arm-none-eabi
+Configured with: /Host/Work/arm-none-eabi-gcc-7.2.1-1.1/gcc/configure --prefix=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc --libexecdir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/lib --infodir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/info --mandir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/man --htmldir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/html --pdfdir=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/share/doc/pdf --build=x86_64-unknown-linux-gnu --host=x86_64-w64-mingw32 --target=arm-none-eabi --with-pkgversion='GNU MCU Eclipse ARM Embedded GCC\x2C 64-bits' --enable-languages=c,c++ --enable-mingw-wildcard --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --with-gnu-as --with-gnu-ld --with-newlib --with-headers=yes --with-python-dir=share/gcc-arm-none-eabi --with-sysroot=/Host/Work/arm-none-eabi-gcc-7.2.1-1.1/install/win64/arm-none-eabi-gcc/arm-none-eabi --with-multilib-list=rmprofile --disable-rpath --disable-build-format-warnings --with-system-zlib
+Thread model: single
+gcc version 7.2.1 20170904 (release) [ARM/embedded-7-branch revision 255204] (GNU MCU Eclipse ARM Embedded GCC, 64-bits) 
+COMPILER_PATH=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/;c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c9535'
+ c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/collect2.exe --sysroot=c:\users\joshm_~1\appdata\roaming\gnumcu~1\arm-no~1\721-11~1.5\conten~1\bin\../arm-none-eabi -X -o cmTC_c9535 c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crti.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtbegin.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/crt0.o -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1 -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib -Lc:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../arm-none-eabi/lib CMakeFiles/cmTC_c9535.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm --start-group -lgcc -lc --end-group c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtend.o c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/crtn.o
+c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make.exe[1]: *** [CMakeFiles\cmTC_c9535.dir\build.make:97: cmTC_c9535] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make.exe: *** [Makefile:125: cmTC_c9535/fast] Error 2
+
+
+
+Detecting CXX [-std=c++1z] compiler features failed to compile with the following output:
+Change Dir: C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe" "cmTC_f8366/fast"
+C:/PROGRA~2/MINGW-~1/I686-7~1.0-P/mingw32/bin/mingw32-make.exe -f CMakeFiles\cmTC_f8366.dir\build.make CMakeFiles/cmTC_f8366.dir/build
+mingw32-make.exe[1]: Entering directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f8366.dir/feature_tests.cxx.obj
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE    -std=c++1z -o CMakeFiles\cmTC_f8366.dir\feature_tests.cxx.obj -c C:\development\mbed_Clion\STM32F767ZI\Copter\cmake-build-debug\CMakeFiles\feature_tests.cxx
+Linking CXX executable cmTC_f8366
+"C:\Program Files\JetBrains\CLion 2018.1.6\bin\cmake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_f8366.dir\link.txt --verbose=1
+C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE       CMakeFiles/cmTC_f8366.dir/feature_tests.cxx.obj  -o cmTC_f8366 
+c:/users/joshm_~1/appdata/roaming/gnumcu~1/arm-no~1/721-11~1.5/conten~1/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): In function `exit':
+exit.c:(.text.exit+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make.exe[1]: *** [CMakeFiles\cmTC_f8366.dir\build.make:97: cmTC_f8366] Error 1
+mingw32-make.exe[1]: Leaving directory 'C:/development/mbed_Clion/STM32F767ZI/Copter/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make.exe: *** [Makefile:125: cmTC_f8366/fast] Error 2
+
+
+

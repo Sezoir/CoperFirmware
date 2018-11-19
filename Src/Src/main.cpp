@@ -19,22 +19,36 @@ int main() {
 //    }
 //    else {return -1;}
 
-    std::array<int, 10> array;
+    std::array<int, 10> sampData;
     bool endless = true;
 
     while (endless) {
-        array = sensor.readSensor();
 
-        Debugger::Debug::sendMsg("AcX = %d", array[0]);
-        Debugger::Debug::sendMsg("AcY = %d", array[1]);
-        Debugger::Debug::sendMsg("AcZ = %d", array[2]);
-        Debugger::Debug::sendMsg("GyX = %d", array[3]);
-        Debugger::Debug::sendMsg("GyY = %d", array[4]);
-        Debugger::Debug::sendMsg("GyZ = %d", array[5]);
-        Debugger::Debug::sendMsg("MagX = %d", array[6]);
-        Debugger::Debug::sendMsg("MagY = %d", array[7]);
-        Debugger::Debug::sendMsg("MagZ = %d", array[8]);
-        Debugger::Debug::sendMsg("Tmp = %.2f", (float)((array[9]/340)+36.53) ); // equation for degrees C from datasheet.
+        for(int i = 0; i < 10; i++)
+        {
+            std::array<int, 10> tempData = sensor.readSensor();
+            for(int i = 0; i < 10; i++)
+            {
+                sampData[i] += tempData[i];
+            }
+        }
+
+        for(int i = 0; i < 10; i++)
+        {
+            sampData[i] = sampData[i] / 10;
+        }
+
+
+        Debugger::Debug::sendMsg("AcX = %d", sampData[0]);
+        Debugger::Debug::sendMsg("AcY = %d", sampData[1]);
+        Debugger::Debug::sendMsg("AcZ = %d", sampData[2]);
+        Debugger::Debug::sendMsg("GyX = %d", sampData[3]);
+        Debugger::Debug::sendMsg("GyY = %d", sampData[4]);
+        Debugger::Debug::sendMsg("GyZ = %d", sampData[5]);
+        Debugger::Debug::sendMsg("MagX = %d", sampData[6]);
+        Debugger::Debug::sendMsg("MagY = %d", sampData[7]);
+        Debugger::Debug::sendMsg("MagZ = %d", sampData[8]);
+        Debugger::Debug::sendMsg("Tmp = %.2f", (float)((sampData[9]/340)+36.53) ); // equation for degrees C from datasheet.
 
         wait(4);
     }

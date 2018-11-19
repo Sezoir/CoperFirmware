@@ -41,12 +41,19 @@ void App::Sensors::SensorModels::IMU::MPU9250::initMPU9250()
     // Set Accelerometer scale range.
     writeByte(Address::IMUADDR, Address::ACCEL_CONFIG, AccelScale::G16);
 
+    // Set up Interrupts and Bypass mode
+    writeByte(Address::IMUADDR, Address::INT_PIN_CFG, 0x22);
+    writeByte(Address::IMUADDR, Address::INT_ENABLE, 0x01);
+    wait(0.1); // Wait for pass-through mode enabled.
 }
 
 void App::Sensors::SensorModels::IMU::MPU9250::initAK8963()
 {
     writeByte(Address::MAGADDR, Address::MAG_CONTROL, 0); // Wake up mag
+    wait(0.1);
     writeByte(Address::MAGADDR, Address::MAG_CONTROL, 0x16);
+    wait(0.1);
+    Debugger::Debug::sendMsg("0x%x", readByte(Address::MAGADDR, 0x00));
 }
 
 std::array<int, 10> App::Sensors::SensorModels::IMU::MPU9250::readSensor()
@@ -66,7 +73,7 @@ std::array<int, 10> App::Sensors::SensorModels::IMU::MPU9250::readSensor()
 
 std::array<int, 3> App::Sensors::SensorModels::IMU::MPU9250::readAccel()
 {
-    Debugger::Debug::sendMsg("Reading Accel");
+    //Debugger::Debug::sendMsg("Reading Accel");
     std::array<int, 3> returnData;
     std::vector<int8_t> tempData;
     tempData = readBytes(Address::IMUADDR, Address::ACCEL_XOUT_H, 6);
@@ -74,13 +81,13 @@ std::array<int, 3> App::Sensors::SensorModels::IMU::MPU9250::readAccel()
     {
         returnData[i] = (tempData[2*i] << 8) | tempData[(2*i)+1];
     }
-    Debugger::Debug::sendMsg("Reading Finished");
+    //Debugger::Debug::sendMsg("Reading Finished");
     return returnData;
 }
 
 std::array<int, 3> App::Sensors::SensorModels::IMU::MPU9250::readGyro()
 {
-    Debugger::Debug::sendMsg("Reading Gyro");
+//    Debugger::Debug::sendMsg("Reading Gyro");
     std::array<int, 3> returnData;
     std::vector<int8_t> tempData;
     tempData = readBytes(Address::IMUADDR, Address::GYRO_XOUT_H, 6);
@@ -88,35 +95,38 @@ std::array<int, 3> App::Sensors::SensorModels::IMU::MPU9250::readGyro()
     {
         returnData[i] = (tempData[2*i] << 8) | tempData[(2*i)+1];
     }
-    Debugger::Debug::sendMsg("Reading Finished");
+//    Debugger::Debug::sendMsg("Reading Finished");
     return returnData;
 }
 
 std::array<int, 3> App::Sensors::SensorModels::IMU::MPU9250::readMag()
 {
     if(readByte(Address::MAGADDR, Address::MAG_ST1) & 0x01) {
-        Debugger::Debug::sendMsg("Reading Mag");
+//        Debugger::Debug::sendMsg("Reading Mag");
         std::array<int, 3> returnData;
         std::vector<int8_t> tempData;
         tempData = readBytes(Address::MAGADDR, Address::MAG_XOUT_L, 7);
-        for (int i = 0; i < 3; ++i) {
-            returnData[i] = (tempData[(2 * i) + 1] << 8) | tempData[2 * i];
-        }
-        Debugger::Debug::sendMsg("Reading Finished");
+        returnData[0] = (int)(((int)(tempData[1]) << 8) | tempData[0]);
+        returnData[1] = (int)(((int)(tempData[3]) << 8) | tempData[2]);
+        returnData[2] = (int)(((int)(tempData[5]) << 8) | tempData[4]);
+//        for (int i = 0; i < 3; i++) {
+//            returnData[i] = ((int)tempData[(2 * i) + 1] << 8) | (int)tempData[2 * i];
+//        }
+//        Debugger::Debug::sendMsg("Reading Finished");
         return returnData;
     } else {
-        std::array<int, 3> a{0,0,0};
-        return a;
+        std::array<int, 3> returnData{0,0,0};
+        return returnData;
     }
 
 }
 
 const int App::Sensors::SensorModels::IMU::MPU9250::readTemp()
 {
-    Debugger::Debug::sendMsg("Reading Temp");
+//    Debugger::Debug::sendMsg("Reading Temp");
     std::vector<int8_t> tempData;
     tempData = readBytes(Address::IMUADDR, Address::TEMP_OUT_H, 2);
-    Debugger::Debug::sendMsg("Reading Finished");
+//    Debugger::Debug::sendMsg("Reading Finished");
     return (int)((tempData[0] << 8) | tempData[1]);
 }
 

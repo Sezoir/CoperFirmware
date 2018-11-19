@@ -37,6 +37,8 @@ namespace App { namespace Sensors { namespace SensorModels { namespace IMU {
                         SMPLRT_DIV = 0x19,
                         GYRO_CONFIG = 0x1B,
                         ACCEL_CONFIG = 0x1C,
+                        INT_PIN_CFG = 0x37,
+                        INT_ENABLE = 0x38,
                         ACCEL_XOUT_H = 0x3B,
                         TEMP_OUT_H = 0x41,
                         GYRO_XOUT_H = 0x43,

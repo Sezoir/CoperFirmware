@@ -6,9 +6,3 @@
 
 #IncludeRegexTransform: 
 
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Libraries/mbed-os/rtos/TARGET_CORTEX/TARGET_CORTEX_M/TOOLCHAIN_GCC/except.S
-
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Libraries/mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/TOOLCHAIN_GCC/TARGET_RTOS_M4_M7/irq_cm4f.S
-
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Libraries/mbed-os/targets/TARGET_STM/TARGET_STM32F7/TARGET_STM32F767xI/device/TOOLCHAIN_GCC_ARM/startup_stm32f767xx.S
-

@@ -5456,13 +5456,13 @@
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Application.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/MediaInterface.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/FileSystem.cpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/SDFATSystem/SDFatSystem.cpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/FileSystem.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/SDFATSystem/SDFatSystem.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/Interface.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/I2C/I2CWrap.cpp">
@@ -5529,6 +5529,12 @@
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Bootloader/Startup.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Bootloader/Storage.cpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Bootloader/Storage.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Debugger/Debug.hpp">

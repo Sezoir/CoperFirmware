@@ -6,23 +6,27 @@
 #define COPTER_STARTUP_H
 
 #include <mbed.h>
-#include "Storage/Manager.hpp"
+#include <memory>
+
+#include "Storage.hpp"
 #include "Application/Application.hpp"
 
 namespace Bootloader {
 
     class Startup {
 
-    private:
-        bool m_Success;
-        Storage::Manager & m_Manager;
-        App::Application & m_Application;
-
     public:
         Startup();
         ~Startup();
 
         bool isValid();
+
+    private:
+        void initStorage();
+
+        bool m_Success;
+        Storage & m_Storage;
+        std::unique_ptr<App::Application> m_Application;
     };
 
 } // End of namespace

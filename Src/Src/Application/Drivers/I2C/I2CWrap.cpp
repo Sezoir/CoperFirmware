@@ -38,7 +38,7 @@ std::vector<int8_t> App::I2C::I2CWrap::readBytes(char t_Address, char t_SubAddre
     return returnData;
 }
 
-void App::I2C::I2CWrap::writeByte(char t_Address, char t_SubAddress, char t_Data)
+void App::I2C::I2CWrap::writeByte(const char t_Address,const char t_SubAddress,const char t_Data)
 {
     char tempData[2] = {t_SubAddress, t_Data};
     write(t_Address, tempData, 2);

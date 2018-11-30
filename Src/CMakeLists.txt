@@ -1957,13 +1957,18 @@ ADD_EXECUTABLE(ELF_FILE
                Src/Application/Sensors/Validator/Validator.cpp
                Src/Application/Sensors/Validator/Validator.hpp
                Src/Application/Settings/Settings.hpp
-               Src/Application/Drivers/FileSystem/MediaInterface.hpp
-               Src/Application/Drivers/FileSystem/SDFATSystem/SDFatSystem.cpp
-               Src/Application/Drivers/FileSystem/SDFATSystem/SDFatSystem.hpp
+               Src/Application/Drivers/FileSystem/Interface.hpp
                Src/Application/Settings/Repository/Sensor/Settings.hpp
                Src/Application/Settings/Repository/Sensor/Settings.cpp
                Src/Storage/Manager.cpp
-               Src/Storage/Manager.hpp Src/Application/Drivers/I2C/I2CWrap.cpp Src/Application/Drivers/I2C/I2CWrap.hpp Src/Application/Settings/Repository/BaseSettings.hpp Src/Application/Settings/Settings.cpp)
+               Src/Storage/Manager.hpp
+               Src/Application/Drivers/I2C/I2CWrap.cpp
+               Src/Application/Drivers/I2C/I2CWrap.hpp
+               Src/Application/Settings/Repository/BaseSettings.hpp
+               Src/Application/Settings/Settings.cpp
+               Src/Application/Drivers/FileSystem/FileSystem.cpp
+               Src/Application/Drivers/FileSystem/FileSystem.hpp
+               Src/Bootloader/Storage.cpp Src/Bootloader/Storage.hpp)
 
 SET_TARGET_PROPERTIES(ELF_FILE PROPERTIES ENABLE_EXPORTS 1)
 # add syslibs dependencies to create the correct linker order

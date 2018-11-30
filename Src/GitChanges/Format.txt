@@ -1,0 +1,25 @@
+{
+  "test": "test",
+  "Sensors": {
+    "Factory": [
+                  {
+                    "id": 23,
+                    "model": "MPU6050",
+                    "type": "IMU",
+                    "params": {
+                                "bus": "1",
+                                "mode": 2
+                              }
+                  },
+                  {
+                    "id": 2,
+                    "model": "MPU9250",
+                    "type": "IMU",
+                    "params": {
+                                "bus": "12",
+                                "mode": 1
+                              }
+                  },
+                 ]
+        }
+}

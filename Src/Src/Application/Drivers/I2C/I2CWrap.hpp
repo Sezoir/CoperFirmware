@@ -21,7 +21,7 @@ namespace App { namespace I2C {
 
             std::vector<int8_t> readBytes(char t_Address, char t_SubAddress, int8_t t_ByteNumber);
 
-            void writeByte(char t_Address, char t_SubAddress, char t_Data);
+            void writeByte(const char t_Address, const char t_SubAddress, const char t_Data);
 
             void writeBytes(char t_Address, std::vector<std::pair<char, char>> t_Data);
 

@@ -2,6 +2,7 @@ CMakeFiles\ELF_FILE.dir\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp.o
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp \
  c:\development\mbed_clion\stm32f767zi\coperfirmware\src\mbed_config.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\IMU\MPU9250.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/mbed.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/mbed_version.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/rtos/rtos.h \
@@ -280,7 +281,6 @@ CMakeFiles\ELF_FILE.dir\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp.o
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/Callback.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/FunctionPointer.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/ScopedLock.h \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Models/Chip.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Drivers/I2C/I2CWrap.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Drivers/I2C/I2CWrap.hpp

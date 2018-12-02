@@ -18711,33 +18711,6 @@ Src/Application/Sensors/Validator/Validator.cpp.s:
 	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.s
 .PHONY : Src/Application/Sensors/Validator/Validator.cpp.s
 
-Src/Application/Settings/Repository/Sensor/Settings.obj: Src/Application/Settings/Repository/Sensor/Settings.cpp.obj
-
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.obj
-
-# target to build an object file
-Src/Application/Settings/Repository/Sensor/Settings.cpp.obj:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Sensor/Settings.cpp.obj
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.cpp.obj
-
-Src/Application/Settings/Repository/Sensor/Settings.i: Src/Application/Settings/Repository/Sensor/Settings.cpp.i
-
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.i
-
-# target to preprocess a source file
-Src/Application/Settings/Repository/Sensor/Settings.cpp.i:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Sensor/Settings.cpp.i
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.cpp.i
-
-Src/Application/Settings/Repository/Sensor/Settings.s: Src/Application/Settings/Repository/Sensor/Settings.cpp.s
-
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.s
-
-# target to generate assembly for a file
-Src/Application/Settings/Repository/Sensor/Settings.cpp.s:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Sensor/Settings.cpp.s
-.PHONY : Src/Application/Settings/Repository/Sensor/Settings.cpp.s
-
 Src/Application/Settings/Settings.obj: Src/Application/Settings/Settings.cpp.obj
 
 .PHONY : Src/Application/Settings/Settings.obj
@@ -18818,33 +18791,6 @@ Src/Bootloader/Storage.s: Src/Bootloader/Storage.cpp.s
 Src/Bootloader/Storage.cpp.s:
 	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.s
 .PHONY : Src/Bootloader/Storage.cpp.s
-
-Src/Storage/Manager.obj: Src/Storage/Manager.cpp.obj
-
-.PHONY : Src/Storage/Manager.obj
-
-# target to build an object file
-Src/Storage/Manager.cpp.obj:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Storage/Manager.cpp.obj
-.PHONY : Src/Storage/Manager.cpp.obj
-
-Src/Storage/Manager.i: Src/Storage/Manager.cpp.i
-
-.PHONY : Src/Storage/Manager.i
-
-# target to preprocess a source file
-Src/Storage/Manager.cpp.i:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Storage/Manager.cpp.i
-.PHONY : Src/Storage/Manager.cpp.i
-
-Src/Storage/Manager.s: Src/Storage/Manager.cpp.s
-
-.PHONY : Src/Storage/Manager.s
-
-# target to generate assembly for a file
-Src/Storage/Manager.cpp.s:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Storage/Manager.cpp.s
-.PHONY : Src/Storage/Manager.cpp.s
 
 Src/main.obj: Src/main.cpp.obj
 
@@ -20947,9 +20893,6 @@ help:
 	@echo ... Src/Application/Sensors/Validator/Validator.obj
 	@echo ... Src/Application/Sensors/Validator/Validator.i
 	@echo ... Src/Application/Sensors/Validator/Validator.s
-	@echo ... Src/Application/Settings/Repository/Sensor/Settings.obj
-	@echo ... Src/Application/Settings/Repository/Sensor/Settings.i
-	@echo ... Src/Application/Settings/Repository/Sensor/Settings.s
 	@echo ... Src/Application/Settings/Settings.obj
 	@echo ... Src/Application/Settings/Settings.i
 	@echo ... Src/Application/Settings/Settings.s
@@ -20959,9 +20902,6 @@ help:
 	@echo ... Src/Bootloader/Storage.obj
 	@echo ... Src/Bootloader/Storage.i
 	@echo ... Src/Bootloader/Storage.s
-	@echo ... Src/Storage/Manager.obj
-	@echo ... Src/Storage/Manager.i
-	@echo ... Src/Storage/Manager.s
 	@echo ... Src/main.obj
 	@echo ... Src/main.i
 	@echo ... Src/main.s

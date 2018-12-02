@@ -7,7 +7,7 @@
 App::Settings::Settings::Settings()
 {
     Debugger::Debug::sendMsg("Settings Created");
-    m_Settings["Sensors"] = std::make_shared<BaseSettings>();
+ //   m_Settings["Sensors"] = std::make_shared<BaseSettings>();
 }
 
 App::Settings::Settings::~Settings()

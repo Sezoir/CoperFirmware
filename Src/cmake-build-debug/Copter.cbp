@@ -5513,12 +5513,6 @@
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/BaseSettings.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/Sensor/Settings.cpp">
-			<Option target="ELF_FILE"/>
-		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/Sensor/Settings.hpp">
-			<Option target="ELF_FILE"/>
-		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Settings.cpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
@@ -5538,12 +5532,6 @@
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Debugger/Debug.hpp">
-			<Option target="ELF_FILE"/>
-		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Storage/Manager.cpp">
-			<Option target="ELF_FILE"/>
-		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Storage/Manager.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/copter_Config.h">

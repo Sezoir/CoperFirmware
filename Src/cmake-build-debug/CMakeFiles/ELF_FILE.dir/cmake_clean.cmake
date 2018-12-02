@@ -689,8 +689,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/CustomKalmanFilter.cpp.obj"
   "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/BaseFilter.cpp.obj"
   "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.obj"
-  "CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Sensor/Settings.cpp.obj"
-  "CMakeFiles/ELF_FILE.dir/Src/Storage/Manager.cpp.obj"
   "CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj"
   "CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj"
   "CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj"

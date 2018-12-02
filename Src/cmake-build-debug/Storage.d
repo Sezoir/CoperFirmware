@@ -1,4 +1,4 @@
-Storage.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-2bf2e6.pch \
+Storage.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
@@ -281,6 +281,7 @@ Storage.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-2bf2e6.pch \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\TARGET_CORTEX\mbed_rtos_storage.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\rtos.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_version.h \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.hpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.cpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.cpp

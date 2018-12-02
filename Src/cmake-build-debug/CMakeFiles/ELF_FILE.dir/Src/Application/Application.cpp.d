@@ -288,14 +288,4 @@ CMakeFiles\ELF_FILE.dir\Src\Application\Application.cpp.obj: \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Settings/Settings.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Factory.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Models/Chip.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Repository/Sensor/Settings.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\ArduinoJson/ArduinoJson-v5.13.2.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers/FileSystem/SDFATSystem/SDFatSystem.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers/FileSystem/MediaInterface.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat/FATFileSystem.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem/FileSystem.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/ff.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/integer.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/ffconf.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Repository/BaseSettings.hpp
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp

@@ -29,14 +29,18 @@ namespace Bootloader {
          * @param t_Location: Name for accessing/identifying storage devices.
          */
         template<typename t_BlockDevice, typename t_FileSystem, PinName... t_Pins>
-        void create(std::string t_Location)
-        {
+        void create(const char* t_test) // Note: passing in a const char* rather than std::string due to the fact the string gets destoryed,
+        {                               // so its char* points to RM, which then screws the FileSystem const char* parameter.
             static_assert(std::is_base_of<BlockDevice, t_BlockDevice>::value, "Incorrect parameter type in function create: Not a BlockDevice.");
             static_assert(std::is_base_of<FileSystem, t_FileSystem>::value, "Incorrect parameter type in function create: Not a FileSystem.");
 
-            if(exists(t_Location)) {
-                m_Storage[t_Location] = make_pair(make_shared<t_BlockDevice>(t_Pins...), make_shared<t_FileSystem>());
-            }
+            const std::string & t_Location = t_test;
+            if(!exists(t_Location)) {
+                Debugger::Debug::sendMsg("Making pair.");
+                Debugger::Debug::sendMsg("t_Location contains: %s", t_Location.c_str());
+//                m_Storage[t_Location] = std::make_pair(std::make_shared<t_BlockDevice>(t_Pins...), std::make_shared<t_FileSystem>("local"));
+                m_Storage[t_Location] = std::make_pair(std::make_shared<t_BlockDevice>(t_Pins...), std::make_shared<t_FileSystem>(t_test));
+            } else Debugger::Debug::sendMsg("Error: Location already exists.");
         }
 
         /**
@@ -46,7 +50,6 @@ namespace Bootloader {
          */
         void remove(std::string t_Location);
 
-    private:
         /**
          * Initilises/mounts the storage device.
          *
@@ -54,6 +57,7 @@ namespace Bootloader {
          */
         void initStorage(std::string t_Location);
 
+    private:
         /**
          * Cheeks to see if Locations already exists.
          *

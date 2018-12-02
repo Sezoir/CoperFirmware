@@ -1308,11 +1308,9 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Sensors/Filter/CustomKalmanFilter.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/CustomKalmanFilter.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Sensors/Sensors.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Sensors.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Sensors/Validator/Validator.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.obj"
-  "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/Sensor/Settings.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Sensor/Settings.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Settings.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Bootloader/Startup.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Bootloader/Startup.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Bootloader/Storage.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj"
-  "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Storage/Manager.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/Storage/Manager.cpp.obj"
   "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/main.cpp" "C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir/Src/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

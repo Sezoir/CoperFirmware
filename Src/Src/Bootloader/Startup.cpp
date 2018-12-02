@@ -15,7 +15,7 @@ Bootloader::Startup::Startup() :    m_Success(true),
 
     initStorage();
 
-    m_Application = std::make_unique<App::Application>();
+    //m_Application = std::make_unique<App::Application>();
 }
 
 Bootloader::Startup::~Startup()
@@ -32,4 +32,5 @@ bool Bootloader::Startup::isValid()
 void Bootloader::Startup::initStorage()
 {
     m_Storage.create<SDBlockDevice, FATFileSystem, PE_6, PE_5, PE_2, PE_4>("local");
+    m_Storage.initStorage("local");
 }

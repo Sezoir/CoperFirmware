@@ -12,13 +12,13 @@
 namespace App { namespace FileSystem {
         class FileSystem : public Interface
         {
-        protected:
+        public:
             FileSystem(std::string t_Location);
             ~FileSystem();
 
-            char *readFile(const std::string t_SystemPath) override;
+            char *readFile(std::string t_SystemPath) override;
 
-            void writeFile(const char *t_systempath) override;
+            void writeFile(const char *t_systempath) override {}
 
             void openFile(const char *t_systempath) override;
 

@@ -15,26 +15,26 @@ App::FileSystem::FileSystem::~FileSystem()
     Debugger::Debug::sendMsg("FileSystem Destroyed.");
 }
 
-void App::FileSystem::FileSystem::openFile(const char* t_systempath)
+void App::FileSystem::FileSystem::openFile(const char* t_SystemPath)
 {
-    Debugger::Debug::sendMsg("Opening %s", t_systempath);
-    f = fopen(t_systempath, "r");
+    Debugger::Debug::sendMsg("Opening %s", t_SystemPath);
+    f = fopen(t_SystemPath, "r");
     Debugger::Debug::sendMsg((!f ? "Fail :(" : "OK"));
     if (!f) {
         Debugger::Debug::sendMsg("No file found. Creating file.");
-        f = fopen(t_systempath, "w+");
+        f = fopen(t_SystemPath, "w+");
         Debugger::Debug::sendMsg((!f ? "Fail :(" : "OK"));
         if (!f) {
             Debugger::Debug::sendErr(strerror(errno), (char*)-errno);
         }
         fclose(f);
-        f = fopen(t_systempath, "r");
+        f = fopen(t_SystemPath, "r");
     }
 }
 
-void App::FileSystem::FileSystem::closeFile(const char *t_systempath)
+void App::FileSystem::FileSystem::closeFile(const char *t_SystemPath)
 {
-    Debugger::Debug::sendMsg("Closing ", t_systempath);
+    Debugger::Debug::sendMsg("Closing ", t_SystemPath);
     err = fclose(f);
     Debugger::Debug::sendMsg((err < 0 ? "Fail :(" : "OK"));
     if (err < 0) {
@@ -44,7 +44,8 @@ void App::FileSystem::FileSystem::closeFile(const char *t_systempath)
 
 char* App::FileSystem::FileSystem::readFile(const std::string t_SystemPath)
 {
-    openFile(("/ " + m_Location + "/" + t_SystemPath).c_str());
+    std::string path = "/" + m_Location + "/" + t_SystemPath;
+    openFile(path.c_str());
     Debugger::Debug::sendMsg("Reading file");
     long length;
     fseek(f, 0, SEEK_END);
@@ -52,6 +53,6 @@ char* App::FileSystem::FileSystem::readFile(const std::string t_SystemPath)
     fseek(f, 0, SEEK_SET);
     char* config = (char*)calloc( 1, length+1);
     fread(config, 1, length, f);
-    closeFile((m_Location + t_SystemPath).c_str());
+    closeFile(path.c_str());
     return config;
 }

@@ -6,7 +6,7 @@
 #include "Debugger/Debug.hpp"
 
 #include <memory>
-#include "Settings/Repository/Sensor/Settings.hpp"
+//#include "Settings/Repository/Sensor/Settings.hpp"
 
 App::Application::Application() :   m_Settings(*new App::Settings::Settings),
                                     m_Sensors(*new App::Sensors::Sensors(m_Settings))

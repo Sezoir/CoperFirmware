@@ -21,23 +21,24 @@ Bootloader::Storage::~Storage()
 
 void Bootloader::Storage::initStorage(std::string t_Location)
 {
-    Debugger::Debug::sendMsg("Mounting/Initialising the filesystem...");
-    int err = m_Storage[t_Location].second->mount(m_Storage[t_Location].first.get());
-    Debugger::Debug::sendMsg((err ? "Fail :(" : "OK"));
-    if (err) {
-        Debugger::Debug::sendMsg("No filesystem found.");
-    }
+    if(exists(t_Location)) {
+        Debugger::Debug::sendMsg("Mounting/Initialising the filesystem...");
+        int err = m_Storage[t_Location].second->mount(m_Storage[t_Location].first.get());
+        Debugger::Debug::sendMsg((err ? "Fail :(" : "OK"));
+        if (err) {
+            Debugger::Debug::sendMsg("No filesystem found.");
+        }
+    } else Debugger::Debug::sendMsg("Error: Location doesn't exists.");
 }
 
 bool Bootloader::Storage::exists(std::string t_Location)
 {
-    if(m_Storage.find(t_Location) != m_Storage.end())
+    if(m_Storage.find(t_Location) == m_Storage.end())
     {
-        return true;
+        return false;
     } else
     {
-        Debugger::Debug::sendMsg("Error: Location already exists");
-        return false;
+        return true;
     }
 }
 

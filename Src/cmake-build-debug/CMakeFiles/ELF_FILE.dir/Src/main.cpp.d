@@ -282,13 +282,8 @@ CMakeFiles\ELF_FILE.dir\Src\main.cpp.obj: \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger/Debug.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader/Startup.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Storage/Manager.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat/FATFileSystem.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem/FileSystem.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/ff.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/integer.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN/ffconf.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice/SDBlockDevice.h \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader/Storage.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Application.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Settings/Settings.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger/Debug.hpp \
@@ -297,6 +292,5 @@ CMakeFiles\ELF_FILE.dir\Src\main.cpp.obj: \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Settings/Settings.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Factory.hpp \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Models/Chip.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Sensors/Factory/Models/IMU/MPU9250.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Drivers/I2C/I2CWrap.hpp
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Drivers/FileSystem/FileSystem.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers/FileSystem/Interface.hpp

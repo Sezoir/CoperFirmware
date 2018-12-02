@@ -27,7 +27,7 @@ App::Sensors::SensorModels::IMU::MPU9250::~MPU9250()
     Debugger::Debug::sendMsg("MPU9250 Destroyed");
 }
 
-std::shared_ptr<App::Sensors::SensorModels::Chip> App::Sensors::SensorModels::IMU::MPU9250::Create()
+std::shared_ptr<App::Sensors::SensorModels::Chip> App::Sensors::SensorModels::IMU::MPU9250::Create(std::map<std::string, uint8_t>)
 {
     if(Validate())
     {

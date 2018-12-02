@@ -1,4 +1,4 @@
-SDBlockDevice.o: \
+SDBlockDevice.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-79b211.pch \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include\stddef.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_stats.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include-fixed\limits.h \
@@ -277,7 +277,6 @@ SDBlockDevice.o: \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\stdint.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include\stdint.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\bd\BlockDevice.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.cpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.cpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.h \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.h

@@ -1,27 +1,20 @@
-//
-// Created by Josh Mottley on 24/08/2018.
-//
-
 #include "Startup.hpp"
-#include "Debugger/Debug.hpp"
 
+// FileSystems
 #include <FATFileSystem.h>
+
+// BlockDevices
 #include <SDBlockDevice.h>
 
 Bootloader::Startup::Startup() :    m_Success(true),
+                                    m_Debug(*new Debugger::Debug),
                                     m_Storage(*new Storage)
 {
-    Debugger::Debug::sendMsg("Startup Created.");
-
+    // Initialise the Storage Class.
     initStorage();
 
-    //m_Application = std::make_unique<App::Application>();
-}
-
-Bootloader::Startup::~Startup()
-{
-
-    Debugger::Debug::sendMsg("Startup Destroyed.");
+    // Creates the Application last, after storage has been initialised.
+    m_application = new App::Application();
 }
 
 bool Bootloader::Startup::isValid()
@@ -31,6 +24,9 @@ bool Bootloader::Startup::isValid()
 
 void Bootloader::Startup::initStorage()
 {
+    // Creates a pair of a BlockDevice, and a FileSystem, under a "name".
     m_Storage.create<SDBlockDevice, FATFileSystem, PE_6, PE_5, PE_2, PE_4>("local");
+
+    // Initialise the pair with "name".
     m_Storage.initStorage("local");
 }

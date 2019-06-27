@@ -1,23 +1,21 @@
-//
-// Created by Josh Mottley on 24/08/2018.
-//
-
 #include "Application.hpp"
-#include "Debugger/Debug.hpp"
 
+// Testing
+#include "Settings/Packages/MPU9250/Object.hpp"
 #include <memory>
-//#include "Settings/Repository/Sensor/Settings.hpp"
 
-App::Application::Application() :   m_Settings(*new App::Settings::Settings),
-                                    m_Sensors(*new App::Sensors::Sensors(m_Settings))
+/**
+ * Constructor for Application.
+ */
+App::Application::Application() : m_settings(*new App::Settings::Settings)
 {
-    Debugger::Debug::sendMsg("Application Created.");
-    //std::shared_ptr<Settings::Sensor::Settings> temp = m_Settings.getSettings<Settings::Sensor::Settings>("Sensors");
-    //Debugger::Debug::sendMsg(temp->getTest().c_str());
-}
+	debug("Application created.\n");
 
-App::Application::~Application()
-{
-    Debugger::Debug::sendMsg("Application Destroyed.");
+	// Setup settings
+	m_settings.load();
+
+//	auto test = m_settings.get<Settings::Packages::MPU9250::ObjMPU9250>("left_wing");
+//	std::string t = test->id;
+//	debug("%s\n", t.c_str());
 }
 

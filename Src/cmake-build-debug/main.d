@@ -1,23 +1,19 @@
 main.o: \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem\Interface.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem\FileSystem.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\Chip.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Factory.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Sensors.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\BaseSettings.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Object.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\RepoBase.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Application.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\map \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.hpp \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\utility \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdio \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdlib \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include\stddef.h \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\string \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_stats.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include-fixed\limits.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\DeepSleepLock.h \

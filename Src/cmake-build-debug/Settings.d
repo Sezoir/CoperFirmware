@@ -1,5 +1,14 @@
-Settings.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-302aa1.pch \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\BaseSettings.hpp \
+Settings.o: \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\MPU9250\Object.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\MPU9250\MPU9250.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem.hpp \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\stdlib.h \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\istream \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\ArduinoJson\ArduinoJson-v5.13.2.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Object.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\RepoBase.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_stats.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include-fixed\limits.h \
@@ -245,6 +254,7 @@ Settings.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-302aa1.pch \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\map \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.hpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.cpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.cpp

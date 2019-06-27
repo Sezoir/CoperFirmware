@@ -1,24 +1,21 @@
+// External lib
 #include "mbed.h"
-#include "Debugger/Debug.hpp"
+
+// Bootloader
 #include "Bootloader/Startup.hpp"
 
-#include "Application/Drivers/FileSystem/FileSystem.hpp"
-#include "string"
 
-int main() {
-
-    Debugger::Debug debug;
-
+int main()
+{
+	if(true) {}
+    // Creates the startup.
     Bootloader::Startup boot;
 
-    if(boot.isValid())
-    {
-        Debugger::Debug::sendMsg("Boot is successful.");
-    }
-    else {return -1;}
+    // Cheeks for successful startup.
+    if(!boot.isValid())
+        return -1;
 
-    bool endless = true;
-    while (endless) {
-    }
+    // Endless loop, as timers will call interrupts.
+    while (true){}
 }
 

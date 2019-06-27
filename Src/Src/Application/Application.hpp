@@ -1,25 +1,28 @@
-//
-// Created by Josh Mottley on 24/08/2018.
-//
+#pragma once
 
-#ifndef COPTER_APPLICATION_H
-#define COPTER_APPLICATION_H
-
+// Application Classes
 #include "Settings/Settings.hpp"
-#include "Sensors/Sensors.hpp"
+//#include "Sensors/Sensors.hpp"
 
 namespace App {
 
-    class Application {
+	class Application
+	{
 
-    public:
-        Application();
-        ~Application();
+		public:
+			/**
+			 *  Constructor for Application.
+			 */
+			Application();
 
-    private:
-        Settings::Settings &m_Settings;
-        Sensors::Sensors &m_Sensors;
-    };
+			/**
+			 * Destructor for Application
+			 */
+			~Application() = default;
+
+		private:
+			// References to classes created at initialisation.
+			Settings::Settings & m_settings;
+	};
 
 } // End of namespace
-#endif //COPTER_APPLICATION_H

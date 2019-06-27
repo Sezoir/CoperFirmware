@@ -1,9 +1,7 @@
-MPU9250.o: \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\algorithm \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\vector \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.hpp \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\Chip.hpp \
+MPU9250.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-63596c.pch \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Object.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\MPU9250\Object.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_stats.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include-fixed\limits.h \
@@ -247,9 +245,8 @@ MPU9250.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\rtos.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_version.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\map \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\array \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\IMU\MPU9250.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\MPU9250\MPU9250.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\MPU9250\MPU9250.hpp

@@ -283,4 +283,4 @@ CMakeFiles\ELF_FILE.dir\Src\Application\Sensors\Factory\Models\IMU\MPU9250.cpp.o
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/ScopedLock.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Models/Chip.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Drivers/I2C/I2CWrap.hpp
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Drivers/I2CWrap.hpp

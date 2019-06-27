@@ -5456,19 +5456,16 @@
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Application.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/FileSystem.cpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem.cpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/FileSystem.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/FileSystem/Interface.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/I2CWrap.cpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/I2C/I2CWrap.cpp">
-			<Option target="ELF_FILE"/>
-		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/I2C/I2CWrap.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Drivers/I2CWrap.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Sensors/Factory/Factory.hpp">
@@ -5510,7 +5507,31 @@
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Sensors/Validator/Validator.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
-		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/BaseSettings.hpp">
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/MPU9250/MPU9250.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/MPU9250/Object.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/MPU9250/Validator.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/Object.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/Parser.cpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Packages/Parser.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/Local.cpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/Local.hpp">
+			<Option target="ELF_FILE"/>
+		</Unit>
+		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Repository/RepoBase.hpp">
 			<Option target="ELF_FILE"/>
 		</Unit>
 		<Unit filename="C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/Src/Application/Settings/Settings.cpp">

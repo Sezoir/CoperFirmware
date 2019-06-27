@@ -1,6 +1,4 @@
 Storage.o: \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\memory \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdio \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdlib \

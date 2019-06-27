@@ -10,11 +10,11 @@
 #include <Debugger/Debug.hpp>
 #include "mbed.h"
 #include "Application/Sensors/Factory/Models/Chip.hpp"
-#include "Drivers/I2C/I2CWrap.hpp"
+#include "Application/Drivers/I2CWrap.hpp"
 
 namespace App { namespace Sensors { namespace SensorModels { namespace IMU {
 
-                class MPU9250 : public Chip, public App::I2C::I2CWrap {
+                class MPU9250 : public Chip, public App::Drivers::I2CWrap {
                 public:
                     MPU9250();
                     ~MPU9250();

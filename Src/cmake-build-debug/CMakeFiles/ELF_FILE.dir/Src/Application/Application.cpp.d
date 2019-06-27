@@ -283,9 +283,8 @@ CMakeFiles\ELF_FILE.dir\Src\Application\Application.cpp.obj: \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/FunctionPointer.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/ScopedLock.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Settings/Repository/BaseSettings.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors/Sensors.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application/Settings/Settings.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Factory.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Application/Sensors/Factory/Models/Chip.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Repository/RepoBase.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Repository/Local.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Packages/Parser.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Packages/Object.hpp \
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings/Packages/MPU9250/Object.hpp

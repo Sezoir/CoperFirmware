@@ -9002,18 +9002,18 @@ CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.s: cmake
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.s"
 	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Validator\Validator.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Sensors\Validator\Validator.cpp.s
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj: ../Src/Application/Drivers/I2C/I2CWrap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_691) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2C\I2CWrap.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.cpp
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj: ../Src/Application/Drivers/I2CWrap.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_691) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2CWrap.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2CWrap.cpp
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.i"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2C\I2CWrap.cpp.i
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.i"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2CWrap.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2CWrap.cpp.i
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.s"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2C\I2CWrap.cpp.s
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.s"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2CWrap.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\I2CWrap.cpp.s
 
 CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
 CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj: ../Src/Application/Settings/Settings.cpp
@@ -9028,18 +9028,18 @@ CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.s"
 	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Settings.cpp.s
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj: ../Src/Application/Drivers/FileSystem/FileSystem.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_693) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem\FileSystem.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem\FileSystem.cpp
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj: ../Src/Application/Drivers/FileSystem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_693) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem.cpp
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.i"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem\FileSystem.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem\FileSystem.cpp.i
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.i"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem.cpp.i
 
-CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.s"
-	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem\FileSystem.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem\FileSystem.cpp.s
+CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.s"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\FileSystem.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Drivers\FileSystem.cpp.s
 
 CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
 CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj: ../Src/Bootloader/Storage.cpp
@@ -9053,6 +9053,32 @@ CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.i: cmake_force
 CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.s"
 	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.cpp -o CMakeFiles\ELF_FILE.dir\Src\Bootloader\Storage.cpp.s
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj: ../Src/Application/Settings/Repository/Local.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_695) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Repository\Local.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.cpp
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.i"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Repository\Local.cpp.i
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.s"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Repository\Local.cpp.s
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj: CMakeFiles/ELF_FILE.dir/flags.make
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj: ../Src/Application/Settings/Packages/Parser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_696) "Building CXX object CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Packages\Parser.cpp.obj -c C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.cpp
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.i"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.cpp > CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Packages\Parser.cpp.i
+
+CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.s"
+	C:\Users\JOSHM_~1\AppData\Roaming\GNUMCU~1\ARM-NO~1\721-11~1.5\CONTEN~1\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.cpp -o CMakeFiles\ELF_FILE.dir\Src\Application\Settings\Packages\Parser.cpp.s
 
 # Object files for target ELF_FILE
 ELF_FILE_OBJECTS = \
@@ -9746,10 +9772,12 @@ ELF_FILE_OBJECTS = \
 "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/CustomKalmanFilter.cpp.obj" \
 "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/BaseFilter.cpp.obj" \
 "CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.obj" \
-"CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj" \
+"CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj" \
 "CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj" \
-"CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj" \
-"CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj"
+"CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj" \
+"CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj" \
+"CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj" \
+"CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj"
 
 # External object files for target ELF_FILE
 ELF_FILE_EXTERNAL_OBJECTS =
@@ -10444,14 +10472,16 @@ ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Factory/Models/IMU/MPU
 ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/CustomKalmanFilter.cpp.obj
 ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Filter/BaseFilter.cpp.obj
 ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.obj
-ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj
+ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj
 ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Settings.cpp.obj
-ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj
+ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj
 ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Bootloader/Storage.cpp.obj
+ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj
+ELF_FILE: CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj
 ELF_FILE: CMakeFiles/ELF_FILE.dir/build.make
 ELF_FILE: CMakeFiles/ELF_FILE.dir/objects1.rsp
 ELF_FILE: CMakeFiles/ELF_FILE.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_695) "Linking CXX executable ELF_FILE"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_697) "Linking CXX executable ELF_FILE"
 	cd /d C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src && arm-none-eabi-cpp -E -P -Wl,--gc-sections -Wl,--wrap,main -Wl,--wrap,_malloc_r -Wl,--wrap,_free_r -Wl,--wrap,_realloc_r -Wl,--wrap,_memalign_r -Wl,--wrap,_calloc_r -Wl,--wrap,exit -Wl,--wrap,atexit -Wl,-n -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp Libraries/mbed-os/targets/TARGET_STM/TARGET_STM32F7/TARGET_STM32F767xI/device/TOOLCHAIN_GCC_ARM/STM32F767xI.ld -o C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/Copter_pp.link_script.ld
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ELF_FILE.dir\link.txt --verbose=$(VERBOSE)
 	arm-none-eabi-objcopy -O ihex C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/ELF_FILE Copter.hex

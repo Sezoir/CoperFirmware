@@ -1,9 +1,7 @@
-I2CWrap.o: \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdio \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdlib \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\string \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
+I2CWrap.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-3f548a.pch \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\utility \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\vector \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include\stddef.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_stats.h \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include-fixed\limits.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\DeepSleepLock.h \
@@ -50,6 +48,7 @@ I2CWrap.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\hal\buffer.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\hal\serial_api.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\drivers\SerialBase.h \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdio \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\FileLike.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\Stream.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\drivers\Serial.h \
@@ -108,6 +107,7 @@ I2CWrap.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\targets\TARGET_STM\PortNames.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\targets\TARGET_STM\TARGET_STM32F7\TARGET_STM32F767xI\objects.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\targets\TARGET_STM\TARGET_STM32F7\device.h \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdlib \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstddef \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\platform.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_poll.h \
@@ -149,6 +149,7 @@ I2CWrap.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_toolchain.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_preprocessor.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_assert.h \
+  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\new \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\Callback.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\TARGET_CORTEX\rtx4\cmsis_os.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\TARGET_CORTEX\mbed_rtos1_types.h \
@@ -278,9 +279,6 @@ I2CWrap.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\TARGET_CORTEX\mbed_rtos_storage.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\rtos.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_version.h \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\utility \
-  C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\vector \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.cpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2C\I2CWrap.cpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2CWrap.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Drivers\I2CWrap.hpp

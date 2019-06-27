@@ -35,11 +35,13 @@ PROJECT(Copter C CXX ASM)
 # uncomment below to have a verbose build process
 #SET(CMAKE_VERBOSE_MAKEFILE ON)
 
+# fexceptions    -fno-exceptions
+
 SET(LD_SYS_LIBS "-Wl,--start-group -lstdc++ -lsupc++ -lm -lc -lgcc -lnosys  -Wl,--end-group")
 
-SET(CMAKE_C_FLAGS "-std=gnu11 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fno-exceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp -include mbed_config.h")
-SET(CMAKE_CXX_FLAGS "-std=gnu++14 -fno-rtti -Wvla -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fno-exceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp  -include mbed_config.h")
-SET(CMAKE_ASM_FLAGS "-x assembler-with-cpp -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fno-exceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp  -include mbed_config.h")
+SET(CMAKE_C_FLAGS "-std=gnu11 -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fexceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp -include mbed_config.h")
+SET(CMAKE_CXX_FLAGS "-std=gnu++14 -fno-rtti -Wvla -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fexceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp  -include mbed_config.h")
+SET(CMAKE_ASM_FLAGS "-x assembler-with-cpp -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -fmessage-length=0 -fexceptions -fno-builtin -ffunction-sections -fdata-sections -funsigned-char -MMD -fno-delete-null-pointer-checks -fomit-frame-pointer -Os -g1 -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp  -include mbed_config.h")
 SET(CMAKE_CXX_LINK_FLAGS "-Wl,--gc-sections -Wl,--wrap,main -Wl,--wrap,__malloc_r -Wl,--wrap,__free_r -Wl,--wrap,__realloc_r -Wl,--wrap,__memalign_r -Wl,--wrap,__calloc_r -Wl,--wrap,exit -Wl,--wrap,atexit -Wl,-n -mcpu=cortex-m7 -mthumb -mfpu=fpv5-d16 -mfloat-abi=softfp ")
 SET(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} ${LD_SYS_LIBS} -T ${CMAKE_BINARY_DIR}/Copter_pp.link_script.ld")
 
@@ -1957,19 +1959,22 @@ ADD_EXECUTABLE(ELF_FILE
                Src/Application/Sensors/Validator/Validator.cpp
                Src/Application/Sensors/Validator/Validator.hpp
                Src/Application/Settings/Settings.hpp
-               Src/Application/Drivers/FileSystem/Interface.hpp
-#               Src/Application/Settings/Repository/Sensor/Settings.hpp
-#               Src/Application/Settings/Repository/Sensor/Settings.cpp
-#               Src/Storage/Manager.cpp
-#               Src/Storage/Manager.hpp
-               Src/Application/Drivers/I2C/I2CWrap.cpp
-               Src/Application/Drivers/I2C/I2CWrap.hpp
-               Src/Application/Settings/Repository/BaseSettings.hpp
+               Src/Application/Drivers/I2CWrap.cpp
+               Src/Application/Drivers/I2CWrap.hpp
+               Src/Application/Settings/Repository/RepoBase.hpp
                Src/Application/Settings/Settings.cpp
-               Src/Application/Drivers/FileSystem/FileSystem.cpp
-               Src/Application/Drivers/FileSystem/FileSystem.hpp
+               Src/Application/Drivers/FileSystem.cpp
+               Src/Application/Drivers/FileSystem.hpp
                Src/Bootloader/Storage.cpp
-               Src/Bootloader/Storage.hpp)
+               Src/Bootloader/Storage.hpp
+               Src/Application/Settings/Repository/Local.cpp
+               Src/Application/Settings/Repository/Local.hpp
+               Src/Application/Settings/Packages/MPU9250/Validator.hpp
+               Src/Application/Settings/Packages/MPU9250/Object.hpp
+               Src/Application/Settings/Packages/MPU9250/MPU9250.hpp
+               Src/Application/Settings/Packages/Parser.hpp
+               Src/Application/Settings/Packages/Object.hpp
+               Src/Application/Settings/Packages/Parser.cpp)
 
 SET_TARGET_PROPERTIES(ELF_FILE PROPERTIES ENABLE_EXPORTS 1)
 # add syslibs dependencies to create the correct linker order

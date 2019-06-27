@@ -1,19 +1,14 @@
-Startup.o: \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\SDBlockDevice\SDBlockDevice.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN\ffconf.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN\integer.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\ChaN\ff.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\features\filesystem\fat\FATFileSystem.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Models\Chip.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Factory\Factory.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Sensors\Sensors.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\BaseSettings.hpp \
+Startup.o: C:\Users\JOSHM_~1\AppData\Local\Temp\preamble-41efe6.pch \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Object.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Packages\Parser.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\Local.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Repository\RepoBase.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Settings\Settings.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Application\Application.hpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\map \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Storage.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\copter_Config.h \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger\Debug.hpp \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdio \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\arm-none-eabi\include\c++\7.2.1\cstdlib \
   C:\Users\joshm_000\AppData\Roaming\GNU\ MCU\ Eclipse\arm-none-eabi-gcc\7.2.1-1.1.5\.content\lib\gcc\arm-none-eabi\7.2.1\include\stddef.h \
@@ -293,7 +288,6 @@ Startup.o: \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\TARGET_CORTEX\mbed_rtos_storage.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\rtos\rtos.h \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os\platform\mbed_version.h \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.hpp \
   C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\mbed_config.h \
-  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.cpp \
-  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.cpp
+  C:\clion_clangd_inmemory_directory\macros\C\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.hpp \
+  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Bootloader\Startup.hpp

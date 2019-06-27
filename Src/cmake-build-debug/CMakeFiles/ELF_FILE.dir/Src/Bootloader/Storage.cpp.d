@@ -279,7 +279,4 @@ CMakeFiles\ELF_FILE.dir\Src\Bootloader\Storage.cpp.obj: \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/mbed_stats.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/Callback.h \
  C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/FunctionPointer.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/ScopedLock.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/Debugger/Debug.hpp \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src/copter_Config.h \
- C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Src\Debugger/Debug.hpp
+ C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\Libraries\mbed-os/platform/ScopedLock.h

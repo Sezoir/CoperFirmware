@@ -18495,59 +18495,59 @@ Src/Application/Application.cpp.s:
 	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Application.cpp.s
 .PHONY : Src/Application/Application.cpp.s
 
-Src/Application/Drivers/FileSystem/FileSystem.obj: Src/Application/Drivers/FileSystem/FileSystem.cpp.obj
+Src/Application/Drivers/FileSystem.obj: Src/Application/Drivers/FileSystem.cpp.obj
 
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.obj
-
-# target to build an object file
-Src/Application/Drivers/FileSystem/FileSystem.cpp.obj:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.obj
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.cpp.obj
-
-Src/Application/Drivers/FileSystem/FileSystem.i: Src/Application/Drivers/FileSystem/FileSystem.cpp.i
-
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.i
-
-# target to preprocess a source file
-Src/Application/Drivers/FileSystem/FileSystem.cpp.i:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.i
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.cpp.i
-
-Src/Application/Drivers/FileSystem/FileSystem.s: Src/Application/Drivers/FileSystem/FileSystem.cpp.s
-
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.s
-
-# target to generate assembly for a file
-Src/Application/Drivers/FileSystem/FileSystem.cpp.s:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem/FileSystem.cpp.s
-.PHONY : Src/Application/Drivers/FileSystem/FileSystem.cpp.s
-
-Src/Application/Drivers/I2C/I2CWrap.obj: Src/Application/Drivers/I2C/I2CWrap.cpp.obj
-
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.obj
+.PHONY : Src/Application/Drivers/FileSystem.obj
 
 # target to build an object file
-Src/Application/Drivers/I2C/I2CWrap.cpp.obj:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.obj
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.cpp.obj
+Src/Application/Drivers/FileSystem.cpp.obj:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.obj
+.PHONY : Src/Application/Drivers/FileSystem.cpp.obj
 
-Src/Application/Drivers/I2C/I2CWrap.i: Src/Application/Drivers/I2C/I2CWrap.cpp.i
+Src/Application/Drivers/FileSystem.i: Src/Application/Drivers/FileSystem.cpp.i
 
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.i
+.PHONY : Src/Application/Drivers/FileSystem.i
 
 # target to preprocess a source file
-Src/Application/Drivers/I2C/I2CWrap.cpp.i:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.i
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.cpp.i
+Src/Application/Drivers/FileSystem.cpp.i:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.i
+.PHONY : Src/Application/Drivers/FileSystem.cpp.i
 
-Src/Application/Drivers/I2C/I2CWrap.s: Src/Application/Drivers/I2C/I2CWrap.cpp.s
+Src/Application/Drivers/FileSystem.s: Src/Application/Drivers/FileSystem.cpp.s
 
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.s
+.PHONY : Src/Application/Drivers/FileSystem.s
 
 # target to generate assembly for a file
-Src/Application/Drivers/I2C/I2CWrap.cpp.s:
-	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2C/I2CWrap.cpp.s
-.PHONY : Src/Application/Drivers/I2C/I2CWrap.cpp.s
+Src/Application/Drivers/FileSystem.cpp.s:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/FileSystem.cpp.s
+.PHONY : Src/Application/Drivers/FileSystem.cpp.s
+
+Src/Application/Drivers/I2CWrap.obj: Src/Application/Drivers/I2CWrap.cpp.obj
+
+.PHONY : Src/Application/Drivers/I2CWrap.obj
+
+# target to build an object file
+Src/Application/Drivers/I2CWrap.cpp.obj:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.obj
+.PHONY : Src/Application/Drivers/I2CWrap.cpp.obj
+
+Src/Application/Drivers/I2CWrap.i: Src/Application/Drivers/I2CWrap.cpp.i
+
+.PHONY : Src/Application/Drivers/I2CWrap.i
+
+# target to preprocess a source file
+Src/Application/Drivers/I2CWrap.cpp.i:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.i
+.PHONY : Src/Application/Drivers/I2CWrap.cpp.i
+
+Src/Application/Drivers/I2CWrap.s: Src/Application/Drivers/I2CWrap.cpp.s
+
+.PHONY : Src/Application/Drivers/I2CWrap.s
+
+# target to generate assembly for a file
+Src/Application/Drivers/I2CWrap.cpp.s:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Drivers/I2CWrap.cpp.s
+.PHONY : Src/Application/Drivers/I2CWrap.cpp.s
 
 Src/Application/Sensors/Factory/Models/Chip.obj: Src/Application/Sensors/Factory/Models/Chip.cpp.obj
 
@@ -18710,6 +18710,60 @@ Src/Application/Sensors/Validator/Validator.s: Src/Application/Sensors/Validator
 Src/Application/Sensors/Validator/Validator.cpp.s:
 	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Sensors/Validator/Validator.cpp.s
 .PHONY : Src/Application/Sensors/Validator/Validator.cpp.s
+
+Src/Application/Settings/Packages/Parser.obj: Src/Application/Settings/Packages/Parser.cpp.obj
+
+.PHONY : Src/Application/Settings/Packages/Parser.obj
+
+# target to build an object file
+Src/Application/Settings/Packages/Parser.cpp.obj:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.obj
+.PHONY : Src/Application/Settings/Packages/Parser.cpp.obj
+
+Src/Application/Settings/Packages/Parser.i: Src/Application/Settings/Packages/Parser.cpp.i
+
+.PHONY : Src/Application/Settings/Packages/Parser.i
+
+# target to preprocess a source file
+Src/Application/Settings/Packages/Parser.cpp.i:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.i
+.PHONY : Src/Application/Settings/Packages/Parser.cpp.i
+
+Src/Application/Settings/Packages/Parser.s: Src/Application/Settings/Packages/Parser.cpp.s
+
+.PHONY : Src/Application/Settings/Packages/Parser.s
+
+# target to generate assembly for a file
+Src/Application/Settings/Packages/Parser.cpp.s:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Packages/Parser.cpp.s
+.PHONY : Src/Application/Settings/Packages/Parser.cpp.s
+
+Src/Application/Settings/Repository/Local.obj: Src/Application/Settings/Repository/Local.cpp.obj
+
+.PHONY : Src/Application/Settings/Repository/Local.obj
+
+# target to build an object file
+Src/Application/Settings/Repository/Local.cpp.obj:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.obj
+.PHONY : Src/Application/Settings/Repository/Local.cpp.obj
+
+Src/Application/Settings/Repository/Local.i: Src/Application/Settings/Repository/Local.cpp.i
+
+.PHONY : Src/Application/Settings/Repository/Local.i
+
+# target to preprocess a source file
+Src/Application/Settings/Repository/Local.cpp.i:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.i
+.PHONY : Src/Application/Settings/Repository/Local.cpp.i
+
+Src/Application/Settings/Repository/Local.s: Src/Application/Settings/Repository/Local.cpp.s
+
+.PHONY : Src/Application/Settings/Repository/Local.s
+
+# target to generate assembly for a file
+Src/Application/Settings/Repository/Local.cpp.s:
+	$(MAKE) -f CMakeFiles\ELF_FILE.dir\build.make CMakeFiles/ELF_FILE.dir/Src/Application/Settings/Repository/Local.cpp.s
+.PHONY : Src/Application/Settings/Repository/Local.cpp.s
 
 Src/Application/Settings/Settings.obj: Src/Application/Settings/Settings.cpp.obj
 
@@ -20869,12 +20923,12 @@ help:
 	@echo ... Src/Application/Application.obj
 	@echo ... Src/Application/Application.i
 	@echo ... Src/Application/Application.s
-	@echo ... Src/Application/Drivers/FileSystem/FileSystem.obj
-	@echo ... Src/Application/Drivers/FileSystem/FileSystem.i
-	@echo ... Src/Application/Drivers/FileSystem/FileSystem.s
-	@echo ... Src/Application/Drivers/I2C/I2CWrap.obj
-	@echo ... Src/Application/Drivers/I2C/I2CWrap.i
-	@echo ... Src/Application/Drivers/I2C/I2CWrap.s
+	@echo ... Src/Application/Drivers/FileSystem.obj
+	@echo ... Src/Application/Drivers/FileSystem.i
+	@echo ... Src/Application/Drivers/FileSystem.s
+	@echo ... Src/Application/Drivers/I2CWrap.obj
+	@echo ... Src/Application/Drivers/I2CWrap.i
+	@echo ... Src/Application/Drivers/I2CWrap.s
 	@echo ... Src/Application/Sensors/Factory/Models/Chip.obj
 	@echo ... Src/Application/Sensors/Factory/Models/Chip.i
 	@echo ... Src/Application/Sensors/Factory/Models/Chip.s
@@ -20893,6 +20947,12 @@ help:
 	@echo ... Src/Application/Sensors/Validator/Validator.obj
 	@echo ... Src/Application/Sensors/Validator/Validator.i
 	@echo ... Src/Application/Sensors/Validator/Validator.s
+	@echo ... Src/Application/Settings/Packages/Parser.obj
+	@echo ... Src/Application/Settings/Packages/Parser.i
+	@echo ... Src/Application/Settings/Packages/Parser.s
+	@echo ... Src/Application/Settings/Repository/Local.obj
+	@echo ... Src/Application/Settings/Repository/Local.i
+	@echo ... Src/Application/Settings/Repository/Local.s
 	@echo ... Src/Application/Settings/Settings.obj
 	@echo ... Src/Application/Settings/Settings.i
 	@echo ... Src/Application/Settings/Settings.s

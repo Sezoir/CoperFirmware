@@ -81,7 +81,8 @@ namespace App { namespace Sensors {
                 exists(type, id);
 
                 // Turn sensor
-                return std::static_pointer_cast<T>(m_sensors[type][id]);
+                auto t = std::static_pointer_cast<T>(m_sensors[type][id]);
+                return t;
             }
 
             /**

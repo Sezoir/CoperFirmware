@@ -23,8 +23,8 @@ namespace App { namespace Sensors {
 //            void getAlt;
 
         private:
-            std::shared_ptr<App::Settings::BaseSettings>  m_Settings;
-            Factory & m_Factory;
+            //std::shared_ptr<App::Settings::BaseReader>  m_Settings;
+            //Factory & m_Factory;
 
         };
     }}

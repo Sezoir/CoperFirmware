@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2018.2.6\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src
+CMAKE_SOURCE_DIR = C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug
+CMAKE_BINARY_DIR = C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src\cmake-build-debug
 
 # Utility rule file for mbed-cli-build.
 
@@ -53,8 +53,8 @@ CMAKE_BINARY_DIR = C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake
 include CMakeFiles/mbed-cli-build.dir/progress.make
 
 CMakeFiles/mbed-cli-build:
-	cd /d C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src && "C:\Program Files\JetBrains\CLion 2018.2.6\bin\cmake\win\bin\cmake.exe" -E echo "mbed compile --build BUILD/Debug --profile mbed-os/tools/profiles/debug.json"
-	cd /d C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src && mbed compile --build BUILD/Debug --profile mbed-os/tools/profiles/debug.json
+	cd /d C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src && "C:\Program Files\JetBrains\CLion 2018.2.6\bin\cmake\win\bin\cmake.exe" -E echo "mbed compile --build BUILD/Debug --profile mbed-os/tools/profiles/debug.json"
+	cd /d C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src && mbed compile --build BUILD/Debug --profile mbed-os/tools/profiles/debug.json
 
 mbed-cli-build: CMakeFiles/mbed-cli-build
 mbed-cli-build: CMakeFiles/mbed-cli-build.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/mbed-cli-build.dir/clean:
 .PHONY : CMakeFiles/mbed-cli-build.dir/clean
 
 CMakeFiles/mbed-cli-build.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug C:\development\mbed_Clion\STM32F767ZI\CoperFirmware\Src\cmake-build-debug\CMakeFiles\mbed-cli-build.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src\cmake-build-debug C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src\cmake-build-debug C:\development\mbed_Clion\STM32F767ZI\CopterFirmware\Src\cmake-build-debug\CMakeFiles\mbed-cli-build.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/mbed-cli-build.dir/depend
 

@@ -22,6 +22,9 @@ App::Settings::Settings::Settings()
 	MAKE_SETTINGS_PROTOTYPE(MPU9250);
 }
 
+const std::string App::Settings::Settings::m_initLocation = "/local/init.json";
+std::vector<std::shared_ptr< App::Settings::Packages::Object>>  App::Settings::Settings::m_settings{};
+
 /**
  * Reads the init json file from m_InitLocation.
  * Then it creates and stores all the objects specified in the init.json file in m_Settings.
@@ -60,6 +63,7 @@ void App::Settings::Settings::format(char * t_data)
 		std::string method = i["method"].as<std::string>();
 		std::string type = i["type"].as<std::string>();
 		std::string address = i["address"].as<std::string>();
+		std::string group = i["group"].as<std::string>();
 
 		// Fill strut
 		char * data = repoData(method, address);
@@ -67,16 +71,22 @@ void App::Settings::Settings::format(char * t_data)
 		// Call parser
 		auto obj = packageSettings(type, data);
 
+		// Update Object
+		obj->name = name;
+		obj->method = method;
+		obj->type = type;
+		obj->address = address;
+		obj->group = group;
+
 		// Check if id already used.
-		auto it = m_settings.find(name);
-		if(it != m_settings.end())
+		if(findId(name) != m_settings.end())
 		{
 			debug("Error: There is more than 1 sub settings of id: %s", name.c_str());
 			exit(1);
 		}
 
 		// Insert to map
-		m_settings.insert(std::pair<std::string, std::shared_ptr<Packages::Object>>(name, obj));
+		m_settings.push_back(obj);
 	}
 }
 
@@ -123,6 +133,57 @@ char * App::Settings::Settings::repoData(std::string t_Type, std::string t_Addre
 	{
 		debug("Error: No valid setting type called %s with address %s\n", t_Type.c_str(), t_Address.c_str());
 		exit(1);
+	}
+}
+
+std::vector<std::shared_ptr<App::Settings::Packages::Object>>::iterator App::Settings::Settings::findId(std::string t_Id)
+{
+	for(auto it = m_settings.begin(); it != m_settings.end(); it++)
+	{
+		if((*it)->name == t_Id)
+		{
+			return it;
+		}
+	}
+	return m_settings.end();
+}
+
+std::vector<shared_ptr<App::Settings::Packages::Object>> App::Settings::Settings::get(App::Settings::Settings::Type t_Type)
+{
+	std::vector<shared_ptr<App::Settings::Packages::Object>> vec;
+
+	if(t_Type == App::Settings::Settings::Type::Sensor)
+	{
+		for(auto i : m_settings)
+		{
+			if(i->group == "Sensor")
+			{
+				vec.push_back(i);
+			}
+		}
+		return vec;
+	}
+	else if(t_Type == App::Settings::Settings::Type::Motor)
+	{
+		for(auto i : m_settings)
+		{
+			if(i->group == "Motor")
+			{
+				vec.push_back(i);
+			}
+		}
+		return vec;
+	}
+	else if(t_Type == App::Settings::Settings::Type::Pilot)
+	{
+		for(auto i : m_settings)
+		{
+			if(i->group == "Pilot")
+			{
+				vec.push_back(i);
+			}
+		}
+		return vec;
 	}
 }
 

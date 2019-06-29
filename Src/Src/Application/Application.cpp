@@ -12,10 +12,13 @@ App::Application::Application() : m_settings(*new App::Settings::Settings)
 	debug("Application created.\n");
 
 	// Setup settings
-	m_settings.load();
+	//m_settings.load();
+	Settings::Settings::load();
 
-//	auto test = m_settings.get<Settings::Packages::MPU9250::ObjMPU9250>("left_wing");
-//	std::string t = test->id;
-//	debug("%s\n", t.c_str());
+	auto test = Settings::Settings::get(Settings::Settings::Type::Sensor);
+	for(auto i : test)
+	{
+		debug("%s\n", i->name.c_str());
+	}
 }
 

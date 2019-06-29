@@ -37,7 +37,7 @@ namespace App { namespace Settings { namespace Packages { namespace MPU9250
                 debug("MPU9250 settings created dynamically.\n");
 
                 auto t = make_shared<ObjMPU9250>();
-                t->id = "Test ID";
+                t->frequency = 1250;
                 return t;
             }
 

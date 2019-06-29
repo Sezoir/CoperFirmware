@@ -5,27 +5,53 @@
 #ifndef COPTER_SENSORS_H
 #define COPTER_SENSORS_H
 
+// Std libs
 #include <memory>
+#include <vector>
+
+// For access to settings for sensors.
 #include "Settings/Settings.hpp"
+
+// Sensor factory.
 #include "Application/Sensors/Factory/Factory.hpp"
 
 namespace App { namespace Sensors {
 
-        class Sensors {
-        public:
-            Sensors(Settings::Settings &);
-            ~Sensors();
-//            void updateSensors;
-//            void getSensor;
-//            void getAccel;
-//            void getGyro;
-//            void getMag;
-//            void getAlt;
+	class Sensors {
+		public:
+			/**
+			 * Constructor
+			 */
+			Sensors();
 
-        private:
-            //std::shared_ptr<App::Settings::BaseReader>  m_Settings;
-            //Factory & m_Factory;
+			/**
+			 * Destructor
+			 */
+			~Sensors();
 
-        };
-    }}
+			/**
+			 * Updates the current values of the sensors.
+			 */
+			void updateSensors();
+
+			enum class Type
+			{
+					Gyroscope,
+					Accelerometer,
+					Magnetometer
+			};
+
+			/**
+			 * Get the value a type of sensor.
+			 *
+			 * @return
+			 */
+			int get(Type);
+
+		private:
+			//Factory & m_Factory;
+
+
+	};
+}}
 #endif //COPTER_SENSORS_H

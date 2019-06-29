@@ -1,4 +1,4 @@
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/mbed-cli-build.dir
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir
-C:/development/mbed_Clion/STM32F767ZI/CoperFirmware/Src/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/development/mbed_Clion/STM32F767ZI/CopterFirmware/Src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/development/mbed_Clion/STM32F767ZI/CopterFirmware/Src/cmake-build-debug/CMakeFiles/mbed-cli-build.dir
+C:/development/mbed_Clion/STM32F767ZI/CopterFirmware/Src/cmake-build-debug/CMakeFiles/ELF_FILE.dir
+C:/development/mbed_Clion/STM32F767ZI/CopterFirmware/Src/cmake-build-debug/CMakeFiles/edit_cache.dir

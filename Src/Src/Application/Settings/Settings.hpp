@@ -43,6 +43,7 @@ namespace App { namespace Settings {
 			enum class Type
 			{
 					Sensor,
+					Filter,
 					Motor,
 					Pilot
 			};

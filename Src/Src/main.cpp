@@ -5,8 +5,14 @@
 #include "Bootloader/Startup.hpp"
 
 
+#include "Sensors.hpp"
+
 int main()
 {
+	App::Sensors::Sensors p;
+
+	p.getSensor()->getIC()->;
+
 	if(true) {}
     // Creates the startup.
     Bootloader::Startup boot;

@@ -1,14 +1,26 @@
-//
-// Created by Josh Mottley on 29/08/2018.
-//
+#pragma once
 
-#ifndef COPTER_BASEFILTER_H
-#define COPTER_BASEFILTER_H
+// Std libs
+#include <memory>
+#include <string>
 
-namespace App { namespace Sensors { namespace Filter {
-            class BaseFilter {
+// Debug
+#include "mbed.h"
 
-            };
+#define IMPLEMENT_FILTER_CLONE(TYPE) \
+            std::unique_ptr<BaseFilter> clone() override { return std::make_unique<TYPE>(); }
 
-        }}} // End of namespace
-#endif //COPTER_BASEFILTER_H
+namespace App { namespace Sensors { namespace Filters {
+	class BaseFilter
+	{
+		public:
+		BaseFilter() = default;
+		virtual ~BaseFilter() = default;
+
+		virtual std::unique_ptr<BaseFilter> clone() = 0;
+
+		private:
+
+	};
+
+}}} // End of namespace

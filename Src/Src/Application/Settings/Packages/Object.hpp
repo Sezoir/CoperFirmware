@@ -14,5 +14,6 @@ namespace App { namespace Settings { namespace Packages {
 		std::string type;
 		std::string address;
 		std::string group;
+		std::string tag;
 	};
 }}}

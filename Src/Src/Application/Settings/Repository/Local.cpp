@@ -20,8 +20,6 @@ char * App::Settings::Repository::Local::read()
     // Read the data from the file
     auto content = filesystem.read(m_Path);
 
-    debug("Data %s\n", content);
-
     // Return content
     return content;
 }

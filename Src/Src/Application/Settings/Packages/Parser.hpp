@@ -106,8 +106,6 @@ namespace App { namespace Settings { namespace Packages {
 			{
 				protoTable[type] = p;
 
-				debug("Added %s\n", type.c_str());
-
 				return p;
 			}
 

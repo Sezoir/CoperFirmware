@@ -2,7 +2,7 @@
 
 // Application Classes
 #include "Settings/Settings.hpp"
-//#include "Sensors/Sensors.hpp"
+#include "Sensors/Sensors.hpp"
 
 namespace App {
 
@@ -23,6 +23,7 @@ namespace App {
 		private:
 			// References to classes created at initialisation.
 			Settings::Settings & m_settings;
+			Sensors::Sensors & m_sensors;
 	};
 
 } // End of namespace

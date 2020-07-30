@@ -34,8 +34,6 @@ namespace App { namespace Settings { namespace Packages { namespace MPU9250
 
             std::shared_ptr<Object> get() override
             {
-                debug("MPU9250 settings created dynamically.\n");
-
                 auto t = make_shared<ObjMPU9250>();
                 t->frequency = 1250;
                 return t;

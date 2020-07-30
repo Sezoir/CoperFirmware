@@ -1944,17 +1944,13 @@ ADD_EXECUTABLE(ELF_FILE
                Src/Bootloader/Startup.hpp
                Src/Application/Application.cpp
                Src/Application/Application.hpp
-               Src/Application/Sensors/Factory/Factory.hpp
+               Src/Application/Sensors/Factory.hpp
                Src/Application/Sensors/Sensors.cpp
                Src/Application/Sensors/Sensors.hpp
-               Src/Application/Sensors/Factory/Models/Chip.cpp
-               Src/Application/Sensors/Factory/Models/Chip.hpp
-               Src/Application/Sensors/Factory/Models/IMU/MPU9250.cpp
-               Src/Application/Sensors/Factory/Models/IMU/MPU9250.hpp
+               Src/Application/Sensors/Models/Chip.hpp
+               Src/Application/Sensors/Models/MPU9250.cpp
+               Src/Application/Sensors/Models/MPU9250.hpp
                Src/Debugger/Debug.hpp
-               Src/Application/Sensors/Filter/CustomKalmanFilter.cpp
-               Src/Application/Sensors/Filter/CustomKalmanFilter.hpp
-               Src/Application/Sensors/Filter/BaseFilter.cpp
                Src/Application/Sensors/Filter/BaseFilter.hpp
                Src/Application/Sensors/Validator/Validator.cpp
                Src/Application/Sensors/Validator/Validator.hpp
@@ -1974,7 +1970,12 @@ ADD_EXECUTABLE(ELF_FILE
                Src/Application/Settings/Packages/MPU9250/MPU9250.hpp
                Src/Application/Settings/Packages/Parser.hpp
                Src/Application/Settings/Packages/Object.hpp
-               Src/Application/Settings/Packages/Parser.cpp)
+               Src/Application/Settings/Packages/Parser.cpp
+               Src/Application/Sensors/Factory.hpp
+               Src/Application/Sensors/Factory.cpp
+               Src/Application/Sensors/Filter/NoFilter.hpp
+               Src/Application/Settings/Packages/Kalmin/Object.hpp
+               Src/Application/Settings/Packages/Kalmin/Validator.hpp Src/Application/Settings/Packages/Kalmin/Kalmin.hpp Src/Application/Sensors/Filter/Kalmin.hpp Src/Application/Sensors/Package.cpp Src/Application/Sensors/Package.hpp)
 
 SET_TARGET_PROPERTIES(ELF_FILE PROPERTIES ENABLE_EXPORTS 1)
 # add syslibs dependencies to create the correct linker order

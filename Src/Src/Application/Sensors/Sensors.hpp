@@ -8,12 +8,13 @@
 // Std libs
 #include <memory>
 #include <vector>
+#include <utility>
 
 // For access to settings for sensors.
 #include "Settings/Settings.hpp"
 
 // Sensor factory.
-#include "Application/Sensors/Factory/Factory.hpp"
+#include "Factory.hpp"
 
 namespace App { namespace Sensors {
 
@@ -34,6 +35,11 @@ namespace App { namespace Sensors {
 			 */
 			void updateSensors();
 
+			/**
+			 * Recreates all the sensors in the factory based on the setting.
+			 */
+			void createSensors();
+
 			enum class Type
 			{
 					Gyroscope,
@@ -46,12 +52,17 @@ namespace App { namespace Sensors {
 			 *
 			 * @return
 			 */
-			int get(Type);
+			std::array<int, 3> get(Type);
+
+			std::shared_ptr<Package> getSensor()
+			{
+				return m_sensors[0];
+			}
+
 
 		private:
-			//Factory & m_Factory;
 
-
+			std::vector<std::shared_ptr<Package>> m_sensors;
 	};
 }}
 #endif //COPTER_SENSORS_H

@@ -11,6 +11,7 @@
 
 // Include all settings packages
 #include "Packages/MPU9250/MPU9250.hpp"
+#include "Packages/Kalmin/Kalmin.hpp"
 
 /**
  * Construct the settings class
@@ -20,6 +21,10 @@ App::Settings::Settings::Settings()
 {
 	// Register all settings packages
 	MAKE_SETTINGS_PROTOTYPE(MPU9250);
+	MAKE_SETTINGS_PROTOTYPE(Kalmin);
+
+	// Must go last
+	load();
 }
 
 const std::string App::Settings::Settings::m_initLocation = "/local/init.json";
@@ -64,6 +69,8 @@ void App::Settings::Settings::format(char * t_data)
 		std::string type = i["type"].as<std::string>();
 		std::string address = i["address"].as<std::string>();
 		std::string group = i["group"].as<std::string>();
+		//@todo could cause issues in future if multiple tags are assigned for some purpose.
+		std::string tag = i["tag"].as<std::string>();
 
 		// Fill strut
 		char * data = repoData(method, address);
@@ -77,6 +84,7 @@ void App::Settings::Settings::format(char * t_data)
 		obj->type = type;
 		obj->address = address;
 		obj->group = group;
+		obj->tag = tag;
 
 		// Check if id already used.
 		if(findId(name) != m_settings.end())
@@ -150,7 +158,7 @@ std::vector<std::shared_ptr<App::Settings::Packages::Object>>::iterator App::Set
 
 std::vector<shared_ptr<App::Settings::Packages::Object>> App::Settings::Settings::get(App::Settings::Settings::Type t_Type)
 {
-	std::vector<shared_ptr<App::Settings::Packages::Object>> vec;
+	std::vector<shared_ptr<App::Settings::Packages::Object>> vec {};
 
 	if(t_Type == App::Settings::Settings::Type::Sensor)
 	{
@@ -185,6 +193,18 @@ std::vector<shared_ptr<App::Settings::Packages::Object>> App::Settings::Settings
 		}
 		return vec;
 	}
+	else if(t_Type == App::Settings::Settings::Type::Filter)
+	{
+		for(auto i : m_settings)
+		{
+			if(i->group == "Filter")
+			{
+				vec.push_back(i);
+			}
+		}
+		return vec;
+	}
+	return std::vector<shared_ptr<App::Settings::Packages::Object>>{};
 }
 
 

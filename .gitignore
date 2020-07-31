@@ -1,1 +1,17 @@
-Src/GitChanges/
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.gitignore
+.idea/.gitignore
+.idea/Copter.iml
+.idea/codeStyles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+cmake-build-debug/

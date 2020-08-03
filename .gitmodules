@@ -1,3 +1,3 @@
-[submodule "Dependencies\\Mbed"]
-	path = Dependencies\\Mbed
+[submodule "Dependencies/Mbed"]
+	path = Dependencies/Mbed
 	url = https://github.com/USCRPL/mbed-cmake

@@ -1,12 +1,17 @@
 #include "mbed.h"
+#include "Engine/DShot.hpp"
 
 BufferedSerial serial(USBTX, USBRX, 115200);
 
-int main() {
+int main()
+{
+    Copter::Engine::DShot proto(1200);
 
+    proto.sendSignal();
     while(true)
     {
-        char const message[] = "Hello world: 7!\n";
+
+        char const message[] = "DShot protocol!\n";
         serial.write(message, sizeof(message));
         ThisThread::sleep_for(1000);
     }

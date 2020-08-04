@@ -1,6 +1,8 @@
 ## Set minimum cmake (note mbed-cmake requires at least CMake 3.12)
 cmake_minimum_required(VERSION 3.15)
 
+set(ProjectTarget Copter)
+
 # Declare project
 project(Copter)
 
@@ -9,16 +11,17 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp *.c)
 file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS *.hpp *.h)
 
 ## Add executable
-add_mbed_executable(Copter
+add_mbed_executable(${ProjectTarget}
         ${SOURCE_FILES}
-        ${HEADER_FILES}
         )
 
 # Include directories
-target_include_directories(Copter PUBLIC
+target_include_directories(${ProjectTarget} PUBLIC
         ${HEADER_FILES}
         )
 
+target_compile_features(${ProjectTarget} PRIVATE cxx_std_17)
+
 
 ## Link all library module
-target_link_libraries(Copter ${Dependencies})
+target_link_libraries(${ProjectTarget} ${Dependencies})

@@ -38,17 +38,17 @@ namespace Copter::Engine
         void sendSignal();// dont know if needed
 
     private:
-        int mDShotSpeed;
+        const int mDShotSpeed;
 
-//        uint16_t DshotValues[4] = {0,0,0,0};
-//        uint8_t DS_request_TLM[4] = {0,0,0,0};
-//        uint32_t DS_counter_TLM = 0;
-//
-//        uint8_t DshotBitWidth = 0;
-//        uint8_t DshotOne = 0;
-//        uint8_t DshotZero = 0;
-//        uint16_t UseDshotPrescaler = 1;
-//        __IO uint16_t DSBufferPWM[4][18];
+        uint16_t DshotValues[4] = {0,0,0,0};
+        uint8_t DS_request_TLM[4] = {0,0,0,0};
+        uint32_t DS_counter_TLM = 0;
+
+        uint8_t DshotBitWidth = 0;
+        uint8_t DshotOne = 0;
+        uint8_t DshotZero = 0;
+        uint16_t UseDshotPrescaler = 1;
+        __IO uint16_t DSBufferPWM[4][18];
     };
 }
 

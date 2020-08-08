@@ -1,33 +1,14 @@
 #include "DShot.hpp"
-#define DSHOT_SPEED 1200
-#define FASTRAMP
-
-static uint16_t DshotValues[4] = {0,0,0,0};
-static uint8_t DS_request_TLM[4] = {0,0,0,0};
-static uint32_t DS_counter_TLM = 0;
-
-static uint8_t DshotBitWidth = 0;
-static uint8_t DshotOne = 0;
-static uint8_t DshotZero = 0;
-static uint16_t UseDshotPrescaler = 1;
-
-__IO uint16_t DSBufferPWM[4][18];
 
 namespace Copter::Engine
 {
-    DShot::DShot(int dShotSpeed)
+    DShot::DShot(int dShotSpeed) : mDShotSpeed(dShotSpeed)
     {
-        this->mDShotSpeed = dShotSpeed;
     }
 
     bool DShot::setup()
     {
         core_util_critical_section_enter();
-//	SystemInit();
-
-        /* Set FLASH latency */
-//	LL_FLASH_SetLatency(LL_FLASH_LATENCY_7);
-
         /* Enable PWR clock */
         LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
 
@@ -136,15 +117,15 @@ namespace Copter::Engine
 
 
         // get Dshot setup
-        while (((216000 / UseDshotPrescaler) / DSHOT_SPEED) > 0xFF)
-            UseDshotPrescaler++;
-        DshotBitWidth = (216000 / UseDshotPrescaler) / DSHOT_SPEED;
-        DshotOne = (uint8_t) (DshotBitWidth * 0.75f);
-        DshotZero = (uint8_t) (DshotOne * 0.5f);
+        while (((216000 / this->UseDshotPrescaler) / this->mDShotSpeed) > 0xFF)
+            this->UseDshotPrescaler++;
+        this->DshotBitWidth = (216000 / this->UseDshotPrescaler) / this->mDShotSpeed;
+        this->DshotOne = (uint8_t) (this->DshotBitWidth * 0.75f);
+        this->DshotZero = (uint8_t) (this->DshotOne * 0.5f);
 
 
         // tim 4, 5 and 8 for dshot
-        timinit.Prescaler = UseDshotPrescaler - 1;
+        timinit.Prescaler = this->UseDshotPrescaler - 1;
         timinit.Autoreload = 0xFFFF;
         timinit.RepetitionCounter = 0;
         core_util_critical_section_enter();
@@ -194,7 +175,7 @@ namespace Copter::Engine
         core_util_critical_section_exit();
         DMA_InitStructure.PeriphOrM2MSrcAddress = (uint32_t) &TIM4->CCR1;
         DMA_InitStructure.Channel = LL_DMA_CHANNEL_2;
-        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) DSBufferPWM[0];
+        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->DSBufferPWM[0];
         core_util_critical_section_enter();
         LL_DMA_Init(DMA1, LL_DMA_STREAM_0, &DMA_InitStructure);
         core_util_critical_section_exit();
@@ -204,7 +185,7 @@ namespace Copter::Engine
         core_util_critical_section_exit();
         DMA_InitStructure.PeriphOrM2MSrcAddress = (uint32_t) &TIM8->CCR1;
         DMA_InitStructure.Channel = LL_DMA_CHANNEL_7;
-        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) DSBufferPWM[1];
+        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->DSBufferPWM[1];
         core_util_critical_section_enter();
         LL_DMA_Init(DMA2, LL_DMA_STREAM_2, &DMA_InitStructure);
         core_util_critical_section_exit();
@@ -214,7 +195,7 @@ namespace Copter::Engine
         core_util_critical_section_exit();
         DMA_InitStructure.PeriphOrM2MSrcAddress = (uint32_t) &TIM4->CCR3;
         DMA_InitStructure.Channel = LL_DMA_CHANNEL_2;
-        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) DSBufferPWM[2];
+        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->DSBufferPWM[2];
         core_util_critical_section_enter();
         LL_DMA_Init(DMA1, LL_DMA_STREAM_7, &DMA_InitStructure);
         core_util_critical_section_exit();
@@ -225,7 +206,7 @@ namespace Copter::Engine
         DMA_InitStructure.PeriphOrM2MSrcAddress = (uint32_t) &TIM8->CCR2;
         DMA_InitStructure.Channel = LL_DMA_CHANNEL_7;
         DMA_InitStructure.Priority = LL_DMA_PRIORITY_HIGH;
-        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) DSBufferPWM[3];
+        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->DSBufferPWM[3];
         core_util_critical_section_enter();
         LL_DMA_Init(DMA2, LL_DMA_STREAM_3, &DMA_InitStructure);
         core_util_critical_section_exit();
@@ -248,9 +229,9 @@ namespace Copter::Engine
         core_util_critical_section_exit();
 
         // activate timers
-        TIM4->ARR = DshotBitWidth;
+        TIM4->ARR = this->DshotBitWidth;
         TIM4->CNT = 0;
-        TIM8->ARR = DshotBitWidth;
+        TIM8->ARR = this->DshotBitWidth;
         TIM8->CNT = 0;
 
         TIM4->CR1 |= TIM_CR1_CEN;
@@ -279,14 +260,14 @@ namespace Copter::Engine
         NVIC_EnableIRQ(DMA2_Stream3_IRQn);
 
         //init buffers
-        DSBufferPWM[0][0] = 0;
-        DSBufferPWM[0][17] = 0;
-        DSBufferPWM[1][0] = 0;
-        DSBufferPWM[1][17] = 0;
-        DSBufferPWM[2][0] = 0;
-        DSBufferPWM[2][17] = 0;
-        DSBufferPWM[3][0] = 0;
-        DSBufferPWM[3][17] = 0;
+        this->DSBufferPWM[0][0] = 0;
+        this->DSBufferPWM[0][17] = 0;
+        this->DSBufferPWM[1][0] = 0;
+        this->DSBufferPWM[1][17] = 0;
+        this->DSBufferPWM[2][0] = 0;
+        this->DSBufferPWM[2][17] = 0;
+        this->DSBufferPWM[3][0] = 0;
+        this->DSBufferPWM[3][17] = 0;
 
         // init dshot ouput GPIO's
         LL_GPIO_InitTypeDef gpioinit;
@@ -319,23 +300,6 @@ namespace Copter::Engine
         while (endless)
         {
 
-#ifndef FASTRAMP
-            static float ramp = 0.000f;
-        static uint16_t edge = 2500; // to give the HW some time to init
-
-        if(edge > 1) edge--;
-
-        if(edge == 1){
-            if(ramp < 2047.00f) ramp += 0.001f;
-            else edge = 0;
-        }
-        if(edge == 0){
-            if(ramp > 0.00f) ramp -= 0.001f;
-            else edge = 1;
-        }
-        uint16_t OutVal = (uint16_t)ramp;
-        if(OutVal > 0 && OutVal < 48) OutVal = 48; // dont send settings
-#else
             static uint16_t ramp = 0;
             static uint8_t edge = 1; // to give the HW some time to init
 
@@ -356,28 +320,27 @@ namespace Copter::Engine
             }
             uint16_t OutVal = ramp;
             //uint16_t OutVal = 1000;
-#endif
 
 
             // To have the later time measurement realistic
 
             for (uint8_t i = 0; i < 4; i++)
-                DshotValues[i] = OutVal; // use input for all outputs
+                this->DshotValues[i] = OutVal; // use input for all outputs
 
             core_util_critical_section_enter();
             LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
             core_util_critical_section_exit();
 
-            if (DS_counter_TLM == 166667)
+            if (this->DS_counter_TLM == 166667)
             {
                 for (uint8_t i = 0; i < 4; i++)
-                    DS_request_TLM[i] = 1; // Change DS_requestTLM array all to 1
-                DS_counter_TLM = 0;
+                    this->DS_request_TLM[i] = 1; // Change DS_requestTLM array all to 1
+                this->DS_counter_TLM = 0;
             } else
             {
                 for (uint8_t i = 0; i < 4; i++)
-                    DS_request_TLM[i] = 0; // Change DS_requestTLM array all to 1
-                DS_counter_TLM++;
+                    this->DS_request_TLM[i] = 0; // Change DS_requestTLM array all to 1
+                this->DS_counter_TLM++;
             }
 
 
@@ -387,24 +350,24 @@ namespace Copter::Engine
             {
 
                 // Telemetry update
-                DSBufferPWM[i][12] = DS_request_TLM[i] ? DshotOne : DshotZero;
+                this->DSBufferPWM[i][12] = this->DS_request_TLM[i] ? this->DshotOne : this->DshotZero;
 
                 // Checksum
                 for (uint8_t j = 1; j < 12; j++)
-                    DSBufferPWM[i][j] = (DshotValues[i] >> (11 - j) & 0x1) ? DshotOne : DshotZero;
+                    this->DSBufferPWM[i][j] = (this->DshotValues[i] >> (11 - j) & 0x1) ? this->DshotOne : this->DshotZero;
 
-                DSBufferPWM[i][13] =
-                        ((DshotValues[i] >> 10 & 0x01) ^ (DshotValues[i] >> 6 & 0x01) ^ (DshotValues[i] >> 2 & 0x01))
-                        ? DshotOne : DshotZero;
-                DSBufferPWM[i][14] =
-                        ((DshotValues[i] >> 9 & 0x01) ^ (DshotValues[i] >> 5 & 0x01) ^ (DshotValues[i] >> 1 & 0x01))
-                        ? DshotOne : DshotZero;
-                DSBufferPWM[i][15] =
-                        ((DshotValues[i] >> 8 & 0x01) ^ (DshotValues[i] >> 4 & 0x01) ^ (DshotValues[i] & 0x01))
-                        ? DshotOne : DshotZero;
-                DSBufferPWM[i][16] =
-                        ((DshotValues[i] >> 7 & 0x01) ^ (DshotValues[i] >> 3 & 0x01) ^ DS_request_TLM[i]) ? DshotOne
-                                                                                                          : DshotZero;
+                this->DSBufferPWM[i][13] =
+                        ((this->DshotValues[i] >> 10 & 0x01) ^ (this->DshotValues[i] >> 6 & 0x01) ^ (this->DshotValues[i] >> 2 & 0x01))
+                        ? this->DshotOne : this->DshotZero;
+                this->DSBufferPWM[i][14] =
+                        ((this->DshotValues[i] >> 9 & 0x01) ^ (this->DshotValues[i] >> 5 & 0x01) ^ (this->DshotValues[i] >> 1 & 0x01))
+                        ? this->DshotOne : this->DshotZero;
+                this->DSBufferPWM[i][15] =
+                        ((this->DshotValues[i] >> 8 & 0x01) ^ (this->DshotValues[i] >> 4 & 0x01) ^ (this->DshotValues[i] & 0x01))
+                        ? this->DshotOne : this->DshotZero;
+                this->DSBufferPWM[i][16] =
+                        ((this->DshotValues[i] >> 7 & 0x01) ^ (this->DshotValues[i] >> 3 & 0x01) ^ this->DS_request_TLM[i]) ? this->DshotOne
+                                                                                                          : this->DshotZero;
             }
 
 

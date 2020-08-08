@@ -65,17 +65,6 @@ namespace Copter::Engine
         core_util_critical_section_exit();
 
 
-
-//	core_util_critical_section_enter();
-//	/* Set systick to 1ms */
-//	SysTick_Config(216000000 / 1000);
-//
-//	/* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-//	SystemCoreClock = 216000000;
-//	core_util_critical_section_exit();
-
-
-
         core_util_critical_section_enter();
         LL_RCC_SetTIMPrescaler(LL_RCC_TIM_PRESCALER_FOUR_TIMES);
 
@@ -90,6 +79,7 @@ namespace Copter::Engine
         LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2 | LL_APB1_GRP1_PERIPH_TIM3 | LL_APB1_GRP1_PERIPH_TIM4 | LL_APB1_GRP1_PERIPH_TIM5 | LL_APB1_GRP1_PERIPH_TIM6 | LL_APB1_GRP1_PERIPH_TIM7 | LL_APB1_GRP1_PERIPH_TIM12 | LL_APB1_GRP1_PERIPH_TIM13 | LL_APB1_GRP1_PERIPH_TIM14 | LL_APB1_GRP1_PERIPH_UART4);
         LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1 | LL_APB2_GRP1_PERIPH_TIM8 | LL_APB2_GRP1_PERIPH_TIM9 | LL_APB2_GRP1_PERIPH_TIM10 | LL_APB2_GRP1_PERIPH_TIM11 | LL_APB2_GRP1_PERIPH_ADC);
         core_util_critical_section_exit();
+
 
         // tim2 for timing
         LL_TIM_InitTypeDef timinit;
@@ -305,27 +295,8 @@ namespace Copter::Engine
 
     void DShot::sendSignal()
     {
-//        static uint16_t ramp = 0;
-//        static uint8_t edge = 1; // to give the HW some time to init
-//
-//        if (edge > 1)
-//            edge--;
-//
-//        if (edge == 1)
-//        {
-//            if (ramp < 1000)
-//                ramp++;
-//            else
-//                edge = 0;
-//        }
-//        if (edge == 0)
-//        {
-//            // if(ramp > 0) ramp--;
-//            //else edge = 1;
-//        }
+        // Set output value as uint16
         uint16_t OutVal = uint16_t(this->mSpeed);
-        //uint16_t OutVal = 1000;
-
 
         // To have the later time measurement realistic
 

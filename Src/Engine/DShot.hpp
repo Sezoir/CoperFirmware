@@ -33,12 +33,15 @@ namespace Copter::Engine
         ~DShot() = default;
 
         bool setup() override;
-        void incThrottle() override;
+        void incThrottle(const float && ramp) override;
         void decThrottle() override;
         void sendSignal();// dont know if needed
 
+
+
     private:
         const int mDShotSpeed;
+        float mSpeed;
 
         uint16_t DshotValues[4] = {0,0,0,0};
         uint8_t DS_request_TLM[4] = {0,0,0,0};

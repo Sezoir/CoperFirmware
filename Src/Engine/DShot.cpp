@@ -2,7 +2,8 @@
 
 namespace Copter::Engine
 {
-    DShot::DShot(int dShotSpeed) : mDShotSpeed(dShotSpeed)
+    DShot::DShot(int dShotSpeed) :  mDShotSpeed(dShotSpeed),
+                                    mSpeed(0)
     {
     }
 
@@ -90,20 +91,7 @@ namespace Copter::Engine
         LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1 | LL_APB2_GRP1_PERIPH_TIM8 | LL_APB2_GRP1_PERIPH_TIM9 | LL_APB2_GRP1_PERIPH_TIM10 | LL_APB2_GRP1_PERIPH_TIM11 | LL_APB2_GRP1_PERIPH_ADC);
         core_util_critical_section_exit();
 
-        return true;
-    }
-
-    void DShot::incThrottle()
-    {
-    }
-
-    void DShot::decThrottle()
-    {
-    }
-
-    void DShot::sendSignal()
-    {
-// tim2 for timing
+        // tim2 for timing
         LL_TIM_InitTypeDef timinit;
         timinit.Prescaler = 53; // 4mhz
         timinit.CounterMode = LL_TIM_COUNTERMODE_UP;
@@ -295,99 +283,113 @@ namespace Copter::Engine
         LL_GPIO_Init(GPIOA, &gpioinit);
         core_util_critical_section_exit();
 
-        bool endless = true;
+        return true;
+    }
 
-        while (endless)
+    void DShot::incThrottle(const float && ramp)
+    {
+        // @todo: May lead to a potential bug in future if ticker sendSignal interupts incThrottle/decThrottle
+        if(this->mSpeed < 1000)
+            this->mSpeed+=ramp;
+        if(this->mSpeed > 1000)
+            this->mSpeed = 1000;
+    }
+
+    void DShot::decThrottle()
+    {
+        if(this->mSpeed > 0)
+            this->mSpeed--;
+        if(this->mSpeed < 0)
+            this->mSpeed = 0;
+    }
+
+    void DShot::sendSignal()
+    {
+//        static uint16_t ramp = 0;
+//        static uint8_t edge = 1; // to give the HW some time to init
+//
+//        if (edge > 1)
+//            edge--;
+//
+//        if (edge == 1)
+//        {
+//            if (ramp < 1000)
+//                ramp++;
+//            else
+//                edge = 0;
+//        }
+//        if (edge == 0)
+//        {
+//            // if(ramp > 0) ramp--;
+//            //else edge = 1;
+//        }
+        uint16_t OutVal = uint16_t(this->mSpeed);
+        //uint16_t OutVal = 1000;
+
+
+        // To have the later time measurement realistic
+
+        for (uint8_t i = 0; i < 4; i++)
+            this->DshotValues[i] = OutVal; // use input for all outputs
+
+        core_util_critical_section_enter();
+        LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
+        core_util_critical_section_exit();
+
+        if (this->DS_counter_TLM == 166667)
+        {
+            for (uint8_t i = 0; i < 4; i++)
+                this->DS_request_TLM[i] = 1; // Change DS_requestTLM array all to 1
+            this->DS_counter_TLM = 0;
+        } else
+        {
+            for (uint8_t i = 0; i < 4; i++)
+                this->DS_request_TLM[i] = 0; // Change DS_requestTLM array all to 1
+            this->DS_counter_TLM++;
+        }
+
+
+        //------------------------------------------------------------------------------------->send 4 dshot signals
+        //gen Dshot bits
+        for (uint8_t i = 0; i < 4; i++)
         {
 
-            static uint16_t ramp = 0;
-            static uint8_t edge = 1; // to give the HW some time to init
+            // Telemetry update
+            this->DSBufferPWM[i][12] = this->DS_request_TLM[i] ? this->DshotOne : this->DshotZero;
 
-            if (edge > 1)
-                edge--;
+            // Checksum
+            for (uint8_t j = 1; j < 12; j++)
+                this->DSBufferPWM[i][j] = (this->DshotValues[i] >> (11 - j) & 0x1) ? this->DshotOne : this->DshotZero;
 
-            if (edge == 1)
-            {
-                if (ramp < 1000)
-                    ramp++;
-                else
-                    edge = 0;
-            }
-            if (edge == 0)
-            {
-                // if(ramp > 0) ramp--;
-                //else edge = 1;
-            }
-            uint16_t OutVal = ramp;
-            //uint16_t OutVal = 1000;
-
-
-            // To have the later time measurement realistic
-
-            for (uint8_t i = 0; i < 4; i++)
-                this->DshotValues[i] = OutVal; // use input for all outputs
-
-            core_util_critical_section_enter();
-            LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
-            core_util_critical_section_exit();
-
-            if (this->DS_counter_TLM == 166667)
-            {
-                for (uint8_t i = 0; i < 4; i++)
-                    this->DS_request_TLM[i] = 1; // Change DS_requestTLM array all to 1
-                this->DS_counter_TLM = 0;
-            } else
-            {
-                for (uint8_t i = 0; i < 4; i++)
-                    this->DS_request_TLM[i] = 0; // Change DS_requestTLM array all to 1
-                this->DS_counter_TLM++;
-            }
-
-
-            //------------------------------------------------------------------------------------->send 4 dshot signals
-            //gen Dshot bits
-            for (uint8_t i = 0; i < 4; i++)
-            {
-
-                // Telemetry update
-                this->DSBufferPWM[i][12] = this->DS_request_TLM[i] ? this->DshotOne : this->DshotZero;
-
-                // Checksum
-                for (uint8_t j = 1; j < 12; j++)
-                    this->DSBufferPWM[i][j] = (this->DshotValues[i] >> (11 - j) & 0x1) ? this->DshotOne : this->DshotZero;
-
-                this->DSBufferPWM[i][13] =
-                        ((this->DshotValues[i] >> 10 & 0x01) ^ (this->DshotValues[i] >> 6 & 0x01) ^ (this->DshotValues[i] >> 2 & 0x01))
-                        ? this->DshotOne : this->DshotZero;
-                this->DSBufferPWM[i][14] =
-                        ((this->DshotValues[i] >> 9 & 0x01) ^ (this->DshotValues[i] >> 5 & 0x01) ^ (this->DshotValues[i] >> 1 & 0x01))
-                        ? this->DshotOne : this->DshotZero;
-                this->DSBufferPWM[i][15] =
-                        ((this->DshotValues[i] >> 8 & 0x01) ^ (this->DshotValues[i] >> 4 & 0x01) ^ (this->DshotValues[i] & 0x01))
-                        ? this->DshotOne : this->DshotZero;
-                this->DSBufferPWM[i][16] =
-                        ((this->DshotValues[i] >> 7 & 0x01) ^ (this->DshotValues[i] >> 3 & 0x01) ^ this->DS_request_TLM[i]) ? this->DshotOne
-                                                                                                          : this->DshotZero;
-            }
-
-
-            // send Dshot values
-            core_util_critical_section_enter();
-            LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_0, 18);
-            LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_2, 18);
-            LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_7, 18);
-            LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_3, 18);
-
-            LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_0);
-            LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_2);
-            LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_7);
-            LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_3);
-            //-------------------------------------------------------------------------------------<
-            LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_1);
-            core_util_critical_section_exit();
-
-            wait_us(50);
+            this->DSBufferPWM[i][13] =
+                    ((this->DshotValues[i] >> 10 & 0x01) ^ (this->DshotValues[i] >> 6 & 0x01) ^ (this->DshotValues[i] >> 2 & 0x01))
+                    ? this->DshotOne : this->DshotZero;
+            this->DSBufferPWM[i][14] =
+                    ((this->DshotValues[i] >> 9 & 0x01) ^ (this->DshotValues[i] >> 5 & 0x01) ^ (this->DshotValues[i] >> 1 & 0x01))
+                    ? this->DshotOne : this->DshotZero;
+            this->DSBufferPWM[i][15] =
+                    ((this->DshotValues[i] >> 8 & 0x01) ^ (this->DshotValues[i] >> 4 & 0x01) ^ (this->DshotValues[i] & 0x01))
+                    ? this->DshotOne : this->DshotZero;
+            this->DSBufferPWM[i][16] =
+                    ((this->DshotValues[i] >> 7 & 0x01) ^ (this->DshotValues[i] >> 3 & 0x01) ^ this->DS_request_TLM[i]) ? this->DshotOne
+                                                                                                      : this->DshotZero;
         }
+
+
+        // send Dshot values
+        core_util_critical_section_enter();
+        LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_0, 18);
+        LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_2, 18);
+        LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_7, 18);
+        LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_3, 18);
+
+        LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_0);
+        LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_2);
+        LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_7);
+        LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_3);
+        //-------------------------------------------------------------------------------------<
+        LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_1);
+        core_util_critical_section_exit();
     }
 }
 

@@ -22,6 +22,5 @@ target_include_directories(${ProjectTarget} PUBLIC
 
 target_compile_features(${ProjectTarget} PRIVATE cxx_std_17)
 
-
 ## Link all library module
 target_link_libraries(${ProjectTarget} ${Dependencies})

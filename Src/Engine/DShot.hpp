@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+//#include <cstdint>
 
 #include "mbed.h"
 #include "platform/mbed_critical.h"
@@ -22,6 +22,8 @@
 #include "Driver.hpp"
 
 
+
+
 namespace Copter::Engine
 {
     class DShot: public Driver
@@ -38,15 +40,19 @@ namespace Copter::Engine
     private:
         int mDShotSpeed;
 
-        uint16_t DshotValues[4] = {0,0,0,0};
-        uint8_t DS_request_TLM[4] = {0,0,0,0};
-        uint32_t DS_counter_TLM = 0;
-
-        uint8_t DshotBitWidth = 0;
-        uint8_t DshotOne = 0;
-        uint8_t DshotZero = 0;
-        uint16_t UseDshotPrescaler = 1;
-        __IO uint16_t DSBufferPWM[4][18];
+//        uint16_t DshotValues[4] = {0,0,0,0};
+//        uint8_t DS_request_TLM[4] = {0,0,0,0};
+//        uint32_t DS_counter_TLM = 0;
+//
+//        uint8_t DshotBitWidth = 0;
+//        uint8_t DshotOne = 0;
+//        uint8_t DshotZero = 0;
+//        uint16_t UseDshotPrescaler = 1;
+//        __IO uint16_t DSBufferPWM[4][18];
     };
 }
+
+
+
+
 

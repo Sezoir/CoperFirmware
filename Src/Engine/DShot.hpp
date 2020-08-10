@@ -29,6 +29,9 @@ namespace Copter::Engine
     class DShot: public Driver
     {
     public:
+        /**
+         * Supported GPIO pins for DShot
+         */
         enum class Pin
         {
             PB6,

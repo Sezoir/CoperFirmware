@@ -5,49 +5,49 @@ namespace Copter::Engine
     DShot::DShot(int dShotSpeed, Pin pin) :
         mDShotSpeed(dShotSpeed),
         mPin(pin),
-        mSpeed(0)
+        mSpeed(0),
+        mDMA(nullptr),
+        mStream(0),
+        mDSBufferPWM{0}
     {
 
     }
 
     bool DShot::setup()
     {
-        // @todo: Check what is needed
-        core_util_critical_section_enter();
-        LL_RCC_SetTIMPrescaler(LL_RCC_TIM_PRESCALER_FOUR_TIMES);
-
-        LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1 | LL_AHB1_GRP1_PERIPH_DMA2 | LL_AHB1_GRP1_PERIPH_GPIOA | LL_AHB1_GRP1_PERIPH_GPIOB | LL_AHB1_GRP1_PERIPH_GPIOC | LL_AHB1_GRP1_PERIPH_GPIOD);
-        core_util_critical_section_exit();
-
-
-        core_util_critical_section_enter();
-        LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_USART1);
-        LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_USART2 | LL_APB1_GRP1_PERIPH_USART3 | LL_APB1_GRP1_PERIPH_UART4 | LL_APB1_GRP1_PERIPH_UART5);
-
-        LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2 | LL_APB1_GRP1_PERIPH_TIM3 | LL_APB1_GRP1_PERIPH_TIM4 | LL_APB1_GRP1_PERIPH_TIM5 | LL_APB1_GRP1_PERIPH_TIM6 | LL_APB1_GRP1_PERIPH_TIM7 | LL_APB1_GRP1_PERIPH_TIM12 | LL_APB1_GRP1_PERIPH_TIM13 | LL_APB1_GRP1_PERIPH_TIM14 | LL_APB1_GRP1_PERIPH_UART4);
-        LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1 | LL_APB2_GRP1_PERIPH_TIM8 | LL_APB2_GRP1_PERIPH_TIM9 | LL_APB2_GRP1_PERIPH_TIM10 | LL_APB2_GRP1_PERIPH_TIM11 | LL_APB2_GRP1_PERIPH_ADC);
-        core_util_critical_section_exit();
-
-
-        // Get Dshot setup
-        while (((216000 / this->UseDshotPrescaler) / this->mDShotSpeed) > 0xFF)
-            this->UseDshotPrescaler++;
-        this->DshotBitWidth = (216000 / this->UseDshotPrescaler) / this->mDShotSpeed;
-        this->DshotOne = (uint8_t) (this->DshotBitWidth * 0.75f);
-        this->DshotZero = (uint8_t) (this->DshotOne * 0.5f);
-
-
         // Get the hardware configuration for pin
         auto config = getConfig(this->mPin);
         this->mDMA = config.dma;
         this->mStream = config.stream;
 
 
+        // Correctly enable clocks required
+        core_util_critical_section_enter();
+        LL_RCC_SetTIMPrescaler(LL_RCC_TIM_PRESCALER_FOUR_TIMES);
+        LL_AHB1_GRP1_EnableClock(config.dmaInit | config.gpioInit);
+        core_util_critical_section_exit();
+
+        core_util_critical_section_enter();
+        if(config.tim == TIM4)
+            LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM4);
+        else if(config.tim == TIM8)
+            LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM8);
+        core_util_critical_section_exit();
+
+
+        // Get Dshot setup
+        while (((216000 / this->mUseDShotPrescaler) / this->mDShotSpeed) > 0xFF)
+            this->mUseDShotPrescaler++;
+        this->mDShotBitWidth = (216000 / this->mUseDShotPrescaler) / this->mDShotSpeed;
+        this->mDShotOne = (uint8_t) (this->mDShotBitWidth * 0.75f);
+        this->mDShotZero = (uint8_t) (this->mDShotOne * 0.5f);
+
+
         // Setup timers for DShot
         LL_TIM_InitTypeDef timinit;
         timinit.CounterMode = LL_TIM_COUNTERMODE_UP;
         timinit.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
-        timinit.Prescaler = this->UseDshotPrescaler - 1;
+        timinit.Prescaler = this->mUseDShotPrescaler - 1;
         timinit.Autoreload = 0xFFFF;
         timinit.RepetitionCounter = 0;
         core_util_critical_section_enter();
@@ -92,7 +92,7 @@ namespace Copter::Engine
         core_util_critical_section_exit();
         DMA_InitStructure.PeriphOrM2MSrcAddress = config.address;
         DMA_InitStructure.Channel = config.dmaChannel;
-        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->DSBufferPWM[0];
+        DMA_InitStructure.MemoryOrM2MDstAddress = (uint32_t) this->mDSBufferPWM;
         core_util_critical_section_enter();
         LL_DMA_Init(config.dma, config.stream, &DMA_InitStructure);
         core_util_critical_section_exit();
@@ -110,7 +110,7 @@ namespace Copter::Engine
 
 
         // Activate timers
-        config.tim->ARR = this->DshotBitWidth;
+        config.tim->ARR = this->mDShotBitWidth;
         config.tim->CNT = 0;
         config.tim->CR1 |= TIM_CR1_CEN;
 
@@ -125,8 +125,8 @@ namespace Copter::Engine
 
 
         // Init buffers
-        this->DSBufferPWM[0][0] = 0;
-        this->DSBufferPWM[0][17] = 0;
+        this->mDSBufferPWM[0] = 0;
+        this->mDSBufferPWM[17] = 0;
 
 
         // Init DShot output GPIO's
@@ -163,39 +163,39 @@ namespace Copter::Engine
 
     void DShot::sendSignal()
     {
-        this->DshotValues = uint16_t(this->mSpeed);
+        this->mDShotValues = uint16_t(this->mSpeed);
 
-        if (this->DS_counter_TLM == 166667)
+        if (this->mDSCounterTLM == 166667)
         {
-            this->DS_request_TLM = 1; // Change DS_requestTLM to 1
-            this->DS_counter_TLM = 0;
+            this->mDSRequestTLM = 1; // Change DS_requestTLM to 1
+            this->mDSCounterTLM = 0;
         } else
         {
-            this->DS_request_TLM = 0; // Change DS_requestTLM to 1
-            this->DS_counter_TLM++;
+            this->mDSRequestTLM = 0; // Change DS_requestTLM to 1
+            this->mDSCounterTLM++;
         }
 
         //------------------------------------------------------------------------------------->send 4 dshot signals
         // Gen Dshot bits
         // Telemetry update
-        this->DSBufferPWM[0][12] = this->DS_request_TLM ? this->DshotOne : this->DshotZero;
+        this->mDSBufferPWM[12] = this->mDSRequestTLM ? this->mDShotOne : this->mDShotZero;
 
         // Checksum
         for (uint8_t j = 1; j < 12; j++)
-            this->DSBufferPWM[0][j] = (this->DshotValues >> (11 - j) & 0x1) ? this->DshotOne : this->DshotZero;
+            this->mDSBufferPWM[j] = (this->mDShotValues >> (11 - j) & 0x1) ? this->mDShotOne : this->mDShotZero;
 
-        this->DSBufferPWM[0][13] =
-                ((this->DshotValues >> 10 & 0x01) ^ (this->DshotValues >> 6 & 0x01) ^ (this->DshotValues >> 2 & 0x01))
-                ? this->DshotOne : this->DshotZero;
-        this->DSBufferPWM[0][14] =
-                ((this->DshotValues >> 9 & 0x01) ^ (this->DshotValues >> 5 & 0x01) ^ (this->DshotValues >> 1 & 0x01))
-                ? this->DshotOne : this->DshotZero;
-        this->DSBufferPWM[0][15] =
-                ((this->DshotValues >> 8 & 0x01) ^ (this->DshotValues >> 4 & 0x01) ^ (this->DshotValues & 0x01))
-                ? this->DshotOne : this->DshotZero;
-        this->DSBufferPWM[0][16] =
-                ((this->DshotValues >> 7 & 0x01) ^ (this->DshotValues >> 3 & 0x01) ^ this->DS_request_TLM) ? this->DshotOne
-                                                                                                  : this->DshotZero;
+        this->mDSBufferPWM[13] =
+                ((this->mDShotValues >> 10 & 0x01) ^ (this->mDShotValues >> 6 & 0x01) ^ (this->mDShotValues >> 2 & 0x01))
+                ? this->mDShotOne : this->mDShotZero;
+        this->mDSBufferPWM[14] =
+                ((this->mDShotValues >> 9 & 0x01) ^ (this->mDShotValues >> 5 & 0x01) ^ (this->mDShotValues >> 1 & 0x01))
+                ? this->mDShotOne : this->mDShotZero;
+        this->mDSBufferPWM[15] =
+                ((this->mDShotValues >> 8 & 0x01) ^ (this->mDShotValues >> 4 & 0x01) ^ (this->mDShotValues & 0x01))
+                ? this->mDShotOne : this->mDShotZero;
+        this->mDSBufferPWM[16] =
+                ((this->mDShotValues >> 7 & 0x01) ^ (this->mDShotValues >> 3 & 0x01) ^ this->mDSRequestTLM) ? this->mDShotOne
+                                                                                                  : this->mDShotZero;
 
 
         // Send Dshot values
@@ -222,9 +222,11 @@ namespace Copter::Engine
                         .irqn = DMA1_Stream0_IRQn,
                         .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
                         .dmaChannel = LL_DMA_CHANNEL_2,
+                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
                         .gpioReg = GPIOB,
                         .pin = LL_GPIO_PIN_6,
-                        .alternate = LL_GPIO_AF_2
+                        .alternate = LL_GPIO_AF_2,
+                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB
                 };
                 return config;
             }
@@ -239,9 +241,11 @@ namespace Copter::Engine
                         .irqn = DMA1_Stream7_IRQn,
                         .enDMAReq = &LL_TIM_EnableDMAReq_CC3,
                         .dmaChannel = LL_DMA_CHANNEL_2,
+                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
                         .gpioReg = GPIOB,
                         .pin = LL_GPIO_PIN_8,
-                        .alternate = LL_GPIO_AF_2
+                        .alternate = LL_GPIO_AF_2,
+                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB
                 };
                 return config;
             }
@@ -256,9 +260,11 @@ namespace Copter::Engine
                         .irqn = DMA2_Stream2_IRQn,
                         .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
                         .dmaChannel = LL_DMA_CHANNEL_7,
+                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
                         .gpioReg = GPIOC,
                         .pin = LL_GPIO_PIN_6,
-                        .alternate = LL_GPIO_AF_3
+                        .alternate = LL_GPIO_AF_3,
+                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC
                 };
                 return config;
             }
@@ -273,9 +279,11 @@ namespace Copter::Engine
                         .irqn = DMA2_Stream3_IRQn,
                         .enDMAReq = &LL_TIM_EnableDMAReq_CC2,
                         .dmaChannel = LL_DMA_CHANNEL_7,
+                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
                         .gpioReg = GPIOC,
                         .pin = LL_GPIO_PIN_7,
-                        .alternate = LL_GPIO_AF_3
+                        .alternate = LL_GPIO_AF_3,
+                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC
                 };
                 return config;
             }

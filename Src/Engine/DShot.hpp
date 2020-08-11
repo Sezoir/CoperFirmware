@@ -30,7 +30,7 @@ namespace Copter::Engine
     {
     public:
         /**
-         * Supported GPIO pins for DShot
+         * @brief: Supported GPIO pins for DShot
          */
         enum class Pin
         {
@@ -40,36 +40,36 @@ namespace Copter::Engine
             PC7
         };
         /**
-         * Constructor
+         * @brief: Constructor
          * @param dShotSpeed: Speed of Dshot protocol. Valid values are 150, 300, 600, 1200
          * @param pin: The pin for the protocol to output to
          */
         DShot(int dShotSpeed, Pin pin);
         /**
-         * Default deconstructor
+         * @brief: Default deconstructor
          */
         ~DShot() = default;
 
         /**
-         * Sets up hardware configuration
-         * @return
+         * @brief: Sets up hardware configuration
+         * @return: Whether the hardware was succesfully setup
          */
         bool setup() override;
 
         /**
-         * Increase the speed by a given amount
+         * @brief: Increase the speed by a given amount
          * @param ramp: Value to increase the current speed by
          */
         void incThrottle(const float && ramp) override;
 
         /**
-         * Decrease the speed by a given amount
+         * @brief: Decrease the speed by a given amount
          * @param ramp: Value to decrease the current speed by
          */
         void decThrottle() override;
 
         /**
-         * Send the DShot signal
+         * @brief: Send the DShot signal
          */
         void sendSignal();
 
@@ -77,7 +77,7 @@ namespace Copter::Engine
 
     private:
         /**
-         * Base structure for hardware configuration
+         * @brief: Base structure for hardware configuration
          */
         struct Config
         {
@@ -90,34 +90,36 @@ namespace Copter::Engine
             IRQn_Type irqn;
             void (*enDMAReq)(TIM_TypeDef*);
             uint32_t dmaChannel;
+            uint32_t dmaInit;
 
             GPIO_TypeDef* gpioReg;
             uint32_t pin;
             uint32_t alternate;
+            uint32_t gpioInit;
         };
 
         /**
-         * Get the hardware configurations associated with the given pin
+         * @brief: Get the hardware configurations associated with the given pin
          * @todo: Look at removing function in favour of build system determining config
          * @return Config struct of hardware configurations for a given Pin
          */
         Config getConfig(Pin);
 
         /**
-         * Variables
+         * @brief: Variables
          */
         const int mDShotSpeed;
         float mSpeed;
 
-        uint16_t DshotValues = 0;
-        uint8_t DS_request_TLM = 0;
-        uint32_t DS_counter_TLM = 0;
+        uint16_t mDShotValues = 0;
+        uint8_t mDSRequestTLM = 0;
+        uint32_t mDSCounterTLM = 0;
 
-        uint8_t DshotBitWidth = 0;
-        uint8_t DshotOne = 0;
-        uint8_t DshotZero = 0;
-        uint16_t UseDshotPrescaler = 1;
-        __IO uint16_t DSBufferPWM[1][18];
+        uint8_t mDShotBitWidth = 0;
+        uint8_t mDShotOne = 0;
+        uint8_t mDShotZero = 0;
+        uint16_t mUseDShotPrescaler = 1;
+        __IO uint16_t mDSBufferPWM[18];
 
         DMA_TypeDef* mDMA;
         uint32_t mStream;

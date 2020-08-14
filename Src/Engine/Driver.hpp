@@ -14,8 +14,6 @@ namespace Copter::Engine
     {
     public:
         virtual bool setup() {return true;}
-        virtual void incThrottle(const float && ramp) {}
-        virtual void decThrottle(const float && ramp) {}
         virtual void sendSignal(const units::velocity::speed_t & ramp) {}
     };
 }

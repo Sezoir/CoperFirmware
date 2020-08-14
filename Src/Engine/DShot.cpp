@@ -4,11 +4,10 @@ namespace Copter::Engine
 {
     DShot::DShot(int dShotSpeed, Pin pin) :
         mDShotSpeed(dShotSpeed),
+        mDSBufferPWM{0},
         mPin(pin),
-        mSpeed(0),
         mDMA(nullptr),
-        mStream(0),
-        mDSBufferPWM{0}
+        mStream(0)
     {
 
     }
@@ -144,27 +143,12 @@ namespace Copter::Engine
         return true;
     }
 
-    void DShot::incThrottle(const float && ramp)
-    {
-        // @todo: May lead to a potential bug in future if ticker sendSignal interupts incThrottle/decThrottle
-        if(this->mSpeed < 1000)
-            this->mSpeed+=ramp;
-        if(this->mSpeed > 1000)
-            this->mSpeed = 1000;
-    }
-
-    void DShot::decThrottle(const float && ramp)
-    {
-        if(this->mSpeed > 0)
-            this->mSpeed--;
-        if(this->mSpeed < 0)
-            this->mSpeed = 0;
-    }
-
 
     void DShot::sendSignal(const units::velocity::speed_t & speed)
     {
+        // Convert speed to a dshot valid speed (that is between 0-2047)
         units::velocity::dshot_t dshotSpeed = speed;
+        // Set output value as uint16_t
         this->mDShotValues = dshotSpeed.to<uint16_t>();
 
         if (this->mDSCounterTLM == 166667)

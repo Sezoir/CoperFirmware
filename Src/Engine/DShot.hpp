@@ -56,18 +56,6 @@ namespace Copter::Engine
         bool setup() override;
 
         /**
-         * @brief: Increase the speed by a given amount
-         * @param ramp: Value to increase the current speed by
-         */
-        void incThrottle(const float && ramp) override;
-
-        /**
-         * @brief: Decrease the speed by a given amount
-         * @param ramp: Value to decrease the current speed by
-         */
-        void decThrottle(const float && ramp) override;
-
-        /**
          * @brief: Send the DShot signal
          */
         void sendSignal(const units::velocity::speed_t & speed) override;
@@ -107,7 +95,6 @@ namespace Copter::Engine
          * @brief: Variables
          */
         const int mDShotSpeed;
-        float mSpeed;
 
         uint16_t mDShotValues = 0;
         uint8_t mDSRequestTLM = 0;

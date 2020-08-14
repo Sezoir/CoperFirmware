@@ -6,7 +6,6 @@ project(Copter)
 
 # Get all source and header files
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp *.c)
-#file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS *.hpp *.h)
 
 ## Add executable
 add_mbed_executable(${PROJECT_NAME}
@@ -16,7 +15,6 @@ add_mbed_executable(${PROJECT_NAME}
 # Include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
         Src
-#        ${HEADER_FILES}
         )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17 )

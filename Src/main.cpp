@@ -1,52 +1,45 @@
 #include "mbed.h"
 #include "Engine/DShot.hpp"
+#include "Engine/Motor.hpp"
 
-BufferedSerial serial(USBTX, USBRX, 115200);
+static BufferedSerial serial(USBTX, USBRX, 115200);
+
 DigitalIn button(BUTTON1);
 Ticker updater;
 
-Copter::Engine::DShot protoOne(1200, Copter::Engine::DShot::Pin::PC7);
-Copter::Engine::DShot protoTwo(1200, Copter::Engine::DShot::Pin::PB8);
-
-void callb()
-{
-    protoOne.sendSignal();
-    protoTwo.sendSignal();
-}
 
 int main()
 {
-//    char const creMessage[] = "Creating DShot protocol!\n";
-//    serial.write(creMessage, sizeof(creMessage));
-
-    if (button.is_connected()) {
-        printf("mypin is connected and initialized! \n\r");
-    }
-
-    // Optional: set mode as PullUp/PullDown/PullNone/OpenDrain
-    button.mode(PullNone);
-
-    protoOne.setup();
-    protoTwo.setup();
+    printf("Project started\n");
 
 
+    Copter::Engine::DShot proto(1200, Copter::Engine::DShot::Pin::PB8);
+    Copter::Engine::Motor motor(proto, Copter::Engine::Motor::Profile::FastRamp, 50us);
+    proto.setup();
 
-//    updater.attach(callback(&proto, &Copter::Engine::DShot::sendSignal), 50us);
-    updater.attach(callb, 50us);
+    char buf[5] = {0};
+    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 50us);
+//    updater.attach(callb, 50us);
 
     while(true)
     {
-        if(button.read())
-            for(int x=0; x<2000; x++)
-            {
-                protoOne.incThrottle(0.005f);
-                protoTwo.incThrottle(0.005f);
-            }
+        if(serial.readable())
+        {
+            serial.read(buf, sizeof(buf));
+            int num;
+            sscanf(buf, "%d", &num);
+            memset(buf, 0, sizeof(buf));
+            units::velocity::speed_t speed(num);
+            printf("%d\n", speed.to<uint16_t>());
+            motor.setSpeed(speed);
+        }
 
-        ThisThread::sleep_for(250);
 
-//        char const message[] = "DShot protocol!\n";
-//        serial.write(message, sizeof(message));
-//        ThisThread::sleep_for(1000);
+        ThisThread::sleep_for(250ms);
+
+//        serial.write(buf, motor.mSpeed);
+//        serial.write(buf, motor.mDiff);
+
+
     }
 }

@@ -11,11 +11,9 @@ include(Dependencies/Mbed/mbed-cmake.cmake)
 ## ROOT project
 project(ROOT)
 
-
 # Add dependencies
-add_subdirectory(${ROOT_SOURCE_DIR}/Dependencies)
-
+add_subdirectory(Dependencies)
 
 # Add project
-add_subdirectory(${ROOT_SOURCE_DIR}/Src)
+add_subdirectory(Src)
 

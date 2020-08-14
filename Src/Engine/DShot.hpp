@@ -1,5 +1,4 @@
 #pragma once
-//#include <cstdint>
 
 #include "mbed.h"
 #include "platform/mbed_critical.h"
@@ -66,13 +65,12 @@ namespace Copter::Engine
          * @brief: Decrease the speed by a given amount
          * @param ramp: Value to decrease the current speed by
          */
-        void decThrottle() override;
+        void decThrottle(const float && ramp) override;
 
         /**
          * @brief: Send the DShot signal
          */
-        void sendSignal();
-
+        void sendSignal(const units::velocity::speed_t & speed) override;
 
 
     private:
@@ -121,9 +119,9 @@ namespace Copter::Engine
         uint16_t mUseDShotPrescaler = 1;
         __IO uint16_t mDSBufferPWM[18];
 
+        Pin mPin;
         DMA_TypeDef* mDMA;
         uint32_t mStream;
-        Pin mPin;
     };
 }
 

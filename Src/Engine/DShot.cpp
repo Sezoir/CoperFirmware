@@ -153,7 +153,7 @@ namespace Copter::Engine
             this->mSpeed = 1000;
     }
 
-    void DShot::decThrottle()
+    void DShot::decThrottle(const float && ramp)
     {
         if(this->mSpeed > 0)
             this->mSpeed--;
@@ -161,9 +161,11 @@ namespace Copter::Engine
             this->mSpeed = 0;
     }
 
-    void DShot::sendSignal()
+
+    void DShot::sendSignal(const units::velocity::speed_t & speed)
     {
-        this->mDShotValues = uint16_t(this->mSpeed);
+        units::velocity::dshot_t dshotSpeed = speed;
+        this->mDShotValues = dshotSpeed.to<uint16_t>();
 
         if (this->mDSCounterTLM == 166667)
         {

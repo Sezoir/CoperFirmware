@@ -8,12 +8,23 @@ namespace Copter::Engine
     class Motor
     {
     public:
+        /**
+         * @brief: Profiles for acceleration of the motor
+         */
         enum class Profile
         {
             FastRamp,
             SlowRamp
         };
+        /**
+         * @brief: Constructor
+         * @param delay: The time delay between update calls @todo: May remove in future
+         */
         Motor(Driver&, Profile, std::chrono::duration<double> && delay);
+
+        /**
+         * @brief: Destructor
+         */
         ~Motor() = default;
 
         /**
@@ -36,7 +47,14 @@ namespace Copter::Engine
 
 
     private:
+        /**
+         * @brief: Updates mSpeed according to a 'fast' ramp
+         */
         void fastRamp();
+
+        /**
+         * @brief: Update mSpeed according to a 'slow' ramp
+         */
         void slowRamp();
 
         Driver& mProtocol;

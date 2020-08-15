@@ -42,7 +42,7 @@ namespace Copter::Engine
     void Motor::fastRamp()
     {
         // Set gradient for how fast to ramp
-        const int grad = 1000;
+        const int grad = 20000;
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
         units::velocity::speed_t ramp(grad*this->mDelay.count());
         // Check whether we are ascending/descending
@@ -50,7 +50,9 @@ namespace Copter::Engine
         // Calculate new speed
         units::velocity::speed_t newSpeed = this->mSpeed + ramp;
         // Check whether we are over or under wanted speed
-        if(newSpeed > this->mDesSpeed || newSpeed < this->mDesSpeed)
+        if((newSpeed > this->mDesSpeed) && (this->mSpeed < this->mDesSpeed))
+            this->mSpeed = this->mDesSpeed;
+        else if((newSpeed < this->mDesSpeed) && (this->mSpeed > this->mDesSpeed))
             this->mSpeed = this->mDesSpeed;
         else
             this->mSpeed = newSpeed;
@@ -59,15 +61,17 @@ namespace Copter::Engine
     void Motor::slowRamp()
     {
         // Set gradient for how fast to ramp
-        const int grad = 1;
+        const int grad = 1000;
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
         units::velocity::speed_t ramp(grad*this->mDelay.count());
         // Check whether we are ascending/descending
-        if(this->mDesSpeed-this->mSpeed < 0_sd) ramp *= -1;
+        if(this->mDesSpeed-this->mSpeed < 0_sd) ramp = ramp * -1;
         // Calculate new speed
         units::velocity::speed_t newSpeed = this->mSpeed + ramp;
         // Check whether we are over or under wanted speed
-        if(newSpeed > this->mDesSpeed || newSpeed < this->mDesSpeed)
+        if((newSpeed > this->mDesSpeed) && (this->mSpeed < this->mDesSpeed))
+            this->mSpeed = this->mDesSpeed;
+        else if((newSpeed < this->mDesSpeed) && (this->mSpeed > this->mDesSpeed))
             this->mSpeed = this->mDesSpeed;
         else
             this->mSpeed = newSpeed;

@@ -39,7 +39,7 @@ namespace Copter::Drivers
         return mI2C.size()-1;
     }
 
-    int8_t I2CInterface::readByte(int id, char address, char subAddress)
+    int8_t I2CInterface::readByte(const int id, const char address, const char subAddress)
     {
         // Set char to the array.
         char regAddr[1] = {subAddress};
@@ -58,7 +58,7 @@ namespace Copter::Drivers
         return (int8_t)readData[0];
     }
 
-    std::vector<int8_t> I2CInterface::readBytes(int id, char address, char subAddress, int8_t byteNumber)
+    std::vector<int8_t> I2CInterface::readBytes(const int id, const char address, const char subAddress, const int8_t byteNumber)
     {
         // Create a char array based on t_ByteNumber.
         std::vector<char> readData;
@@ -88,7 +88,7 @@ namespace Copter::Drivers
         return returnData;
     }
 
-    void I2CInterface::writeByte(int id, const char address, const char subAddress, const int8_t data)
+    void I2CInterface::writeByte(const int id, const char address, const char subAddress, const int8_t data)
     {
         // Create temporary char array.
         char tempData[2] = {subAddress, (char)data};
@@ -97,7 +97,7 @@ namespace Copter::Drivers
         mI2C[id]->write(address, tempData, 2);
     }
 
-    void I2CInterface::writeBytes(int id, char address, std::vector<std::pair<char, char>>& data)
+    void I2CInterface::writeBytes(const int id, const char address, std::vector<std::pair<char, char>>& data)
     {
         // Create a temporary char array.
         char tempData[2];

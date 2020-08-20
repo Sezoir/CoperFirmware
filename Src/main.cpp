@@ -1,6 +1,7 @@
 #include "mbed.h"
 #include "Engine/DShot.hpp"
 #include "Engine/Motor.hpp"
+#include "Sensors/Mpu9250.hpp"
 
 static BufferedSerial serial(USBTX, USBRX, 115200);
 
@@ -11,11 +12,16 @@ int main()
     printf("Project started\n");
 
     Copter::Engine::DShot proto(1200, Copter::Engine::DShot::Pin::PB8);
-    Copter::Engine::Motor motor(proto, Copter::Engine::Motor::Profile::FastRamp, 50us);
+    Copter::Engine::Motor motor(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
     proto.setup();
 
+    Copter::Sensors::MPU9250 sensor(PD_13, PD_12);
+    sensor.setup();
+
     char buf[5] = {0};
-    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 50us);
+    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
+
+    std::array<int, 3> accel = {};
 
     while(true)
     {
@@ -30,7 +36,8 @@ int main()
             motor.setSpeed(speed);
         }
 
-
+        accel = sensor.readGyro();
+        printf("X: %d, Y: %d, Z: %d\n", accel[0], accel[1], accel[2]);
         ThisThread::sleep_for(250ms);
     }
 }

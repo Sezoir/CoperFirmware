@@ -1,7 +1,7 @@
 #include "mbed.h"
 #include "Engine/DShot.hpp"
 #include "Engine/Motor.hpp"
-#include "Sensors/Mpu9250.hpp"
+#include "Sensors/MPU9250.hpp"
 
 static BufferedSerial serial(USBTX, USBRX, 115200);
 

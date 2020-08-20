@@ -60,28 +60,14 @@ namespace Copter::Drivers
 
     std::vector<int8_t> I2CInterface::readBytes(const int id, const char address, const char subAddress, const int8_t byteNumber)
     {
-        // Create a char array based on t_ByteNumber.
-        std::vector<char> readData;
-        readData.reserve(byteNumber);
-
-        // Set char to the array.
-        char regAddr[1] = {subAddress};
-
-        // Write to just the SubAddress to "point" there.
-        // Also parameter to "true", to not send an end signal.
-        mI2C[id]->write(address, regAddr, 1, true);
-
-        // Read several consecutive bytes based on ByteNumber, and store in char array.
-        mI2C[id]->read(address, readData.data(), byteNumber);
-
         // Create vector of int8_t.
         std::vector<int8_t> returnData;
         returnData.reserve(byteNumber);
 
-        // Iterate through array, and add values to the vector.
-        for(const char &text : readData)
+        // Read several consecutive bytes based on ByteNumber, and store in char array.
+        for(int i = 0; i < byteNumber; i++)
         {
-            returnData.push_back(text);
+            returnData.push_back(readByte(id, address, subAddress+i));
         }
 
         // Return the vector.

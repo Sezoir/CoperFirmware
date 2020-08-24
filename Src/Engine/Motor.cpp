@@ -3,12 +3,22 @@ using namespace units::literals;
 namespace Copter::Engine
 {
 
-    Motor::Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<double> && delay):
-    mProtocol(protocol),
+    Motor::Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::micro> && delay):
+    mProtocol(std::move(protocol)),
     mProfile(profile),
     mSpeed(0),
     mDesSpeed(0),
     mDelay(delay)
+    {
+
+    }
+
+    Motor::Motor() :
+            mProtocol(Driver()),
+            mProfile(),
+            mSpeed(),
+            mDesSpeed(),
+            mDelay(0)
     {
 
     }
@@ -76,6 +86,4 @@ namespace Copter::Engine
         else
             this->mSpeed = newSpeed;
     }
-
-
 }

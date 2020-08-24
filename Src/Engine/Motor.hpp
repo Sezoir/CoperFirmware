@@ -20,7 +20,12 @@ namespace Copter::Engine
          * @brief: Constructor
          * @param delay: The time delay between update calls @todo: May remove in future
          */
-        Motor(Driver&, Profile, std::chrono::duration<double> && delay);
+        Motor(Driver&, Profile, std::chrono::duration<int64_t, std::micro> && delay);
+
+        /**
+         * @brief: Basic/empty constructor
+         */
+        Motor();
 
         /**
          * @brief: Destructor
@@ -57,12 +62,12 @@ namespace Copter::Engine
          */
         void slowRamp();
 
-        Driver& mProtocol;
+        Driver mProtocol;
         Profile mProfile;
 
         units::velocity::speed_t mSpeed;
         units::velocity::speed_t mDesSpeed;
-        std::chrono::duration<double>& mDelay;
+        std::chrono::duration<int64_t, std::micro> mDelay;
 
     };
 }

@@ -29,21 +29,11 @@ namespace Copter::Engine
     {
     public:
         /**
-         * @brief: Supported GPIO pins for DShot
-         */
-        enum class Pin
-        {
-            PB6,
-            PB8,
-            PC6,
-            PC7
-        };
-        /**
          * @brief: Constructor
          * @param dShotSpeed: Speed of Dshot protocol. Valid values are 150, 300, 600, 1200
          * @param pin: The pin for the protocol to output to
          */
-        DShot(int dShotSpeed, Pin pin);
+        DShot(int dShotSpeed, PinName pin);
         /**
          * @brief: Default deconstructor
          */
@@ -89,7 +79,7 @@ namespace Copter::Engine
          * @todo: Look at removing function in favour of build system determining config
          * @return Config struct of hardware configurations for a given Pin
          */
-        Config getConfig(Pin);
+        Config getConfig(PinName);
 
         /**
          * @brief: Variables
@@ -106,7 +96,7 @@ namespace Copter::Engine
         uint16_t mUseDShotPrescaler = 1;
         __IO uint16_t mDSBufferPWM[18];
 
-        Pin mPin;
+        PinName mPin;
         DMA_TypeDef* mDMA;
         uint32_t mStream;
     };

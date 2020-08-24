@@ -2,7 +2,7 @@
 
 namespace Copter::Engine
 {
-    DShot::DShot(int dShotSpeed, Pin pin) :
+    DShot::DShot(int dShotSpeed, PinName pin) :
         mDShotSpeed(dShotSpeed),
         mDSBufferPWM{0},
         mPin(pin),
@@ -192,12 +192,12 @@ namespace Copter::Engine
         //-------------------------------------------------------------------------------------<
     }
 
-    DShot::Config DShot::getConfig(DShot::Pin pin)
+    DShot::Config DShot::getConfig(PinName pin)
     {
         // Generate correct config based on pin chosen
         switch(pin)
         {
-            case Pin::PB6:
+            case PB_6:
             {
                 Config config = {
                         .tim =  TIM4,
@@ -216,7 +216,7 @@ namespace Copter::Engine
                 };
                 return config;
             }
-            case Pin::PB8:
+            case PB_8:
             {
                 Config config = {
                         .tim =  TIM4,
@@ -235,7 +235,7 @@ namespace Copter::Engine
                 };
                 return config;
             }
-            case Pin::PC6:
+            case PC_6:
             {
                 Config config = {
                         .tim =  TIM8,
@@ -254,7 +254,7 @@ namespace Copter::Engine
                 };
                 return config;
             }
-            case Pin::PC7:
+            case PC_7:
             {
                 Config config = {
                         .tim =  TIM8,

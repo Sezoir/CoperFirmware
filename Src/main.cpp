@@ -11,7 +11,7 @@ int main()
 {
     printf("Project started\n");
 
-    Copter::Engine::DShot proto(1200, Copter::Engine::DShot::Pin::PB8);
+    Copter::Engine::DShot proto(1200, PB_8);
     Copter::Engine::Motor motor(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
     proto.setup();
 

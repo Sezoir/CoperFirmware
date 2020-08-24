@@ -12,16 +12,21 @@ add_library(${Dependencies} INTERFACE)
 ## Add config packages to path
 list(APPEND CMAKE_PREFIX_PATH ${ROOT_SOURCE_DIR}"/CMake/")
 
-
-### Get dependencies
-## Add units
+#
+# Get dependencies
+#
+# Add units
 set(DISABLE_PREDEFINED_UNITS ON)
 set(DISABLE_IOSTREAM ON)
 set(BUILD_TESTS OFF)
 add_subdirectory(units)
 
+# Add GSL support
+add_subdirectory(GSL)
+find_package(Microsoft.GSL CONFIG)
+
 
 ## Link all the libraries together under the interface LibsModule
 target_link_libraries(${Dependencies} INTERFACE
-        units
+        units Microsoft.GSL::GSL
         )

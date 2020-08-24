@@ -1,3 +1,6 @@
 [submodule "Dependencies/Mbed"]
 	path = Dependencies/Mbed
 	url = https://github.com/USCRPL/mbed-cmake
+[submodule "Dependencies/GSL"]
+	path = Dependencies/GSL
+	url = https://github.com/microsoft/GSL.git

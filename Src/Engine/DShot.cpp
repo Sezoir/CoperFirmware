@@ -2,7 +2,7 @@
 
 namespace Copter::Engine
 {
-    DShot::DShot(int dShotSpeed, PinName pin) :
+    DShot::DShot(PinName pin, int dShotSpeed) :
         mDShotSpeed(dShotSpeed),
         mDSBufferPWM{0},
         mPin(pin),
@@ -273,9 +273,11 @@ namespace Copter::Engine
                 };
                 return config;
             }
+            default:
+                // If config does not exist for a "supported" pin then generate an error
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_CODE_PINMAP_INVALID), "DShot Pin has no valid configuration");
         }
-        // If config does not exist for a "supported" pin then generate an error
-        MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_CODE_PINMAP_INVALID), "DShot Pin has no valid configuration");
+
     }
 }
 

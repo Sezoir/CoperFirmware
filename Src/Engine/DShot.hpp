@@ -33,7 +33,7 @@ namespace Copter::Engine
          * @param dShotSpeed: Speed of Dshot protocol. Valid values are 150, 300, 600, 1200
          * @param pin: The pin for the protocol to output to
          */
-        DShot(int dShotSpeed, PinName pin);
+        DShot(PinName pin, int dShotSpeed);
         /**
          * @brief: Default deconstructor
          */

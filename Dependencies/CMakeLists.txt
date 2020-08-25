@@ -4,17 +4,20 @@ cmake_minimum_required(VERSION 3.15)
 
 set(Dependencies LibsModule)
 
+#########################################################
+# Create a library representing a group of libraries
+#########################################################
 
-## Create a library representing a group of libraries
 add_library(${Dependencies} INTERFACE)
 
 
-## Add config packages to path
+#########################################################
+# Get dependencies
+#########################################################
+
+# Add config packages to path
 list(APPEND CMAKE_PREFIX_PATH ${ROOT_SOURCE_DIR}"/CMake/")
 
-#
-# Get dependencies
-#
 # Add units
 set(DISABLE_PREDEFINED_UNITS ON)
 set(DISABLE_IOSTREAM ON)
@@ -25,6 +28,10 @@ add_subdirectory(units)
 add_subdirectory(GSL)
 find_package(Microsoft.GSL CONFIG)
 
+
+#########################################################
+# Link libraries
+#########################################################
 
 ## Link all the libraries together under the interface LibsModule
 target_link_libraries(${Dependencies} INTERFACE

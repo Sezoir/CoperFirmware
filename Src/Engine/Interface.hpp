@@ -7,10 +7,12 @@
 
 #include <mbed.h>
 
-#define MOTOR_NUM 4
-#define MOTOR_PROTOCOL DShot
+#define MOTOR_NUM                 4
+#define MOTOR_PROTOCOL            DShot
 #define MOTOR_PROTOCOL_PARAMETERS 1200
-#define MOTOR_PINS {PB_8, PC_6};
+#define MOTOR_PINS                {PB_8, PC_6};
+#define MOTOR_DELAY               1ms
+#define MOTOR_PROFILE             SlowRamp
 
 #if MOTOR_PROTOCOL == DShot
 #include "DShot.hpp"
@@ -26,11 +28,10 @@ namespace Copter::Engine
         ~Interface() = default;
 
         void setup();
+        void update();
+        void setSpeed(uint8_t id, units::velocity::speed_t speed);
 
     private:
         std::array<Motor, MOTOR_NUM> mMotors;
-
-
     };
-}
-
+} // namespace Copter::Engine

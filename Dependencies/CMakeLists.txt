@@ -26,8 +26,6 @@ add_subdirectory(units)
 
 # Add GSL support
 add_subdirectory(GSL)
-find_package(Microsoft.GSL CONFIG)
-
 
 #########################################################
 # Link libraries

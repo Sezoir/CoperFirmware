@@ -17,10 +17,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         Src
         )
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17 )
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 # Remove mbed register warning from log
-add_definitions(-Wno-register)
+add_definitions(-Wno-register -Wno-unknown-pragmas)
 
 ## Link all library module
 target_link_libraries(${PROJECT_NAME} LibsModule)

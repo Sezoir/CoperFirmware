@@ -20,12 +20,9 @@
 
 #include "Driver.hpp"
 
-
-
-
 namespace Copter::Engine
 {
-    class DShot: public Driver
+    class DShot : public Driver
     {
     public:
         /**
@@ -48,8 +45,7 @@ namespace Copter::Engine
         /**
          * @brief: Send the DShot signal
          */
-        void sendSignal(const units::velocity::speed_t & speed) override;
-
+        void sendSignal(const units::velocity::speed_t& speed) override;
 
     private:
         /**
@@ -100,9 +96,4 @@ namespace Copter::Engine
         DMA_TypeDef* mDMA;
         uint32_t mStream;
     };
-}
-
-
-
-
-
+} // namespace Copter::Engine

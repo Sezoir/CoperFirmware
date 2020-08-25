@@ -2,23 +2,22 @@
 
 namespace Copter::Engine
 {
-    DShot::DShot(PinName pin, int dShotSpeed) :
-        mDShotSpeed(dShotSpeed),
-        mDSBufferPWM{0},
-        mPin(pin),
-        mDMA(nullptr),
-        mStream(0)
+    DShot::DShot(PinName pin, int dShotSpeed)
+        : mDShotSpeed(dShotSpeed)
+        , mDSBufferPWM{0}
+        , mPin(pin)
+        , mDMA(nullptr)
+        , mStream(0)
     {
-
     }
 
     bool DShot::setup()
     {
+        printf("dshot setup\n");
         // Get the hardware configuration for pin
         auto config = getConfig(this->mPin);
         this->mDMA = config.dma;
         this->mStream = config.stream;
-
 
         // Correctly enable clocks required
         core_util_critical_section_enter();
@@ -33,14 +32,12 @@ namespace Copter::Engine
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM8);
         core_util_critical_section_exit();
 
-
         // Get Dshot setup
-        while (((216000 / this->mUseDShotPrescaler) / this->mDShotSpeed) > 0xFF)
+        while(((216000 / this->mUseDShotPrescaler) / this->mDShotSpeed) > 0xFF)
             this->mUseDShotPrescaler++;
         this->mDShotBitWidth = (216000 / this->mUseDShotPrescaler) / this->mDShotSpeed;
-        this->mDShotOne = (uint8_t) (this->mDShotBitWidth * 0.75f);
-        this->mDShotZero = (uint8_t) (this->mDShotOne * 0.5f);
-
+        this->mDShotOne = (uint8_t)(this->mDShotBitWidth * 0.75f);
+        this->mDShotZero = (uint8_t)(this->mDShotOne * 0.5f);
 
         // Setup timers for DShot
         LL_TIM_InitTypeDef timinit;
@@ -52,7 +49,6 @@ namespace Copter::Engine
         core_util_critical_section_enter();
         LL_TIM_Init(config.tim, &timinit);
         core_util_critical_section_exit();
-
 
         LL_TIM_OC_InitTypeDef channelbaseconf;
         channelbaseconf.OCMode = LL_TIM_OCMODE_PWM1;
@@ -69,7 +65,6 @@ namespace Copter::Engine
         LL_TIM_EnableAllOutputs(config.tim);
         core_util_critical_section_exit();
 
-
         // DMA
         LL_DMA_InitTypeDef DMA_InitStructure;
         DMA_InitStructure.Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
@@ -85,7 +80,6 @@ namespace Copter::Engine
         DMA_InitStructure.PeriphOrM2MSrcDataSize = LL_DMA_PDATAALIGN_HALFWORD;
         DMA_InitStructure.MemoryOrM2MDstDataSize = LL_DMA_MDATAALIGN_HALFWORD;
 
-
         core_util_critical_section_enter();
         LL_DMA_DeInit(config.dma, config.stream);
         core_util_critical_section_exit();
@@ -96,17 +90,14 @@ namespace Copter::Engine
         LL_DMA_Init(config.dma, config.stream, &DMA_InitStructure);
         core_util_critical_section_exit();
 
-
         // Connect compares to DMA
         core_util_critical_section_enter();
         config.enDMAReq(config.tim);
         core_util_critical_section_exit();
 
-
         core_util_critical_section_enter();
         LL_TIM_OC_EnablePreload(config.tim, config.timChannel);
         core_util_critical_section_exit();
-
 
         // Activate timers
         config.tim->ARR = this->mDShotBitWidth;
@@ -122,15 +113,13 @@ namespace Copter::Engine
         NVIC_SetPriority(config.irqn, 0);
         NVIC_EnableIRQ(config.irqn);
 
-
         // Init buffers
         this->mDSBufferPWM[0] = 0;
         this->mDSBufferPWM[17] = 0;
 
-
         // Init DShot output GPIO's
         LL_GPIO_InitTypeDef gpioinit;
-        gpioinit.Pin = config.pin;// | LL_GPIO_PIN_8;
+        gpioinit.Pin = config.pin; // | LL_GPIO_PIN_8;
         gpioinit.Mode = LL_GPIO_MODE_ALTERNATE;
         gpioinit.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
         gpioinit.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
@@ -143,19 +132,19 @@ namespace Copter::Engine
         return true;
     }
 
-
-    void DShot::sendSignal(const units::velocity::speed_t & speed)
+    void DShot::sendSignal(const units::velocity::speed_t& speed)
     {
         // Convert speed to a dshot valid speed (that is between 0-2047)
         units::velocity::dshot_t dshotSpeed = speed;
         // Set output value as uint16_t
         this->mDShotValues = dshotSpeed.to<uint16_t>();
 
-        if (this->mDSCounterTLM == 166667)
+        if(this->mDSCounterTLM == 166667)
         {
             this->mDSRequestTLM = 1; // Change DS_requestTLM to 1
             this->mDSCounterTLM = 0;
-        } else
+        }
+        else
         {
             this->mDSRequestTLM = 0; // Change DS_requestTLM to 1
             this->mDSCounterTLM++;
@@ -167,22 +156,25 @@ namespace Copter::Engine
         this->mDSBufferPWM[12] = this->mDSRequestTLM ? this->mDShotOne : this->mDShotZero;
 
         // Checksum
-        for (uint8_t j = 1; j < 12; j++)
+        for(uint8_t j = 1; j < 12; j++)
             this->mDSBufferPWM[j] = (this->mDShotValues >> (11 - j) & 0x1) ? this->mDShotOne : this->mDShotZero;
 
         this->mDSBufferPWM[13] =
-                ((this->mDShotValues >> 10 & 0x01) ^ (this->mDShotValues >> 6 & 0x01) ^ (this->mDShotValues >> 2 & 0x01))
-                ? this->mDShotOne : this->mDShotZero;
+            ((this->mDShotValues >> 10 & 0x01) ^ (this->mDShotValues >> 6 & 0x01) ^ (this->mDShotValues >> 2 & 0x01))
+                ? this->mDShotOne
+                : this->mDShotZero;
         this->mDSBufferPWM[14] =
-                ((this->mDShotValues >> 9 & 0x01) ^ (this->mDShotValues >> 5 & 0x01) ^ (this->mDShotValues >> 1 & 0x01))
-                ? this->mDShotOne : this->mDShotZero;
+            ((this->mDShotValues >> 9 & 0x01) ^ (this->mDShotValues >> 5 & 0x01) ^ (this->mDShotValues >> 1 & 0x01))
+                ? this->mDShotOne
+                : this->mDShotZero;
         this->mDSBufferPWM[15] =
-                ((this->mDShotValues >> 8 & 0x01) ^ (this->mDShotValues >> 4 & 0x01) ^ (this->mDShotValues & 0x01))
-                ? this->mDShotOne : this->mDShotZero;
+            ((this->mDShotValues >> 8 & 0x01) ^ (this->mDShotValues >> 4 & 0x01) ^ (this->mDShotValues & 0x01))
+                ? this->mDShotOne
+                : this->mDShotZero;
         this->mDSBufferPWM[16] =
-                ((this->mDShotValues >> 7 & 0x01) ^ (this->mDShotValues >> 3 & 0x01) ^ this->mDSRequestTLM) ? this->mDShotOne
-                                                                                                  : this->mDShotZero;
-
+            ((this->mDShotValues >> 7 & 0x01) ^ (this->mDShotValues >> 3 & 0x01) ^ this->mDSRequestTLM)
+                ? this->mDShotOne
+                : this->mDShotZero;
 
         // Send Dshot values
         core_util_critical_section_enter();
@@ -199,98 +191,92 @@ namespace Copter::Engine
         {
             case PB_6:
             {
-                Config config = {
-                        .tim =  TIM4,
-                        .timChannel = LL_TIM_CHANNEL_CH1,
-                        .dma = DMA1,
-                        .stream = LL_DMA_STREAM_0,
-                        .address = (uint32_t) &TIM4->CCR1,
-                        .irqn = DMA1_Stream0_IRQn,
-                        .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
-                        .dmaChannel = LL_DMA_CHANNEL_2,
-                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
-                        .gpioReg = GPIOB,
-                        .pin = LL_GPIO_PIN_6,
-                        .alternate = LL_GPIO_AF_2,
-                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB
-                };
+                Config config = {.tim = TIM4,
+                                 .timChannel = LL_TIM_CHANNEL_CH1,
+                                 .dma = DMA1,
+                                 .stream = LL_DMA_STREAM_0,
+                                 .address = (uint32_t) &TIM4->CCR1,
+                                 .irqn = DMA1_Stream0_IRQn,
+                                 .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
+                                 .dmaChannel = LL_DMA_CHANNEL_2,
+                                 .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
+                                 .gpioReg = GPIOB,
+                                 .pin = LL_GPIO_PIN_6,
+                                 .alternate = LL_GPIO_AF_2,
+                                 .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB};
                 return config;
             }
             case PB_8:
             {
-                Config config = {
-                        .tim =  TIM4,
-                        .timChannel = LL_TIM_CHANNEL_CH3,
-                        .dma = DMA1,
-                        .stream = LL_DMA_STREAM_7,
-                        .address = (uint32_t) &TIM4->CCR3,
-                        .irqn = DMA1_Stream7_IRQn,
-                        .enDMAReq = &LL_TIM_EnableDMAReq_CC3,
-                        .dmaChannel = LL_DMA_CHANNEL_2,
-                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
-                        .gpioReg = GPIOB,
-                        .pin = LL_GPIO_PIN_8,
-                        .alternate = LL_GPIO_AF_2,
-                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB
-                };
+                Config config = {.tim = TIM4,
+                                 .timChannel = LL_TIM_CHANNEL_CH3,
+                                 .dma = DMA1,
+                                 .stream = LL_DMA_STREAM_7,
+                                 .address = (uint32_t) &TIM4->CCR3,
+                                 .irqn = DMA1_Stream7_IRQn,
+                                 .enDMAReq = &LL_TIM_EnableDMAReq_CC3,
+                                 .dmaChannel = LL_DMA_CHANNEL_2,
+                                 .dmaInit = LL_AHB1_GRP1_PERIPH_DMA1,
+                                 .gpioReg = GPIOB,
+                                 .pin = LL_GPIO_PIN_8,
+                                 .alternate = LL_GPIO_AF_2,
+                                 .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOB};
                 return config;
             }
             case PC_6:
             {
-                Config config = {
-                        .tim =  TIM8,
-                        .timChannel = LL_TIM_CHANNEL_CH1,
-                        .dma = DMA2,
-                        .stream = LL_DMA_STREAM_2,
-                        .address = (uint32_t) &TIM8->CCR1,
-                        .irqn = DMA2_Stream2_IRQn,
-                        .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
-                        .dmaChannel = LL_DMA_CHANNEL_7,
-                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
-                        .gpioReg = GPIOC,
-                        .pin = LL_GPIO_PIN_6,
-                        .alternate = LL_GPIO_AF_3,
-                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC
-                };
+                Config config = {.tim = TIM8,
+                                 .timChannel = LL_TIM_CHANNEL_CH1,
+                                 .dma = DMA2,
+                                 .stream = LL_DMA_STREAM_2,
+                                 .address = (uint32_t) &TIM8->CCR1,
+                                 .irqn = DMA2_Stream2_IRQn,
+                                 .enDMAReq = &LL_TIM_EnableDMAReq_CC1,
+                                 .dmaChannel = LL_DMA_CHANNEL_7,
+                                 .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
+                                 .gpioReg = GPIOC,
+                                 .pin = LL_GPIO_PIN_6,
+                                 .alternate = LL_GPIO_AF_3,
+                                 .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC};
                 return config;
             }
             case PC_7:
             {
-                Config config = {
-                        .tim =  TIM8,
-                        .timChannel = LL_TIM_CHANNEL_CH2,
-                        .dma = DMA2,
-                        .stream = LL_DMA_STREAM_3,
-                        .address = (uint32_t) &TIM8->CCR2,
-                        .irqn = DMA2_Stream3_IRQn,
-                        .enDMAReq = &LL_TIM_EnableDMAReq_CC2,
-                        .dmaChannel = LL_DMA_CHANNEL_7,
-                        .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
-                        .gpioReg = GPIOC,
-                        .pin = LL_GPIO_PIN_7,
-                        .alternate = LL_GPIO_AF_3,
-                        .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC
-                };
+                Config config = {.tim = TIM8,
+                                 .timChannel = LL_TIM_CHANNEL_CH2,
+                                 .dma = DMA2,
+                                 .stream = LL_DMA_STREAM_3,
+                                 .address = (uint32_t) &TIM8->CCR2,
+                                 .irqn = DMA2_Stream3_IRQn,
+                                 .enDMAReq = &LL_TIM_EnableDMAReq_CC2,
+                                 .dmaChannel = LL_DMA_CHANNEL_7,
+                                 .dmaInit = LL_AHB1_GRP1_PERIPH_DMA2,
+                                 .gpioReg = GPIOC,
+                                 .pin = LL_GPIO_PIN_7,
+                                 .alternate = LL_GPIO_AF_3,
+                                 .gpioInit = LL_AHB1_GRP1_PERIPH_GPIOC};
                 return config;
             }
             default:
                 // If config does not exist for a "supported" pin then generate an error
-                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_CODE_PINMAP_INVALID), "DShot Pin has no valid configuration");
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_CODE_PINMAP_INVALID),
+                           "DShot Pin has no valid configuration");
         }
-
     }
-}
+} // namespace Copter::Engine
 
-extern "C" {	// C functions in ll drivers call these.
+extern "C" { // C functions in ll drivers call these.
 // DShot transmission complete IRQ's
-void DMA1_Stream0_IRQHandler(void) {
+void DMA1_Stream0_IRQHandler(void)
+{
     core_util_critical_section_enter();
     LL_DMA_ClearFlag_TC0(DMA1);
     LL_DMA_DisableStream(DMA1, LL_DMA_STREAM_0);
     core_util_critical_section_exit();
 }
 
-void DMA2_Stream2_IRQHandler(void){
+void DMA2_Stream2_IRQHandler(void)
+{
 
     core_util_critical_section_enter();
     LL_DMA_ClearFlag_TC2(DMA2);
@@ -298,14 +284,16 @@ void DMA2_Stream2_IRQHandler(void){
     core_util_critical_section_exit();
 }
 
-void DMA1_Stream7_IRQHandler(void){
+void DMA1_Stream7_IRQHandler(void)
+{
     core_util_critical_section_enter();
     LL_DMA_ClearFlag_TC7(DMA1);
     LL_DMA_DisableStream(DMA1, LL_DMA_STREAM_7);
     core_util_critical_section_exit();
 }
 
-void DMA2_Stream3_IRQHandler(void){
+void DMA2_Stream3_IRQHandler(void)
+{
     core_util_critical_section_enter();
     LL_DMA_ClearFlag_TC3(DMA2);
     LL_DMA_DisableStream(DMA2, LL_DMA_STREAM_3);

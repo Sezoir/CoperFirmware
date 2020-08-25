@@ -25,7 +25,7 @@ namespace Copter::Sensors
 
         ~MPU9250() = default;
 
-        bool setup();
+        [[nodiscard]] bool setup() const;
 
         [[nodiscard]] std::array<int, 10> readSensor() const; // Order of data is: Accel, Gyro, Mag, Temp.
         [[nodiscard]] std::array<int, 3> readAccel() const;
@@ -35,8 +35,6 @@ namespace Copter::Sensors
         [[nodiscard]] std::array<int, 3> readMag() const;
 
         [[nodiscard]] int readTemp() const;
-
-
 
     private:
         uint mI2CID;
@@ -60,9 +58,5 @@ namespace Copter::Sensors
             MAG_ST1 = 0x02,
             MAG_XOUT_L = 0x03
         };
-
-
-
     };
-}
-
+} // namespace Copter::Sensors

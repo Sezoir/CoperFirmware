@@ -17,17 +17,14 @@ int main()
     Copter::Engine::DShot proto(PB_8, 1200);
     proto.setup();
 
-    ThisThread::sleep_for(100ms);
-
     Copter::Engine::Motor motor;
     motor.init(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
-    ThisThread::sleep_for(100ms);
 
-    //    Copter::Engine::Motor motorInited(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
+    //    Copter::Engine::Motor motorInited(proto, Copter::Engine::Motor::Profile::SlowRamp, 1us);
 
     //    proto.setup();
 
-    //    Copter::Engine::Motor motor(Copter::Engine::DShot(PB_8, 1200), Copter::Engine::Motor::Profile::SlowRamp, 1ms);
+    //    Copter::Engine::Motor motor(Copter::Engine::DShot(PB_8, 1200), Copter::Engine::Motor::Profile::SlowRamp, 1us);
 
     //    Copter::Engine::Interface motors;
 
@@ -36,9 +33,10 @@ int main()
 
     char buf[5] = {0};
     updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
-    //    updater.attach(callback(&motors, &Copter::Engine::Interface::update), 1ms);
 
-    std::array<int, 3> accel = {};
+    //        updater.attach(callback(&motors, &Copter::Engine::Interface::update), 1us);
+
+    //    std::array<int, 3> accel = {};
 
     while(true)
     {
@@ -48,7 +46,7 @@ int main()
             serial.read(buf, sizeof(buf));
 
             // Convert data
-            uint16_t num;
+            int num;
             sscanf(buf, "%ul", &num);
 
             // Clear buffer
@@ -62,11 +60,12 @@ int main()
             motor.setSpeed(speed);
         }
 
-        motor.update();
+        //        motor.update();
+        //        proto.sendSignal(0_sd);
 
         //        accel = sensor.readGyro();
         //        printf("X: %d, Y: %d, Z: %d\n", accel[0], accel[1], accel[2]);
-        ThisThread::sleep_for(1ms);
+        ThisThread::sleep_for(250ms);
     }
 }
 #pragma clang diagnostic pop

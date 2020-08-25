@@ -27,8 +27,6 @@ namespace Copter::Engine
 
         // Set speed
         mDesSpeed = speed;
-
-        //        printf("Delay is: %d\n", (int) mDelay.count());
     }
 
     void Motor::update()
@@ -47,8 +45,8 @@ namespace Copter::Engine
                     slowRamp();
                     break;
             }
-            mProtocol->sendSignal(mSpeed);
         }
+        mProtocol->sendSignal(mSpeed);
     }
 
     void Motor::fastRamp()
@@ -68,8 +66,6 @@ namespace Copter::Engine
 
         // Calculate new speed
         units::velocity::speed_t newSpeed = mSpeed + ramp;
-
-        //        printf("newspeed: %d", newSpeed.to<uint16_t>());
 
         // Check whether we are over or under wanted speed
         if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))
@@ -103,8 +99,6 @@ namespace Copter::Engine
 
         // Calculate new speed
         units::velocity::speed_t newSpeed = mSpeed + ramp;
-
-        //        printf("newspeed: %d", newSpeed.to<uint16_t>());
 
         // Check whether we are over or under wanted speed
         if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))

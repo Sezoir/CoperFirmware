@@ -47,7 +47,8 @@ namespace Copter::Drivers
         /**
          * @brief: Writes a series of bytes to a series of sub-address
          * @param address: Address of chip
-         * @param data: Vector of pairs, where the pairs map a SubAddress to a the content to write, i.e: pair.first = SubAddress, pair.second = content
+         * @param data: Vector of pairs, where the pairs map a SubAddress to a the content to write, i.e: pair.first =
+         * SubAddress, pair.second = content
          * @todo: may template to avoid vector
          */
         static void writeBytes(int id, char address, std::vector<std::pair<char, char>>& data);
@@ -66,5 +67,4 @@ namespace Copter::Drivers
          */
         static uint createInstance(PinName sda, PinName scl);
     };
-}
-
+} // namespace Copter::Drivers

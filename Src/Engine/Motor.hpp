@@ -27,9 +27,19 @@ namespace Copter::Engine
         };
         /**
          * @brief: Constructor
+         * @param: protocol: Reference to the protocol for the motor to use (e.g DShot)
+         * @param: profile: The speed profile for acceleration of the motor speed
          * @param delay: The time delay between update calls @todo: May remove in future
          */
         Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
+
+        /**
+         * @brief: Constructor
+         * @param: protocol: Pointer to the protocol for the motor to use (e.g DShot)
+         * @param: profile: The speed profile for acceleration of the motor speed
+         * @param delay: The time delay between update calls @todo: May remove in future
+         */
+        Motor(Driver* protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
 
         /**
          * @brief: Basic/empty constructor

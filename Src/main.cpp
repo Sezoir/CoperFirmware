@@ -14,27 +14,21 @@ int main()
 {
     printf("Project started\n");
 
-    Copter::Engine::DShot proto(PB_8, 1200);
-    proto.setup();
-
-    Copter::Engine::Motor motor;
-    motor.init(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
-
-    //    Copter::Engine::Motor motorInited(proto, Copter::Engine::Motor::Profile::SlowRamp, 1us);
-
+    //    Copter::Engine::DShot proto(PB_8, 1200);
     //    proto.setup();
+    //
+    //    Copter::Engine::Motor motor;
+    //    motor.init(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
 
-    //    Copter::Engine::Motor motor(Copter::Engine::DShot(PB_8, 1200), Copter::Engine::Motor::Profile::SlowRamp, 1us);
-
-    //    Copter::Engine::Interface motors;
+    Copter::Engine::Interface motors;
 
     //    Copter::Sensors::MPU9250 sensor(PD_13, PD_12);
     //    sensor.setup();
 
     char buf[5] = {0};
-    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
+    //    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
 
-    //        updater.attach(callback(&motors, &Copter::Engine::Interface::update), 1us);
+    updater.attach(callback(&motors, &Copter::Engine::Interface::update), 1ms);
 
     //    std::array<int, 3> accel = {};
 
@@ -57,7 +51,8 @@ int main()
 
             // Set the new speed
             printf("calling set speed with %d\n", speed.to<uint16_t>());
-            motor.setSpeed(speed);
+            motors.setSpeed(0, speed);
+            motors.setSpeed(1, speed);
         }
 
         //        motor.update();

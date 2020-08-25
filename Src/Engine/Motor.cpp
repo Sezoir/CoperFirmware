@@ -1,37 +1,44 @@
 #include "Motor.hpp"
-using namespace units::literals;
+#include <cassert>
+
 namespace Copter::Engine
 {
 
-    Motor::Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::micro> && delay):
-    mProtocol(std::move(protocol)),
-    mProfile(profile),
-    mSpeed(0),
-    mDesSpeed(0),
-    mDelay(delay)
+    Motor::Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay)
+        : mProtocol(&protocol)
+        , mProfile(profile)
+        , mDelay(delay)
+        , isInit(true)
     {
-
     }
 
-    Motor::Motor() :
-            mProtocol(Driver()),
-            mProfile(),
-            mSpeed(),
-            mDesSpeed(),
-            mDelay(0)
+    void Motor::init(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay)
     {
-
+        mProtocol = &protocol;
+        mProfile = profile;
+        mDelay = delay;
+        isInit = true;
     }
 
     void Motor::setSpeed(units::velocity::speed_t speed)
     {
-        this->mDesSpeed = speed;
+        // Is the class ready?
+        assert(isInit == true);
+
+        // Set speed
+        mDesSpeed = speed;
+
+        //        printf("Delay is: %d\n", (int) mDelay.count());
     }
 
     void Motor::update()
     {
-        if(units::math::abs(this->mDesSpeed-this->mSpeed) != 0_sd)
-            switch(this->mProfile)
+        // Is the class ready?
+        assert(isInit == true);
+
+        if(units::math::abs(mDesSpeed - mSpeed) != 0_sd)
+        {
+            switch(mProfile)
             {
                 case Profile::FastRamp:
                     fastRamp();
@@ -40,50 +47,77 @@ namespace Copter::Engine
                     slowRamp();
                     break;
             }
-
-        this->mProtocol.sendSignal(this->mSpeed);
-    }
-
-    void Motor::setProfile(Motor::Profile profile)
-    {
-        this->mProfile = profile;
+            mProtocol->sendSignal(mSpeed);
+        }
     }
 
     void Motor::fastRamp()
     {
+        // Is the class ready?
+        assert(isInit == true);
+
         // Set gradient for how fast to ramp
-        const int grad = 20000;
+        const int grad = 20;
+
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
-        units::velocity::speed_t ramp(grad*this->mDelay.count());
+        units::velocity::speed_t ramp(grad * mDelay.count());
+
         // Check whether we are ascending/descending
-        if(this->mDesSpeed-this->mSpeed < 0_sd) ramp *= -1;
+        if(mDesSpeed - mSpeed < 0_sd)
+            ramp *= -1;
+
         // Calculate new speed
-        units::velocity::speed_t newSpeed = this->mSpeed + ramp;
+        units::velocity::speed_t newSpeed = mSpeed + ramp;
+
+        //        printf("newspeed: %d", newSpeed.to<uint16_t>());
+
         // Check whether we are over or under wanted speed
-        if((newSpeed > this->mDesSpeed) && (this->mSpeed < this->mDesSpeed))
-            this->mSpeed = this->mDesSpeed;
-        else if((newSpeed < this->mDesSpeed) && (this->mSpeed > this->mDesSpeed))
-            this->mSpeed = this->mDesSpeed;
+        if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))
+        {
+            mSpeed = mDesSpeed;
+        }
+        else if((newSpeed < mDesSpeed) && (mSpeed > mDesSpeed))
+        {
+            mSpeed = mDesSpeed;
+        }
         else
-            this->mSpeed = newSpeed;
+        {
+            mSpeed = newSpeed;
+        }
     }
 
     void Motor::slowRamp()
     {
+        // Is the class ready?
+        assert(isInit == true);
+
         // Set gradient for how fast to ramp
-        const int grad = 1000;
+        const int grad = 1;
+
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
-        units::velocity::speed_t ramp(grad*this->mDelay.count());
+        units::velocity::speed_t ramp(grad * mDelay.count());
+
         // Check whether we are ascending/descending
-        if(this->mDesSpeed-this->mSpeed < 0_sd) ramp = ramp * -1;
+        if(mDesSpeed - mSpeed < 0_sd)
+            ramp = ramp * -1;
+
         // Calculate new speed
-        units::velocity::speed_t newSpeed = this->mSpeed + ramp;
+        units::velocity::speed_t newSpeed = mSpeed + ramp;
+
+        //        printf("newspeed: %d", newSpeed.to<uint16_t>());
+
         // Check whether we are over or under wanted speed
-        if((newSpeed > this->mDesSpeed) && (this->mSpeed < this->mDesSpeed))
-            this->mSpeed = this->mDesSpeed;
-        else if((newSpeed < this->mDesSpeed) && (this->mSpeed > this->mDesSpeed))
-            this->mSpeed = this->mDesSpeed;
+        if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))
+        {
+            mSpeed = mDesSpeed;
+        }
+        else if((newSpeed < mDesSpeed) && (mSpeed > mDesSpeed))
+        {
+            mSpeed = mDesSpeed;
+        }
         else
-            this->mSpeed = newSpeed;
+        {
+            mSpeed = newSpeed;
+        }
     }
-}
+} // namespace Copter::Engine

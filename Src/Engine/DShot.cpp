@@ -11,9 +11,14 @@ namespace Copter::Engine
     {
     }
 
+    void DShot::init(PinName pin, int dShotSpeed)
+    {
+        mDShotSpeed = dShotSpeed;
+        mPin = pin;
+    }
+
     bool DShot::setup()
     {
-        printf("dshot setup\n");
         // Get the hardware configuration for pin
         auto config = getConfig(this->mPin);
         this->mDMA = config.dma;
@@ -136,6 +141,7 @@ namespace Copter::Engine
     {
         // Convert speed to a dshot valid speed (that is between 0-2047)
         units::velocity::dshot_t dshotSpeed = speed;
+
         // Set output value as uint16_t
         this->mDShotValues = dshotSpeed.to<uint16_t>();
 

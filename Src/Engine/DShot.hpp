@@ -18,11 +18,11 @@
 #include "stm32f7xx.h"
 #include "stm32f7xx_ll_gpio.h"
 
-#include "Driver.hpp"
+#include "ProtocolInterface.hpp"
 
 namespace Copter::Engine
 {
-    class DShot : public Driver
+    class DShot : public ProtocolInterface
     {
     public:
         /**
@@ -31,10 +31,14 @@ namespace Copter::Engine
          * @param pin: The pin for the protocol to output to
          */
         DShot(PinName pin, int dShotSpeed);
+        DShot() = default;
+
         /**
          * @brief: Default deconstructor
          */
         ~DShot() = default;
+
+        void init(PinName pin, int dShotSpeed);
 
         /**
          * @brief: Sets up hardware configuration
@@ -80,7 +84,7 @@ namespace Copter::Engine
         /**
          * @brief: Variables
          */
-        const int mDShotSpeed;
+        int mDShotSpeed = 0;
 
         uint16_t mDShotValues = 0;
         uint8_t mDSRequestTLM = 0;
@@ -92,7 +96,7 @@ namespace Copter::Engine
         uint16_t mUseDShotPrescaler = 1;
         __IO uint16_t mDSBufferPWM[18];
 
-        PinName mPin;
+        PinName mPin = NC; //
         DMA_TypeDef* mDMA;
         uint32_t mStream;
     };

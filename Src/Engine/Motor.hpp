@@ -7,7 +7,7 @@
 #include <gsl/gsl>
 
 // Project includes
-#include "Driver.hpp"
+#include "ProtocolInterface.hpp"
 #include "DShot.hpp"
 
 using namespace units::literals;
@@ -31,15 +31,7 @@ namespace Copter::Engine
          * @param: profile: The speed profile for acceleration of the motor speed
          * @param delay: The time delay between update calls @todo: May remove in future
          */
-        Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
-
-        /**
-         * @brief: Constructor
-         * @param: protocol: Pointer to the protocol for the motor to use (e.g DShot)
-         * @param: profile: The speed profile for acceleration of the motor speed
-         * @param delay: The time delay between update calls @todo: May remove in future
-         */
-        Motor(Driver* protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
+        Motor(ProtocolInterface& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
 
         /**
          * @brief: Basic/empty constructor
@@ -51,7 +43,8 @@ namespace Copter::Engine
          */
         ~Motor() = default;
 
-        void init(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay);
+        void init(ProtocolInterface& protocol, Motor::Profile profile,
+                  std::chrono::duration<int64_t, std::milli> delay);
 
         /**
          * @brief: Set the speed you want the motor to go to
@@ -77,7 +70,7 @@ namespace Copter::Engine
         void slowRamp();
 
         // Default values
-        Driver* mProtocol = nullptr;
+        ProtocolInterface* mProtocol = nullptr;
         Profile mProfile = Profile::SlowRamp;
         std::chrono::duration<int64_t, std::milli> mDelay = 1ms;
         units::velocity::speed_t mSpeed = 0_sd;

@@ -4,7 +4,8 @@
 namespace Copter::Engine
 {
 
-    Motor::Motor(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay)
+    Motor::Motor(ProtocolInterface& protocol, Motor::Profile profile,
+                 std::chrono::duration<int64_t, std::milli>&& delay)
         : mProtocol(&protocol)
         , mProfile(profile)
         , mDelay(delay)
@@ -12,15 +13,8 @@ namespace Copter::Engine
     {
     }
 
-    Motor::Motor(Driver* protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay)
-        : mProtocol(protocol)
-        , mProfile(profile)
-        , mDelay(delay)
-        , isInit(true)
-    {
-    }
-
-    void Motor::init(Driver& protocol, Motor::Profile profile, std::chrono::duration<int64_t, std::milli>&& delay)
+    void Motor::init(ProtocolInterface& protocol, Motor::Profile profile,
+                     std::chrono::duration<int64_t, std::milli> delay)
     {
         mProtocol = &protocol;
         mProfile = profile;

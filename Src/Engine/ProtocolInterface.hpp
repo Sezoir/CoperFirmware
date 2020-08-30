@@ -9,10 +9,10 @@ namespace units
 
 namespace Copter::Engine
 {
-    class Driver
+    class ProtocolInterface
     {
     public:
-        Driver() = default;
+        ProtocolInterface() = default;
 
         virtual bool setup()
         {

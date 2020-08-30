@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.15)
 project(Copter)
 
 # Get all source and header files
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp *.c)
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS *.cpp *.c *.hpp)
 
 ## Add executable
 add_mbed_executable(${PROJECT_NAME}

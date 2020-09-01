@@ -1,8 +1,11 @@
 #include "mbed.h"
+
+#include "Config.hpp"
 #include "Engine/DShot.hpp"
 #include "Engine/Motor.hpp"
 #include "Sensors/MPU9250.hpp"
-#include "Engine/Interface.hpp"
+#include "Engine/MotorContainer.hpp"
+#include "Sensors/SensorContainer.hpp"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
@@ -20,15 +23,21 @@ int main()
     //    Copter::Engine::Motor motor;
     //    motor.init(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
 
-    Copter::Engine::Interface motors;
+    Copter::Engine::MotorContainer<Copter::Engine::MOTOR_PROTOCOL, MOTOR_COUNT> motors;
 
+    motors.setup({MOTOR_PINS}, Copter::Engine::Motor::Profile::MOTOR_PROFILE, MOTOR_DELAY, MOTOR_PROTOCOL_PARAMETERS);
+
+    Copter::Sensors::SensorContainer<1> sensors;
+    sensors.addSensor<Copter::Sensors::MPU9250>(PD_13, PD_12);
+    sensors.init();
     //    Copter::Sensors::MPU9250 sensor(PD_13, PD_12);
     //    sensor.setup();
 
     char buf[5] = {0};
     //    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
 
-    updater.attach(callback(&motors, &Copter::Engine::Interface::update), 1ms);
+    updater.attach(
+        callback(&motors, &Copter::Engine::MotorContainer<Copter::Engine::MOTOR_PROTOCOL, MOTOR_COUNT>::update), 1ms);
 
     //    std::array<int, 3> accel = {};
 
@@ -55,7 +64,7 @@ int main()
             motors.setSpeed(1, speed);
         }
 
-        //        motor.update();
+        //        motors.update();
         //        proto.sendSignal(0_sd);
 
         //        accel = sensor.readGyro();

@@ -1,11 +1,14 @@
 #pragma once
-
+// Std libs
 #include <array>
+// External libs
 #include <mbed.h>
+// Project files
+#include "SensorInterface.hpp"
 
 namespace Copter::Sensors
 {
-    class MPU9250
+    class MPU9250 : public SensorInterface
     {
     public:
         struct Config
@@ -20,26 +23,76 @@ namespace Copter::Sensors
             uint8_t accelScaleRange = 0x10;
         };
 
+        /**
+         * @brief Constructor.
+         * @param sda: I2C sda pin.
+         * @param scl: I2C scl pin.
+         */
         MPU9250(PinName sda, PinName scl);
+
+        /**
+         * Constructor with configuration manually set.
+         * @param sda: I2C sda pin.
+         * @param scl: I2C scl pin.
+         * @param config: Config for the sensor.
+         */
         MPU9250(PinName sda, PinName scl, Config config);
 
-        ~MPU9250() = default;
+        /**
+         *  @brief Deconstructor.
+         */
+        ~MPU9250() override = default;
 
-        [[nodiscard]] bool setup() const;
+        /**
+         * @brief: Initialise the hardware sensor.
+         * @return bool: Whether initialisation was successful.
+         */
+        [[nodiscard]] bool init() const override;
 
+        /**
+         * @brief Read all sensors and returns an array of all data.
+         * @return std::array<int, 10>: Array containing all sensor in order of Accel, Gyro, Mag, Temp.
+         */
         [[nodiscard]] std::array<int, 10> readSensor() const; // Order of data is: Accel, Gyro, Mag, Temp.
-        [[nodiscard]] std::array<int, 3> readAccel() const;
 
-        [[nodiscard]] std::array<int, 3> readGyro() const;
+        /**
+         * @brief Read accelerometer.
+         * @return std::array<int, 3>: Array of acceleration in (x,y,z).
+         */
+        [[nodiscard]] std::array<int, 3> readAccel() const override;
 
-        [[nodiscard]] std::array<int, 3> readMag() const;
+        /**
+         * @brief Read gyroscope.
+         * @return std::array<int, 3>: Array of acceleration in (x,y,z).
+         */
+        [[nodiscard]] std::array<int, 3> readGyro() const override;
 
-        [[nodiscard]] int readTemp() const;
+        /**
+         * @brief Read magnetometer.
+         * @return std::array<int, 3>: Array of magnetism in (x,y,z).
+         */
+        [[nodiscard]] std::array<int, 3> readMag() const override;
+
+        /**
+         * @brief Read temperature.
+         * @return int: Temperature in @todo: determine scaling.
+         */
+        [[nodiscard]] int readTemp() const override;
+
+        /**
+         * @brief: Returns an struct describing all the sensors in the chip. E.g: accerelation, gyroscope, etc.
+         * @return SensorType: Struct describing sensor types of the chip.
+         */
+        [[nodiscard]] SensorType getType() const override;
 
     private:
-        uint mI2CID;
-        Config mConfig;
+        // Id for correct I2C class when using I2CInterface @todo: change change of I2CInterface
+        uint mI2CID = 0;
 
+        // Configuration of chip
+        Config mConfig = Config{};
+
+        // Fixed address for set address of the chip
         enum class mFixedAddress : const char
         {
             PWR_MGMT_1 = 0x6B,

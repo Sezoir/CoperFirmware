@@ -11,7 +11,7 @@
 
 namespace Copter::Engine
 {
-    template <typename PROTOCAL, uint32_t COUNT>
+    template <typename PROTOCOL, uint32_t COUNT>
     class MotorContainer
     {
     public:
@@ -88,7 +88,7 @@ namespace Copter::Engine
         struct MotorSetup
         {
             Motor motor;
-            PROTOCAL protocol;
+            PROTOCOL protocol;
         };
 
         // Contain all motor setups

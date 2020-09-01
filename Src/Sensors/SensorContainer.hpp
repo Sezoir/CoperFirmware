@@ -63,18 +63,20 @@ namespace Copter::Sensors
         [[nodiscard]] std::array<int, 3> readAccel() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> accel{0, 0, 0};
-            for(SensorSetup& setup : mSensors)
+            std::array<int, 3> avrAccel{0, 0, 0};
+            for(const SensorSetup& setup : mSensors)
             {
                 if(setup.type.accelerometer)
                 {
-                    accel += setup.sensor.readAccel();
+                    std::array<int, 3> accel = setup.sensor->readAccel();
+                    for(uint8_t i = 0; i < 3; i++)
+                        avrAccel[i] += accel[i];
                     cnt++;
                 }
             }
-            for(int& value : accel)
-                value / cnt;
-            return accel;
+            for(int& value : avrAccel)
+                value /= cnt;
+            return avrAccel;
         }
 
         /**
@@ -85,18 +87,20 @@ namespace Copter::Sensors
         [[nodiscard]] std::array<int, 3> readGyro() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> gyro{0, 0, 0};
-            for(SensorSetup& setup : mSensors)
+            std::array<int, 3> avrGyro{0, 0, 0};
+            for(const SensorSetup& setup : mSensors)
             {
-                if(setup.type.accelerometer)
+                if(setup.type.gyroscope)
                 {
-                    gyro += setup.sensor.readGyro();
+                    std::array<int, 3> gyro = setup.sensor->readGyro();
+                    for(uint8_t i = 0; i < 3; i++)
+                        avrGyro[i] += gyro[i];
                     cnt++;
                 }
             }
-            for(int& value : gyro)
-                value / cnt;
-            return gyro;
+            for(int& value : avrGyro)
+                value /= cnt;
+            return avrGyro;
         }
 
         /**
@@ -107,18 +111,20 @@ namespace Copter::Sensors
         [[nodiscard]] std::array<int, 3> readMag() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> mag{0, 0, 0};
-            for(SensorSetup& setup : mSensors)
+            std::array<int, 3> avrMag{0, 0, 0};
+            for(const SensorSetup& setup : mSensors)
             {
-                if(setup.type.accelerometer)
+                if(setup.type.magnetometer)
                 {
-                    mag += setup.sensor.readMag();
+                    std::array<int, 3> mag = setup.sensor->readMag();
+                    for(uint8_t i = 0; i < 3; i++)
+                        avrMag[i] += mag[i];
                     cnt++;
                 }
             }
-            for(int& value : mag)
-                value / cnt;
-            return mag;
+            for(int& value : avrMag)
+                value /= cnt;
+            return avrMag;
         }
 
         /**
@@ -130,9 +136,9 @@ namespace Copter::Sensors
         {
             uint8_t cnt = 0;
             int temp = 0;
-            for(SensorSetup& setup : mSensors)
+            for(const SensorSetup& setup : mSensors)
             {
-                if(setup.type.accelerometer)
+                if(setup.type.temperature)
                 {
                     temp += setup.sensor.readTemp();
                     cnt++;
@@ -142,6 +148,9 @@ namespace Copter::Sensors
         }
 
     private:
+        /**
+         * Calls delete on all the SensorInterface* that was new'ed. Also sets the pointer afterwards to nullptr.
+         */
         void removeSensors()
         {
             for(SensorSetup& setup : mSensors)

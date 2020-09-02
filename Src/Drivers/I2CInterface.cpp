@@ -36,10 +36,10 @@ namespace Copter::Drivers
         mI2C.push_back(std::move(instance));
         mPins.push_back(sda);
         mPins.push_back(scl);
-        return mI2C.size()-1;
+        return mI2C.size() - 1;
     }
 
-    int8_t I2CInterface::readByte(const int id, const char address, const char subAddress)
+    uint8_t I2CInterface::readByte(const uint id, const char address, const char subAddress)
     {
         // Set char to the array.
         char regAddr[1] = {subAddress};
@@ -54,54 +54,36 @@ namespace Copter::Drivers
         // Read 1 byte starting from the register at the SubAddress.
         mI2C[id]->read(address, readData, 1);
 
-        //Return data that was read.
-        return (int8_t)readData[0];
+        // Return data that was read.
+        return (uint8_t) readData[0];
     }
 
-    std::vector<int8_t> I2CInterface::readBytes(const int id, const char address, const char subAddress, const int8_t byteNumber)
-    {
-        // Create vector of int8_t.
-        std::vector<int8_t> returnData;
-        returnData.reserve(byteNumber);
-
-        // Read several consecutive bytes based on ByteNumber, and store in char array.
-        for(int i = 0; i < byteNumber; i++)
-        {
-            returnData.push_back(readByte(id, address, subAddress+i));
-        }
-
-        // Return the vector.
-        return returnData;
-    }
-
-    void I2CInterface::writeByte(const int id, const char address, const char subAddress, const int8_t data)
+    void I2CInterface::writeByte(const uint id, const char address, const char subAddress, const uint8_t data)
     {
         // Create temporary char array.
-        char tempData[2] = {subAddress, (char)data};
+        char tempData[2] = {subAddress, (char) data};
 
         // From the Address, write 1 byte to the SubAddress content based on the t_Data data.
         mI2C[id]->write(address, tempData, 2);
     }
 
-    void I2CInterface::writeBytes(const int id, const char address, std::vector<std::pair<char, char>>& data)
+    void I2CInterface::writeBytes(const uint id, const char address, std::vector<std::pair<char, char>>& data)
     {
         // Create a temporary char array.
         char tempData[2];
 
         // Iterate through the vector.
-        for(std::pair<char, char> &pair : data)
+        for(std::pair<char, char>& pair : data)
         {
             // Set the SubAddress.
             tempData[0] = pair.first;
 
-            //Set the content.
+            // Set the content.
             tempData[1] = pair.second;
-
 
             // Write to Chip.
             mI2C[id]->write(address, tempData, 2);
         }
     }
 
-
-}
+} // namespace Copter::Drivers

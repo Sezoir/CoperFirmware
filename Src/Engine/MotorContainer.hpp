@@ -72,7 +72,7 @@ namespace Copter::Engine
          * @param id: Id of the motor to change speed.
          * @param speed: New speed to set the motor to.
          */
-        void setSpeed(uint8_t id, units::velocity::speed_t speed)
+        void setSpeed(uint8_t id, units::protocol::speed_t speed)
         {
             // Check id is valid
             if(id >= COUNT || id < 0)

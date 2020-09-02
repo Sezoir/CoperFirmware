@@ -49,7 +49,7 @@ namespace Copter::Engine
         /**
          * @brief: Send the DShot signal
          */
-        void sendSignal(const units::velocity::speed_t& speed) override;
+        void sendSignal(const units::protocol::speed_t& speed) override;
 
     private:
         /**

@@ -3,8 +3,8 @@
 
 namespace units
 {
-    UNIT_ADD(velocity, speed, speeds, sd, units::unit<std::ratio<1>, units::category::velocity_unit>)
-    UNIT_ADD(velocity, dshot, dshot, ds, units::unit<std::ratio<10000, 2047>, units::velocity::speed>)
+    UNIT_ADD(protocol, speed, speeds, sd, units::unit<std::ratio<1>, units::length::meter>)
+    UNIT_ADD(protocol, dshot, dshot, dst, units::unit<std::ratio<10000, 2047>, units::protocol::speed>)
 } // namespace units
 
 namespace Copter::Engine
@@ -19,7 +19,7 @@ namespace Copter::Engine
             return true;
         }
 
-        virtual void sendSignal(const units::velocity::speed_t& ramp)
+        virtual void sendSignal(const units::protocol::speed_t& ramp)
         {
         }
     };

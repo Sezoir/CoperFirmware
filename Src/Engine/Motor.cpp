@@ -22,7 +22,7 @@ namespace Copter::Engine
         isInit = true;
     }
 
-    void Motor::setSpeed(units::velocity::speed_t speed)
+    void Motor::setSpeed(units::protocol::speed_t speed)
     {
         // Is the class ready?
         assert(isInit == true);
@@ -60,14 +60,14 @@ namespace Copter::Engine
         const int grad = 20;
 
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
-        units::velocity::speed_t ramp(grad * mDelay.count());
+        units::protocol::speed_t ramp(grad * mDelay.count());
 
         // Check whether we are ascending/descending
         if(mDesSpeed - mSpeed < 0_sd)
             ramp *= -1;
 
         // Calculate new speed
-        units::velocity::speed_t newSpeed = mSpeed + ramp;
+        units::protocol::speed_t newSpeed = mSpeed + ramp;
 
         // Check whether we are over or under wanted speed
         if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))
@@ -93,14 +93,14 @@ namespace Copter::Engine
         const int grad = 1;
 
         // Calculate change in terms of speed_t @todo: May change to not include the delay time
-        units::velocity::speed_t ramp(grad * mDelay.count());
+        units::protocol::speed_t ramp(grad * mDelay.count());
 
         // Check whether we are ascending/descending
         if(mDesSpeed - mSpeed < 0_sd)
             ramp = ramp * -1;
 
         // Calculate new speed
-        units::velocity::speed_t newSpeed = mSpeed + ramp;
+        units::protocol::speed_t newSpeed = mSpeed + ramp;
 
         // Check whether we are over or under wanted speed
         if((newSpeed > mDesSpeed) && (mSpeed < mDesSpeed))

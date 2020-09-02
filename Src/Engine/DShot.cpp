@@ -137,10 +137,10 @@ namespace Copter::Engine
         return true;
     }
 
-    void DShot::sendSignal(const units::velocity::speed_t& speed)
+    void DShot::sendSignal(const units::protocol::speed_t& speed)
     {
         // Convert speed to a dshot valid speed (that is between 0-2047)
-        units::velocity::dshot_t dshotSpeed = speed;
+        units::protocol::dshot_t dshotSpeed = speed;
 
         // Set output value as uint16_t
         this->mDShotValues = dshotSpeed.to<uint16_t>();

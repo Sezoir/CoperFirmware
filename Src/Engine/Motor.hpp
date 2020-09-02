@@ -50,7 +50,7 @@ namespace Copter::Engine
          * @brief: Set the speed you want the motor to go to
          * @param: speed: The desired speed
          */
-        void setSpeed(units::velocity::speed_t speed);
+        void setSpeed(units::protocol::speed_t speed);
 
         /**
          * @brief: Send the signal and update the speed based on the current profile.
@@ -73,8 +73,8 @@ namespace Copter::Engine
         ProtocolInterface* mProtocol = nullptr;
         Profile mProfile = Profile::SlowRamp;
         std::chrono::duration<int64_t, std::milli> mDelay = 1ms;
-        units::velocity::speed_t mSpeed = 0_sd;
-        units::velocity::speed_t mDesSpeed = 0_sd;
+        units::protocol::speed_t mSpeed = 0_sd;
+        units::protocol::speed_t mDesSpeed = 0_sd;
 
         // Has the class been setup
         bool isInit = false;

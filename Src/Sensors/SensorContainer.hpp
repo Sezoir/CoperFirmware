@@ -3,6 +3,7 @@
 #include <array>
 // External libs
 #include <mbed.h>
+#include <units.h>
 // Project files
 #include "SensorInterface.hpp"
 
@@ -60,21 +61,21 @@ namespace Copter::Sensors
          * @return std::array<int, 3>: Acceleration in the (x,y,z).
          * @todo: Add conversion between accelerometers (as they may have different resolutions).
          */
-        [[nodiscard]] std::array<int, 3> readAccel() const
+        [[nodiscard]] std::array<units::acceleration::meters_per_second_squared_t, 3> readAccel() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> avrAccel{0, 0, 0};
+            std::array<units::acceleration::meters_per_second_squared_t, 3> avrAccel{0_mps_sq, 0_mps_sq, 0_mps_sq};
             for(const SensorSetup& setup : mSensors)
             {
                 if(setup.type.accelerometer)
                 {
-                    std::array<int, 3> accel = setup.sensor->readAccel();
+                    std::array<units::acceleration::meters_per_second_squared_t, 3> accel = setup.sensor->readAccel();
                     for(uint8_t i = 0; i < 3; i++)
                         avrAccel[i] += accel[i];
                     cnt++;
                 }
             }
-            for(int& value : avrAccel)
+            for(units::acceleration::meters_per_second_squared_t& value : avrAccel)
                 value /= cnt;
             return avrAccel;
         }
@@ -84,21 +85,21 @@ namespace Copter::Sensors
          * @return std::array<int, 3>: Gyroscope change in (x,y,z).
          * @todo: Add conversion between gyroscopes (as they may have different resolutions).
          */
-        [[nodiscard]] std::array<int, 3> readGyro() const
+        [[nodiscard]] std::array<units::angular_velocity::degrees_per_second_t, 3> readGyro() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> avrGyro{0, 0, 0};
+            std::array<units::angular_velocity::degrees_per_second_t, 3> avrGyro{0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
             for(const SensorSetup& setup : mSensors)
             {
                 if(setup.type.gyroscope)
                 {
-                    std::array<int, 3> gyro = setup.sensor->readGyro();
+                    std::array<units::angular_velocity::degrees_per_second_t, 3> gyro = setup.sensor->readGyro();
                     for(uint8_t i = 0; i < 3; i++)
                         avrGyro[i] += gyro[i];
                     cnt++;
                 }
             }
-            for(int& value : avrGyro)
+            for(units::angular_velocity::degrees_per_second_t& value : avrGyro)
                 value /= cnt;
             return avrGyro;
         }
@@ -108,21 +109,21 @@ namespace Copter::Sensors
          * @return std::array<int, 3>: Magnetism in the (x,y,z).
          * @todo: Add conversion between magnetometers (as they may have different resolutions).
          */
-        [[nodiscard]] std::array<int, 3> readMag() const
+        [[nodiscard]] std::array<units::magnetic_field_strength::gauss_t, 3> readMag() const
         {
             uint8_t cnt = 0;
-            std::array<int, 3> avrMag{0, 0, 0};
+            std::array<units::magnetic_field_strength::gauss_t, 3> avrMag{0_G, 0_G, 0_G};
             for(const SensorSetup& setup : mSensors)
             {
                 if(setup.type.magnetometer)
                 {
-                    std::array<int, 3> mag = setup.sensor->readMag();
+                    std::array<units::magnetic_field_strength::gauss_t, 3> mag = setup.sensor->readMag();
                     for(uint8_t i = 0; i < 3; i++)
                         avrMag[i] += mag[i];
                     cnt++;
                 }
             }
-            for(int& value : avrMag)
+            for(units::magnetic_field_strength::gauss_t& value : avrMag)
                 value /= cnt;
             return avrMag;
         }

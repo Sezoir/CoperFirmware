@@ -1,8 +1,12 @@
 #pragma once
+// Std libs
 #include <array>
+// External libs
+#include <units.h>
 
 namespace Copter::Sensors
 {
+    using namespace units::literals;
     class SensorInterface
     {
     public:
@@ -28,24 +32,24 @@ namespace Copter::Sensors
             return type;
         }
 
-        [[nodiscard]] virtual std::array<int, 3> readAccel() const
+        [[nodiscard]] virtual std::array<units::acceleration::meters_per_second_squared_t, 3> readAccel() const
         {
-            return std::array<int, 3>{0, 0, 0};
+            return std::array<units::acceleration::meters_per_second_squared_t, 3>{0_mps_sq, 0_mps_sq, 0_mps_sq};
         }
 
-        [[nodiscard]] virtual std::array<int, 3> readGyro() const
+        [[nodiscard]] virtual std::array<units::angular_velocity::degrees_per_second_t, 3> readGyro() const
         {
-            return std::array<int, 3>{0, 0, 0};
+            return std::array<units::angular_velocity::degrees_per_second_t, 3>{0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
         }
 
-        [[nodiscard]] virtual std::array<int, 3> readMag() const
+        [[nodiscard]] virtual std::array<units::magnetic_field_strength::gauss_t, 3> readMag() const
         {
-            return std::array<int, 3>{0, 0, 0};
+            return std::array<units::magnetic_field_strength::gauss_t, 3>{0_G, 0_G, 0_G};
         }
 
-        [[nodiscard]] virtual int readTemp() const
+        [[nodiscard]] virtual units::temperature::celsius_t readTemp() const
         {
-            return 0;
+            return units::temperature::celsius_t(0);
         }
     };
 } // namespace Copter::Sensors

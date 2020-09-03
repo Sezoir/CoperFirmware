@@ -42,7 +42,7 @@ namespace Copter::Drivers
             std::array<uint8_t, byteCnt> returnData;
 
             // Read several consecutive bytes based on ByteNumber, and store in char array.
-            for(int i = 0; i < byteCnt; i++)
+            for(uint i = 0; i < byteCnt; i++)
             {
                 returnData[i] = (readByte(id, address, subAddress + i));
             }

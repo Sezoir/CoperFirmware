@@ -18,6 +18,8 @@ namespace Copter::Sensors
 
     bool MPU9250::init() const
     {
+        uint8_t config = 0;
+
         // MPU9250 starts of in sleep mode, so need to clear address.
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_1),
                                 0); // Wake up MPU
@@ -55,77 +57,88 @@ namespace Copter::Sensors
         I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
                                 static_cast<char>(mFixedAddress::MAG_CONTROL), 0); // Wake up mag
         ThisThread::sleep_for(1ms);
+        config = mConfig.magScale | mConfig.magMode;
         I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                static_cast<char>(mFixedAddress::MAG_CONTROL), 0x16);
+                                static_cast<char>(mFixedAddress::MAG_CONTROL), config);
         ThisThread::sleep_for(1ms);
         return true;
     }
 
-    std::array<int, 10> MPU9250::readSensor() const
+    std::array<acc::meters_per_second_squared_t, 3> MPU9250::readAccel() const
     {
-        std::array<int, 10> returnData = {};
-        std::array<int, 3> tempData = {};
-        tempData = readAccel();
-        std::copy(tempData.begin(), tempData.end(), returnData.begin());
-        tempData = readGyro();
-        std::copy(tempData.begin(), tempData.end(), returnData.begin() + 3);
-        tempData = readMag();
-        std::copy(tempData.begin(), tempData.end(), returnData.begin() + 6);
-        returnData[9] = readTemp();
-        return returnData;
-    }
-
-    std::array<int, 3> MPU9250::readAccel() const
-    {
-        std::array<int, 3> returnData = {};
-        std::vector<int8_t> tempData = {};
-        tempData = I2CInterface::readBytes(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_XOUT_H), 6);
-        for(int i = 0; i < 3; ++i)
+        std::array<acc::meters_per_second_squared_t, 3> returnData = {};
+        std::array<uint8_t, 6> rawData = {};
+        const float scaling = getAccScaling();
+        rawData = I2CInterface::readBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_XOUT_H));
+        for(int i = 0; i < 3; i++)
         {
-            returnData[i] = (tempData[2 * i] << 8) | tempData[(2 * i) + 1];
+            // Bitshift uint8_t variables to one int16_t
+            int16_t temp = (static_cast<int16_t>(rawData[2 * i]) << 8) | rawData[(2 * i) + 1];
+            // Scale the value to acceleration
+            returnData[i] = static_cast<acc::meters_per_second_squared_t>(temp) * scaling *
+                            9.81; // @todo: Add bias calibration scaling
         }
         return returnData;
     }
 
-    std::array<int, 3> MPU9250::readGyro() const
+    std::array<angVel::degrees_per_second_t, 3> MPU9250::readGyro() const
     {
-        std::array<int, 3> returnData = {};
-        std::vector<int8_t> tempData;
-        tempData = I2CInterface::readBytes(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_XOUT_H), 6);
-        for(int i = 0; i < 3; ++i)
+        std::array<angVel::degrees_per_second_t, 3> returnData = {};
+        std::array<uint8_t, 6> rawData = {};
+        const float scaling = getGyroScaling();
+        rawData = I2CInterface::readBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_XOUT_H));
+        for(int i = 0; i < 3; i++)
         {
-            returnData[i] = (tempData[2 * i] << 8) | tempData[(2 * i) + 1];
+            // Bitshift uint8_t variables to one int16_t
+            int16_t temp = (static_cast<int16_t>(rawData[2 * i]) << 8) | rawData[(2 * i) + 1];
+            // Scale the value to degrees per second
+            returnData[i] =
+                static_cast<angVel::degrees_per_second_t>(temp) * scaling; // @todo: Add bias calibration scaling
         }
         return returnData;
     }
 
-    std::array<int, 3> MPU9250::readMag() const
+    std::array<magStr::gauss_t, 3> MPU9250::readMag() const
     {
-        if(I2CInterface::readByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                  static_cast<char>(mFixedAddress::MAG_ST1)) &
-           0x01)
+        std::array<uint8_t, 7> rawData = {};
+
+        bool receivedNewData = (I2CInterface::readByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                       static_cast<char>(mFixedAddress::MAG_ST1)) &
+                                0x01);
+        if(receivedNewData)
         {
-            std::array<int, 3> returnData = {};
-            std::vector<int8_t> tempData;
-            tempData = I2CInterface::readBytes(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                               static_cast<char>(mFixedAddress::MAG_XOUT_L), 7);
-            returnData[0] = (int) (((int) (tempData[1]) << 8) | tempData[0]);
-            returnData[1] = (int) (((int) (tempData[3]) << 8) | tempData[2]);
-            returnData[2] = (int) (((int) (tempData[5]) << 8) | tempData[4]);
-            return returnData;
+            rawData = I2CInterface::readBytes<7>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                 static_cast<char>(mFixedAddress::MAG_XOUT_L));
+            // End data read by reading ST2 register
+            uint8_t st2Reg = rawData[6];
+            // Make sure ST2 reg isn't 1
+            if(!(st2Reg & 0x08))
+            {
+                std::array<magStr::gauss_t, 3> returnData = {};
+                const float scaling = getMagScaling();
+                for(int i = 0; i < 3; i++)
+                {
+                    // Bitshift uint8_t variables to one int16_t
+                    int16_t temp = static_cast<uint16_t>(rawData[2 * i + 1]) | rawData[(2 * i)];
+                    // Scale the value to degrees per second
+                    returnData[i] = magStr::gauss_t(temp * scaling);
+                }
+                return returnData;
+            }
+            else
+                return mPreMagStr;
         }
         else
-        {
-            std::array<int, 3> returnData{0, 0, 0};
-            return returnData;
-        }
+            return mPreMagStr;
     }
 
-    int MPU9250::readTemp() const
+    temp::celsius_t MPU9250::readTemp() const
     {
-        std::vector<int8_t> tempData;
-        tempData = I2CInterface::readBytes(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::TEMP_OUT_H), 2);
-        return (int) ((tempData[0] << 8) | tempData[1]);
+        std::array<uint8_t, 2> rawData = {};
+        rawData = I2CInterface::readBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::TEMP_OUT_H));
+        int16_t returnData = (static_cast<int16_t>(rawData[0]) << 8) | rawData[1];
+        temp::celsius_t temperature(returnData / 333.87 + 21.0);
+        return temperature;
     }
 
     SensorInterface::SensorType MPU9250::getType() const
@@ -136,6 +149,66 @@ namespace Copter::Sensors
         type.magnetometer = true;
         type.temperature = true;
         return type;
+    }
+    constexpr float MPU9250::getAccScaling() const
+    {
+        // Note that 32769 is the maximum/minimum value of the acceleration
+        switch(mConfig.accelScale)
+        {
+            // 2g
+            case 0x0:
+                return 2.0 / 32768.0;
+            // 4g
+            case 0x8:
+                return 4.0 / 32768.0;
+            // 8g
+            case 0x10:
+                return 8.0 / 32768.0;
+            // 16g
+            case 0x18:
+                return 16.0 / 32768.0;
+            default:
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_INVALID_ARGUMENT),
+                           "MPU9250 accelScale config is not valid.");
+        }
+    }
+    constexpr float MPU9250::getGyroScaling() const
+    {
+        // Note that 32769 is the maximum/minimum value of the acceleration
+        switch(mConfig.gyroScale)
+        {
+            // 250 dps
+            case 0x0:
+                return 250.0 / 32768.0;
+            // 500 dps
+            case 0x8:
+                return 500.0 / 32768.0;
+            // 1000 dps
+            case 0x10:
+                return 1000.0 / 32768.0;
+            // 2000 dps
+            case 0x18:
+                return 2000.0 / 32768.0;
+            default:
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_INVALID_ARGUMENT),
+                           "MPU9250 gyroScale config is not valid.");
+        }
+    }
+    constexpr float MPU9250::getMagScaling() const
+    {
+        // Note that 32769 is the maximum/minimum value of the acceleration
+        switch(mConfig.magScale)
+        {
+            // 14-bit output
+            case 0x0:
+                return 10000. * 4912. / 8190.;
+            // 16-bit output
+            case 0x10:
+                return 10000. * 4912. / 32760.0;
+            default:
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_INVALID_ARGUMENT),
+                           "MPU9250 magnetometer config is not valid.");
+        }
     }
 
 } // namespace Copter::Sensors

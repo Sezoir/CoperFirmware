@@ -3,11 +3,17 @@
 #include <array>
 // External libs
 #include <mbed.h>
+#include <units.h>
 // Project files
 #include "SensorInterface.hpp"
 
 namespace Copter::Sensors
 {
+    namespace acc = units::acceleration;
+    namespace angVel = units::angular_velocity;
+    namespace temp = units::temperature;
+    namespace magStr = units::magnetic_field_strength;
+
     class MPU9250 : public SensorInterface
     {
     public:
@@ -21,6 +27,8 @@ namespace Copter::Sensors
             uint8_t accelDigiFilter = 0x00;
             uint8_t gyroScaleRange = 0x10;
             uint8_t accelScaleRange = 0x10;
+            uint8_t magScale = 0x10;
+            uint8_t magMode = 0x6;
         };
 
         /**
@@ -50,34 +58,29 @@ namespace Copter::Sensors
         [[nodiscard]] bool init() const override;
 
         /**
-         * @brief Read all sensors and returns an array of all data.
-         * @return std::array<int, 10>: Array containing all sensor in order of Accel, Gyro, Mag, Temp.
-         */
-        [[nodiscard]] std::array<int, 10> readSensor() const; // Order of data is: Accel, Gyro, Mag, Temp.
-
-        /**
          * @brief Read accelerometer.
-         * @return std::array<int, 3>: Array of acceleration in (x,y,z).
+         * @return std::array<units::acceleration::meters_per_second_squared_t, 3>: Array of acceleration in (x,y,z).
          */
-        [[nodiscard]] std::array<int, 3> readAccel() const override;
+        [[nodiscard]] std::array<acc::meters_per_second_squared_t, 3> readAccel() const override;
 
         /**
          * @brief Read gyroscope.
-         * @return std::array<int, 3>: Array of acceleration in (x,y,z).
+         * @return std::array<units::angular_velocity::degrees_per_second_t, 3>: Array of acceleration in (x,y,z).
          */
-        [[nodiscard]] std::array<int, 3> readGyro() const override;
+        [[nodiscard]] std::array<angVel::degrees_per_second_t, 3> readGyro() const override;
 
         /**
-         * @brief Read magnetometer.
-         * @return std::array<int, 3>: Array of magnetism in (x,y,z).
+         * @brief Read magnetic strength.
+         * @todo: Add calibration to result.
+         * @return std::array<units::magnetic_field_strength::gauss_t, 3>: Array of magnetism in (x,y,z).
          */
-        [[nodiscard]] std::array<int, 3> readMag() const override;
+        [[nodiscard]] std::array<magStr::gauss_t, 3> readMag() const override;
 
         /**
          * @brief Read temperature.
-         * @return int: Temperature in @todo: determine scaling.
+         * @return units::temperature::celsius_t: Temperature in celsius.
          */
-        [[nodiscard]] int readTemp() const override;
+        [[nodiscard]] temp::celsius_t readTemp() const override;
 
         /**
          * @brief: Returns an struct describing all the sensors in the chip. E.g: accerelation, gyroscope, etc.
@@ -86,11 +89,32 @@ namespace Copter::Sensors
         [[nodiscard]] SensorType getType() const override;
 
     private:
+        /**
+         * @brief Returns the scaling for the acceleration measurements based on mConfig.
+         * @return float: Scaling to meters per second squared.
+         */
+        [[nodiscard]] constexpr float getAccScaling() const;
+
+        /**
+         * @brief: Returns the scaling for the gyroscope measurements based on mConfig.
+         * @return float: Scaling to degrees per second.
+         */
+        [[nodiscard]] constexpr float getGyroScaling() const;
+
+        /**
+         * @brief Returns scaling for the magnetometer measurements based on mConfig.
+         * @return float: Scaling to gauss.
+         */
+        [[nodiscard]] constexpr float getMagScaling() const;
+
         // Id for correct I2C class when using I2CInterface @todo: change change of I2CInterface
         uint mI2CID = 0;
 
         // Configuration of chip
         Config mConfig = Config{};
+
+        // The previous magnetic strength measurement
+        std::array<magStr::gauss_t, 3> mPreMagStr = {};
 
         // Fixed address for set address of the chip
         enum class mFixedAddress : const char

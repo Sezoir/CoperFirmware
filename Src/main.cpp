@@ -13,6 +13,8 @@ static BufferedSerial serial(USBTX, USBRX, 115200);
 
 Ticker updater;
 
+using namespace units::literals;
+
 int main()
 {
     printf("Project started\n");
@@ -39,7 +41,9 @@ int main()
     updater.attach(
         callback(&motors, &Copter::Engine::MotorContainer<Copter::Engine::MOTOR_PROTOCOL, MOTOR_COUNT>::update), 1ms);
 
-    //    std::array<int, 3> accel = {};
+    //    std::array<units::acceleration::meters_per_second_squared_t, 3> accel = {0_mps_sq, 0_mps_sq, 0_mps_sq};
+    //    std::array<units::angular_velocity::degrees_per_second_t, 3> accel = {0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
+    std::array<units::magnetic_field_strength::gauss_t, 3> accel = {0_G, 0_G, 0_G};
 
     while(true)
     {
@@ -56,7 +60,7 @@ int main()
             memset(buf, 0, sizeof(buf));
 
             // Cast to speed
-            units::velocity::speed_t speed(num);
+            units::protocol::speed_t speed(num);
 
             // Set the new speed
             printf("calling set speed with %d\n", speed.to<uint16_t>());
@@ -67,8 +71,26 @@ int main()
         //        motors.update();
         //        proto.sendSignal(0_sd);
 
+        for(int i = 0; i < 5; i++)
+        {
+            auto naccel = sensors.readMag();
+            for(int j = 0; j < 3; j++)
+                accel[j] += naccel[j];
+        }
+        for(auto& i : accel)
+            i = (i / 5);
         //        accel = sensor.readGyro();
-        //        printf("X: %d, Y: %d, Z: %d\n", accel[0], accel[1], accel[2]);
+
+        std::array<int, 3> temp = {0, 0, 0};
+        for(int i = 0; i < 3; i++)
+        {
+            temp[i] = static_cast<int>(accel[i]);
+        }
+        printf("X: %d, Y: %d, Z: %d\n", temp[0], temp[1], temp[2]);
+        //        accel = {0_mps_sq, 0_mps_sq, 0_mps_sq};
+        //        accel = {0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
+        accel = {0_G, 0_G, 0_G};
+
         ThisThread::sleep_for(250ms);
     }
 }

@@ -20,6 +20,8 @@ namespace Copter::Sensors
     {
         uint8_t config = 0;
 
+        calAccelGyroBias();
+
         // MPU9250 starts of in sleep mode, so need to clear address.
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_1),
                                 0); // Wake up MPU
@@ -69,14 +71,14 @@ namespace Copter::Sensors
         std::array<acc::meters_per_second_squared_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
         const float scaling = getAccScaling();
-        rawData = I2CInterface::readBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_XOUT_H));
+        rawData =
+            I2CInterface::readConsBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_XOUT_H));
         for(int i = 0; i < 3; i++)
         {
             // Bitshift uint8_t variables to one int16_t
             int16_t temp = (static_cast<int16_t>(rawData[2 * i]) << 8) | rawData[(2 * i) + 1];
             // Scale the value to acceleration
-            returnData[i] = static_cast<acc::meters_per_second_squared_t>(temp) * scaling *
-                            9.81; // @todo: Add bias calibration scaling
+            returnData[i] = (static_cast<acc::standard_gravity_t>(temp) * scaling);
         }
         return returnData;
     }
@@ -86,14 +88,14 @@ namespace Copter::Sensors
         std::array<angVel::degrees_per_second_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
         const float scaling = getGyroScaling();
-        rawData = I2CInterface::readBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_XOUT_H));
+        rawData =
+            I2CInterface::readConsBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_XOUT_H));
         for(int i = 0; i < 3; i++)
         {
             // Bitshift uint8_t variables to one int16_t
             int16_t temp = (static_cast<int16_t>(rawData[2 * i]) << 8) | rawData[(2 * i) + 1];
             // Scale the value to degrees per second
-            returnData[i] =
-                static_cast<angVel::degrees_per_second_t>(temp) * scaling; // @todo: Add bias calibration scaling
+            returnData[i] = static_cast<angVel::degrees_per_second_t>(temp) * scaling;
         }
         return returnData;
     }
@@ -107,8 +109,8 @@ namespace Copter::Sensors
                                 0x01);
         if(receivedNewData)
         {
-            rawData = I2CInterface::readBytes<7>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                                 static_cast<char>(mFixedAddress::MAG_XOUT_L));
+            rawData = I2CInterface::readConsBytes<7>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                     static_cast<char>(mFixedAddress::MAG_XOUT_L));
             // End data read by reading ST2 register
             uint8_t st2Reg = rawData[6];
             // Make sure ST2 reg isn't 1
@@ -135,7 +137,7 @@ namespace Copter::Sensors
     temp::celsius_t MPU9250::readTemp() const
     {
         std::array<uint8_t, 2> rawData = {};
-        rawData = I2CInterface::readBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::TEMP_OUT_H));
+        rawData = I2CInterface::readConsBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::TEMP_OUT_H));
         int16_t returnData = (static_cast<int16_t>(rawData[0]) << 8) | rawData[1];
         temp::celsius_t temperature(returnData / 333.87 + 21.0);
         return temperature;
@@ -150,6 +152,7 @@ namespace Copter::Sensors
         type.temperature = true;
         return type;
     }
+
     constexpr float MPU9250::getAccScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
@@ -172,6 +175,7 @@ namespace Copter::Sensors
                            "MPU9250 accelScale config is not valid.");
         }
     }
+
     constexpr float MPU9250::getGyroScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
@@ -194,6 +198,7 @@ namespace Copter::Sensors
                            "MPU9250 gyroScale config is not valid.");
         }
     }
+
     constexpr float MPU9250::getMagScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
@@ -209,6 +214,165 @@ namespace Copter::Sensors
                 MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_INVALID_ARGUMENT),
                            "MPU9250 magnetometer config is not valid.");
         }
+    }
+
+    void MPU9250::calAccelGyroBias() const
+    {
+        // Reset device
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_1), 0x80);
+        ThisThread::sleep_for(100ms);
+
+        // Get stable time source
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_1), 0x01);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_2), 0x00);
+        ThisThread::sleep_for(200ms);
+
+        /*------------- Configure device for bias calculations --------------------*/
+        // Disable all interrupts
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::INT_ENABLE), 0x00);
+        // Disable FIFO
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::FIFO_EN), 0x00);
+        // Turn on internal clock source
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::PWR_MGMT_1), 0x00);
+        // Disable I2C master
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::I2C_MST_CTRL), 0x00);
+        // Disable FIFO and I2C master modes
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::USER_CTRL), 0x00);
+        // Reset FIFO and DMP
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::USER_CTRL), 0x0C);
+        ThisThread::sleep_for(15ms);
+
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::CONFIG), 0x01);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::SMPLRT_DIV), 0x00);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_CONFIG), 0x00);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_CONFIG_ONE), 0x00);
+        /*-------------------------------------------------------------------------*/
+
+        // Configure FIFO to capture accelerometer and gyro data
+        // Enable FIFO
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::USER_CTRL), 0x40);
+        // Enable accelerometer and gyro for FIFO
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::FIFO_EN), 0x78);
+        // Capture 40 samples in ~40 milliseconds
+        ThisThread::sleep_for(41ms);
+        // Turn off FIFO
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::FIFO_EN), 0x00);
+
+        // Read FIFO sample count and number of full sets of gyro/accel data
+        uint16_t fifoCnt, packetCnt;
+        {
+            std::array<uint8_t, 2> cnt =
+                I2CInterface::readConsBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::FIFO_COUNTH));
+            fifoCnt = (static_cast<uint16_t>(cnt[0]) << 8) | cnt[1];
+            packetCnt = fifoCnt / 12;
+        }
+
+        std::array<uint8_t, 12> rawData = {};
+        std::array<int32_t, 3> avrAccelData = {0, 0, 0};
+        std::array<int32_t, 3> avrGyroData = {0, 0, 0};
+        for(uint packet = 0; packet < packetCnt; packet++)
+        {
+            // Get next data packet
+            rawData = I2CInterface::readBytes<12>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::FIFO_R_W));
+            // Correctly bitshift and add to average variables
+            for(int i = 0; i < 3; i++)
+            {
+                int16_t accelTemp = (static_cast<int16_t>(rawData[2 * i]) << 8) | rawData[(2 * i) + 1];
+                int16_t gyroTemp = (static_cast<int16_t>(rawData[2 * i + 6]) << 8) | rawData[(2 * i) + 7];
+
+                avrAccelData[i] += static_cast<int32_t>(accelTemp);
+                avrGyroData[i] += static_cast<int32_t>(gyroTemp);
+            }
+        }
+
+        // Calculate average bias
+        avrAccelData[0] /= static_cast<int32_t>(packetCnt);
+        avrAccelData[1] /= static_cast<int32_t>(packetCnt);
+        avrAccelData[2] /= static_cast<int32_t>(packetCnt);
+        avrGyroData[0] /= static_cast<int32_t>(packetCnt);
+        avrGyroData[1] /= static_cast<int32_t>(packetCnt);
+        avrGyroData[2] /= static_cast<int32_t>(packetCnt);
+
+        const uint16_t accelSensitivity = 16384; // = 16384 LSB/g
+        // Remove gravity from the z-axis accelerometer bias calculation
+        if(avrAccelData[2] > 0L)
+            avrAccelData[2] -= (int32_t) accelSensitivity;
+        else
+            avrAccelData[2] += (int32_t) accelSensitivity;
+
+        // Declare empty array for storing data to use when writing to I2C
+        std::array<uint8_t, 6> data = {};
+        // Construct gyro bias to conform to hardware bias registers
+        // Divide by 4 to get 32.9 LSB per deg/s to conform to expected input format
+        // Also bias are additive, so change sign on calculated average gyro
+        data[0] = (-avrGyroData[0] / 4 >> 8) & 0xFF;
+        data[1] = (-avrGyroData[0] / 4) & 0xFF;
+        data[2] = (-avrGyroData[1] / 4 >> 8) & 0xFF;
+        data[3] = (-avrGyroData[1] / 4) & 0xFF;
+        data[4] = (-avrGyroData[2] / 4 >> 8) & 0xFF;
+        data[5] = (-avrGyroData[2] / 4) & 0xFF;
+        // Push gyro biases to hardware registers
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::XG_OFFSET_H), data[0]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::XG_OFFSET_L), data[1]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YG_OFFSET_H), data[2]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YG_OFFSET_L), data[3]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZG_OFFSET_H), data[4]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZG_OFFSET_L), data[5]);
+
+        // Now construct the biases for the accelerometer. Note that these registers contain a factory trim value which
+        // must be added to our avrAccelData. In addition bit 0 of the lower byte must be preservedsince it is used for
+        // temperature compensation calculations. Accelerometer bias registers expect bias input as 2048 LSB per g, so
+        // the accelerometer biases calculated above must be divided by 8.
+
+        // Declare trim value array
+        std::array<int32_t, 3> accelTrim = {};
+        // Read/store the trim values
+        {
+            std::array<uint8_t, 2> temp =
+                I2CInterface::readConsBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::XA_OFFSET_H));
+            accelTrim[0] = (static_cast<int16_t>(temp[0]) << 8) | temp[1];
+
+            temp =
+                I2CInterface::readConsBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YA_OFFSET_H));
+            accelTrim[1] = (static_cast<int16_t>(temp[0]) << 8) | temp[1];
+
+            temp =
+                I2CInterface::readConsBytes<2>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZA_OFFSET_H));
+            accelTrim[2] = (static_cast<int16_t>(temp[0]) << 8) | temp[1];
+        }
+        // Define mask for temperature compensation bit
+        uint16_t mask = 1UL;
+        std::array<uint8_t, 3> maskBit = {0, 0, 0};
+
+        for(uint i = 0; i < 3; i++)
+        {
+            // If temperature compensation bit is set, record that fact in mask_bit
+            if(accelTrim[i] & mask)
+                maskBit[i] = 0x01;
+        }
+        // Construct total accel bias
+        accelTrim[0] -= (avrAccelData[0] / 8);
+        accelTrim[1] -= (avrAccelData[1] / 8);
+        accelTrim[2] -= (avrAccelData[2] / 8);
+
+        // Construct accelerometer bias to conform to hardware bias registers
+        data[0] = (accelTrim[0] >> 8) & 0xFF;
+        data[1] = (accelTrim[0]) & 0xFF;
+        data[1] = data[1] | maskBit[0];
+        data[2] = (accelTrim[1] >> 8) & 0xFF;
+        data[3] = (accelTrim[1]) & 0xFF;
+        data[3] = data[3] | maskBit[1];
+        data[4] = (accelTrim[2] >> 8) & 0xFF;
+        data[5] = (accelTrim[2]) & 0xFF;
+        data[5] = data[5] | maskBit[2];
+
+        // Send accel bias to hardware
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::XA_OFFSET_H), data[0]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::XA_OFFSET_L), data[1]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YA_OFFSET_H), data[2]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YA_OFFSET_L), data[3]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZA_OFFSET_H), data[4]);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZA_OFFSET_L), data[5]);
     }
 
 } // namespace Copter::Sensors

@@ -20,7 +20,7 @@ namespace Copter::Sensors
         struct Config
         {
             uint8_t address = (0x68 << 1);
-            uint8_t gyroScale = 0x10;
+            uint8_t gyroScale = 0x00;
             uint8_t accelScale = 0x10;
             uint8_t clkSelect = 0x01;
             uint8_t gyroTempDigiFilter = 0x00;
@@ -107,6 +107,8 @@ namespace Copter::Sensors
          */
         [[nodiscard]] constexpr float getMagScaling() const;
 
+        void calAccelGyroBias() const;
+
         // Id for correct I2C class when using I2CInterface @todo: change change of I2CInterface
         uint mI2CID = 0;
 
@@ -120,6 +122,12 @@ namespace Copter::Sensors
         enum class mFixedAddress : const char
         {
             PWR_MGMT_1 = 0x6B,
+            PWR_MGMT_2 = 0x6C,
+            FIFO_EN = 0x23,
+            I2C_MST_CTRL = 0x24,
+            USER_CTRL = 0x6A,
+            FIFO_COUNTH = 0x72,
+            FIFO_R_W = 0x74,
             CONFIG = 0x1A,
             SMPLRT_DIV = 0x19,
             GYRO_CONFIG = 0x1B,
@@ -128,8 +136,20 @@ namespace Copter::Sensors
             INT_PIN_CFG = 0x37,
             INT_ENABLE = 0x38,
             ACCEL_XOUT_H = 0x3B,
+            XA_OFFSET_H = 0x77,
+            XA_OFFSET_L = 0x78,
+            YA_OFFSET_H = 0x7A,
+            YA_OFFSET_L = 0x7B,
+            ZA_OFFSET_H = 0x7D,
+            ZA_OFFSET_L = 0x7E,
             TEMP_OUT_H = 0x41,
             GYRO_XOUT_H = 0x43,
+            XG_OFFSET_H = 0x13,
+            XG_OFFSET_L = 0x14,
+            YG_OFFSET_H = 0x15,
+            YG_OFFSET_L = 0x16,
+            ZG_OFFSET_H = 0x17,
+            ZG_OFFSET_L = 0x18,
             MAGADDR = (0x0C << 1), // mbed supports 8 bit address for i2c.
             MAG_CONTROL = 0x0A,
             MAG_ST1 = 0x02,

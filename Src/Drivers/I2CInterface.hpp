@@ -28,15 +28,15 @@ namespace Copter::Drivers
         static uint8_t readByte(uint id, char address, char subAddress);
 
         /**
-         * @brief Reads a series of bytes, from a initial starting sub-address.
-         * @tparam byteCnt: Number of consecutive bytes you want to read.
+         * @brief Reads a series of register from an initial starting subAddress.
+         * @tparam byteCnt: Number of consecutive registers you want to read.
          * @param id: Id of the I2C class you want to use.
          * @param address: Address of chip.
-         * @param subAddress: Initial sub-address you want to read.W
+         * @param subAddress: Initial register you want to read.W
          * @return std::array<uint8_t, byteCnt>: Array containing all bytes read in consecutive order.
          */
         template <uint byteCnt>
-        static std::array<uint8_t, byteCnt> readBytes(uint id, char address, char subAddress)
+        static std::array<uint8_t, byteCnt> readConsBytes(uint id, char address, char subAddress)
         {
             // Create vector of int8_t.
             std::array<uint8_t, byteCnt> returnData;
@@ -46,6 +46,39 @@ namespace Copter::Drivers
             {
                 returnData[i] = (readByte(id, address, subAddress + i));
             }
+
+            // Return the vector.
+            return returnData;
+        }
+
+        /**
+         * Reads a number of bytes from a register.
+         * @tparam byteCnt: Number of consecutive bytes you want to read.
+         * @param id: Id of the I2C class you want to use.
+         * @param address: Address of chip.
+         * @param subAddress: Initial register you want to read.
+         * @return std::array<uint8_t, byteCnt>: Array containing all bytes.
+         */
+        template <uint byteCnt>
+        static std::array<uint8_t, byteCnt> readBytes(uint id, char address, char subAddress)
+        {
+            // Set char to the array.
+            char regAddr[1] = {subAddress};
+
+            // Create char array to read Data.
+            char rawData[byteCnt];
+
+            // Write to just the SubAddress to "point" there.
+            // Also parameter to "true", to not send an end signal.
+            mI2C[id]->write(address, regAddr, 1, true);
+
+            // Read 1 byte starting from the register at the SubAddress.
+            mI2C[id]->read(address, rawData, byteCnt);
+
+            // Convert data to return type
+            std::array<uint8_t, byteCnt> returnData;
+            for(uint i = 0; i < byteCnt; i++)
+                returnData[i] = static_cast<uint8_t>(rawData[i]);
 
             // Return the vector.
             return returnData;

@@ -16,10 +16,10 @@ namespace Copter::Sensors
     {
     }
 
-    bool MPU9250::init() const
+    bool MPU9250::init()
     {
         uint8_t config = 0;
-
+        ///////////////////////////////// Setup MPU9150 (accel/gyro) ///////////////////////////////////////////////////
         calAccelGyroBias();
 
         // MPU9250 starts of in sleep mode, so need to clear address.
@@ -55,14 +55,37 @@ namespace Copter::Sensors
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::INT_ENABLE), 0x01);
         ThisThread::sleep_for(1ms);
 
-        // Setup AK8963 (magnetometer)
+        ///////////////////////////////// Setup AK8963 (magnetometer) //////////////////////////////////////////////////
         I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                static_cast<char>(mFixedAddress::MAG_CONTROL), 0); // Wake up mag
-        ThisThread::sleep_for(1ms);
+                                static_cast<char>(mFixedAddress::MAG_CONTROL), 0x00); // Wake up mag
+        ThisThread::sleep_for(10ms);
+
+        // Enter Fuse ROM access mode
+        I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                static_cast<char>(mFixedAddress::MAG_CONTROL), 0x0F);
+        ThisThread::sleep_for(10ms);
+
+        std::array<uint8_t, 3> rawData = {};
+        rawData = I2CInterface::readConsBytes<3>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                 static_cast<char>(mFixedAddress::AK8963_ASAX));
+        mMagFactCalibration[0] = (float) (rawData[0] - 128) / 256. + 1.;
+        mMagFactCalibration[1] = (float) (rawData[1] - 128) / 256. + 1.;
+        mMagFactCalibration[2] = (float) (rawData[2] - 128) / 256. + 1.;
+
+        // Power down magnetometer
+        I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                static_cast<char>(mFixedAddress::MAG_CONTROL), 0x00);
+        ThisThread::sleep_for(10ms);
+
+        // Set scale and mode
         config = mConfig.magScale | mConfig.magMode;
         I2CInterface::writeByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
                                 static_cast<char>(mFixedAddress::MAG_CONTROL), config);
-        ThisThread::sleep_for(1ms);
+        ThisThread::sleep_for(10ms);
+
+        // Calibrate magnetometer
+        calMagBias();
+
         return true;
     }
 
@@ -100,38 +123,20 @@ namespace Copter::Sensors
         return returnData;
     }
 
-    std::array<magStr::gauss_t, 3> MPU9250::readMag() const
+    std::array<magStr::microtesla_t, 3> MPU9250::readMag() const
     {
-        std::array<uint8_t, 7> rawData = {};
-
-        bool receivedNewData = (I2CInterface::readByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                                       static_cast<char>(mFixedAddress::MAG_ST1)) &
-                                0x01);
-        if(receivedNewData)
+        const float scaling = getMagScaling();
+        std::array<int16_t, 3> rawData = readRawMag();
+        std::array<magStr::microtesla_t, 3> returnData = {};
+        for(int i = 0; i < 3; i++)
         {
-            rawData = I2CInterface::readConsBytes<7>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
-                                                     static_cast<char>(mFixedAddress::MAG_XOUT_L));
-            // End data read by reading ST2 register
-            uint8_t st2Reg = rawData[6];
-            // Make sure ST2 reg isn't 1
-            if(!(st2Reg & 0x08))
-            {
-                std::array<magStr::gauss_t, 3> returnData = {};
-                const float scaling = getMagScaling();
-                for(int i = 0; i < 3; i++)
-                {
-                    // Bitshift uint8_t variables to one int16_t
-                    int16_t temp = static_cast<uint16_t>(rawData[2 * i + 1]) | rawData[(2 * i)];
-                    // Scale the value to degrees per second
-                    returnData[i] = magStr::gauss_t(temp * scaling);
-                }
-                return returnData;
-            }
-            else
-                return mPreMagStr;
+            // Scale the value to degrees per second
+            returnData[i] = units::magnetic_field_strength::microtesla_t(static_cast<float>(rawData[0]) * scaling *
+                                                                         mMagFactCalibration[i]) /
+                            10;
+            returnData[i] *= mMagBiaScaling[i];
         }
-        else
-            return mPreMagStr;
+        return returnData;
     }
 
     temp::celsius_t MPU9250::readTemp() const
@@ -373,6 +378,86 @@ namespace Copter::Sensors
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::YA_OFFSET_L), data[3]);
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZA_OFFSET_H), data[4]);
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ZA_OFFSET_L), data[5]);
+    }
+
+    void MPU9250::calMagBias()
+    {
+        // Find sample count
+        uint16_t sampleCount = 0;
+        if(mConfig.magMode == 0x02)
+            sampleCount = 128; // at 8 Hz ODR, new mag data is available every 125 ms
+        else if(mConfig.magMode == 0x06)
+            sampleCount = 1500; // at 100 Hz ODR, new mag data is available every 10 ms
+
+        std::array<int16_t, 3> magMax = {-32767, -32767, -32767};
+        std::array<int16_t, 3> magMin = {32767, 32767, 32767};
+        std::array<int16_t, 3> magTemp = {0, 0, 0};
+        for(uint i = 0; i < sampleCount; i++)
+        {
+            magTemp = readRawMag();
+
+            for(int j = 0; j < 3; j++)
+            {
+                if(magTemp[j] > magMax[j])
+                    magMax[j] = magTemp[j];
+                if(magTemp[j] < magMin[j])
+                    magMin[j] = magTemp[j];
+            }
+            if(mConfig.magMode == 0x02)
+                ThisThread::sleep_for(135ms); // at 8 Hz ODR, new mag data is available every 125 ms
+            else if(mConfig.magMode == 0x06)
+                ThisThread::sleep_for(12ms); // at 100 Hz ODR, new mag data is available every 10 ms
+        }
+        // Get corrections
+        mMagBias[0] = (magMax[0] + magMin[0]) / 2.;
+        mMagBias[1] = (magMax[1] + magMin[1]) / 2.;
+        mMagBias[2] = (magMax[2] + magMin[2]) / 2.;
+
+        mMagBias[0] = mMagBias[0] * mMagFactCalibration[0] * getMagScaling();
+        mMagBias[1] = mMagBias[1] * mMagFactCalibration[1] * getMagScaling();
+        mMagBias[2] = mMagBias[2] * mMagFactCalibration[2] * getMagScaling();
+
+        mMagBiaScaling[0] = (magMax[0] - magMin[0]) / 2.;
+        mMagBiaScaling[1] = (magMax[1] - magMin[1]) / 2.;
+        mMagBiaScaling[2] = (magMax[2] - magMin[2]) / 2.;
+
+        auto avr = mMagBiaScaling[0] + mMagBiaScaling[1] + mMagBiaScaling[2];
+        avr /= 3.0;
+
+        mMagBiaScaling[0] = avr / mMagBiaScaling[0];
+        mMagBiaScaling[1] = avr / mMagBiaScaling[1];
+        mMagBiaScaling[2] = avr / mMagBiaScaling[2];
+    }
+
+    std::array<int16_t, 3> MPU9250::readRawMag() const
+    {
+        std::array<uint8_t, 7> rawData = {};
+
+        bool receivedNewData = (I2CInterface::readByte(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                       static_cast<char>(mFixedAddress::MAG_ST1)) &
+                                0x01);
+        if(receivedNewData)
+        {
+            rawData = I2CInterface::readConsBytes<7>(mI2CID, static_cast<char>(mFixedAddress::MAGADDR),
+                                                     static_cast<char>(mFixedAddress::MAG_XOUT_L));
+            // End data read by reading ST2 register
+            uint8_t st2Reg = rawData[6];
+            // Make sure ST2 reg isn't 1
+            if(!(st2Reg & 0x08))
+            {
+                std::array<int16_t, 3> returnData = {};
+                for(int i = 0; i < 3; i++)
+                {
+                    // Bitshift uint8_t variables to one int16_t
+                    returnData[i] = static_cast<uint16_t>(rawData[2 * i + 1]) | rawData[2 * i];
+                }
+                return returnData;
+            }
+            else
+                return std::array<int16_t, 3>{0, 0, 0};
+        }
+        else
+            return std::array<int16_t, 3>{0, 0, 0};
     }
 
 } // namespace Copter::Sensors

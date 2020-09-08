@@ -109,21 +109,21 @@ namespace Copter::Sensors
          * @return std::array<int, 3>: Magnetism in the (x,y,z).
          * @todo: Add conversion between magnetometers (as they may have different resolutions).
          */
-        [[nodiscard]] std::array<units::magnetic_field_strength::gauss_t, 3> readMag() const
+        [[nodiscard]] std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() const
         {
             uint8_t cnt = 0;
-            std::array<units::magnetic_field_strength::gauss_t, 3> avrMag{0_G, 0_G, 0_G};
+            std::array<units::magnetic_field_strength::microtesla_t, 3> avrMag{0_G, 0_G, 0_G};
             for(const SensorSetup& setup : mSensors)
             {
                 if(setup.type.magnetometer)
                 {
-                    std::array<units::magnetic_field_strength::gauss_t, 3> mag = setup.sensor->readMag();
+                    std::array<units::magnetic_field_strength::microtesla_t, 3> mag = setup.sensor->readMag();
                     for(uint8_t i = 0; i < 3; i++)
                         avrMag[i] += mag[i];
                     cnt++;
                 }
             }
-            for(units::magnetic_field_strength::gauss_t& value : avrMag)
+            for(units::magnetic_field_strength::microtesla_t& value : avrMag)
                 value /= cnt;
             return avrMag;
         }

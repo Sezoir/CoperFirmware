@@ -21,7 +21,7 @@ namespace Copter::Sensors
 
         virtual ~SensorInterface() = default;
 
-        [[nodiscard]] virtual bool init() const
+        [[nodiscard]] virtual bool init()
         {
             return false;
         }
@@ -42,9 +42,9 @@ namespace Copter::Sensors
             return std::array<units::angular_velocity::degrees_per_second_t, 3>{0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
         }
 
-        [[nodiscard]] virtual std::array<units::magnetic_field_strength::gauss_t, 3> readMag() const
+        [[nodiscard]] virtual std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() const
         {
-            return std::array<units::magnetic_field_strength::gauss_t, 3>{0_G, 0_G, 0_G};
+            return std::array<units::magnetic_field_strength::microtesla_t, 3>{0_uTe, 0_uTe, 0_uTe};
         }
 
         [[nodiscard]] virtual units::temperature::celsius_t readTemp() const

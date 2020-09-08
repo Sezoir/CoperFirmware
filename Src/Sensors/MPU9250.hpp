@@ -28,7 +28,7 @@ namespace Copter::Sensors
             uint8_t gyroScaleRange = 0x10;
             uint8_t accelScaleRange = 0x10;
             uint8_t magScale = 0x10;
-            uint8_t magMode = 0x6;
+            uint8_t magMode = 0x06;
         };
 
         /**
@@ -55,7 +55,7 @@ namespace Copter::Sensors
          * @brief: Initialise the hardware sensor.
          * @return bool: Whether initialisation was successful.
          */
-        [[nodiscard]] bool init() const override;
+        [[nodiscard]] bool init() override;
 
         /**
          * @brief Read accelerometer.
@@ -74,7 +74,7 @@ namespace Copter::Sensors
          * @todo: Add calibration to result.
          * @return std::array<units::magnetic_field_strength::gauss_t, 3>: Array of magnetism in (x,y,z).
          */
-        [[nodiscard]] std::array<magStr::gauss_t, 3> readMag() const override;
+        [[nodiscard]] std::array<magStr::microtesla_t, 3> readMag() const override;
 
         /**
          * @brief Read temperature.
@@ -107,7 +107,21 @@ namespace Copter::Sensors
          */
         [[nodiscard]] constexpr float getMagScaling() const;
 
+        /**
+         * @brief: Calibrates the bias for the accelerometer and gyroscope
+         */
         void calAccelGyroBias() const;
+
+        /**
+         * @brief: Calibrate the bias for magnetometer.
+         */
+        void calMagBias();
+
+        /**
+         * @brief Returns the raw measurement of the magnetometer.
+         * @return std::array<int16_t, 3>: Raw measurements (without modifications) from chip.
+         */
+        [[nodiscard]] std::array<int16_t, 3> readRawMag() const;
 
         // Id for correct I2C class when using I2CInterface @todo: change change of I2CInterface
         uint mI2CID = 0;
@@ -115,8 +129,19 @@ namespace Copter::Sensors
         // Configuration of chip
         Config mConfig = Config{};
 
+        // Magnetometer bias
+        std::array<float, 3> mMagBias = {0, 0, 0};
+
+        // Factory calibrations
+        std::array<float, 3> mMagFactCalibration = {0, 0, 0};
+
+        // Magnetometer bias scaling
+        std::array<float, 3> mMagBiaScaling = {0, 0, 0};
+
+        // Magnetometer
+
         // The previous magnetic strength measurement
-        std::array<magStr::gauss_t, 3> mPreMagStr = {};
+        std::array<magStr::microtesla_t, 3> mPreMagStr = {};
 
         // Fixed address for set address of the chip
         enum class mFixedAddress : const char
@@ -153,7 +178,8 @@ namespace Copter::Sensors
             MAGADDR = (0x0C << 1), // mbed supports 8 bit address for i2c.
             MAG_CONTROL = 0x0A,
             MAG_ST1 = 0x02,
-            MAG_XOUT_L = 0x03
+            MAG_XOUT_L = 0x03,
+            AK8963_ASAX = 0x10
         };
     };
 } // namespace Copter::Sensors

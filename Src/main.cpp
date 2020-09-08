@@ -78,7 +78,7 @@ int main()
                 accel[j] += naccel[j];
         }
         for(auto& i : accel)
-            i = (i / 5);
+            i = (i / 5) * 100;
         //        accel = sensor.readGyro();
 
         std::array<int, 3> temp = {0, 0, 0};

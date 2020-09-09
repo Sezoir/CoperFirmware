@@ -6,12 +6,20 @@ namespace Copter::Sensors
     using I2CInterface = Copter::Drivers::I2CInterface;
 
     MPU9250::MPU9250(PinName sda, PinName scl)
-        : mI2CID(Copter::Drivers::I2CInterface::getInstance(sda, scl))
+        : Accelerometer()
+        , Gyroscope()
+        , Magnetometer()
+        , Thermometer()
+        , mI2CID(Copter::Drivers::I2CInterface::getInstance(sda, scl))
     {
     }
 
     MPU9250::MPU9250(PinName sda, PinName scl, Config config)
-        : mI2CID(Copter::Drivers::I2CInterface::getInstance(sda, scl))
+        : Accelerometer()
+        , Gyroscope()
+        , Magnetometer()
+        , Thermometer()
+        , mI2CID(Copter::Drivers::I2CInterface::getInstance(sda, scl))
         , mConfig(config)
     {
     }
@@ -148,17 +156,7 @@ namespace Copter::Sensors
         return temperature;
     }
 
-    SensorInterface::SensorType MPU9250::getType() const
-    {
-        SensorType type;
-        type.accelerometer = true;
-        type.gyroscope = true;
-        type.magnetometer = true;
-        type.temperature = true;
-        return type;
-    }
-
-    constexpr float MPU9250::getAccScaling() const
+    float MPU9250::getAccScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.accelScale)
@@ -181,7 +179,7 @@ namespace Copter::Sensors
         }
     }
 
-    constexpr float MPU9250::getGyroScaling() const
+    float MPU9250::getGyroScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.gyroScale)
@@ -204,7 +202,7 @@ namespace Copter::Sensors
         }
     }
 
-    constexpr float MPU9250::getMagScaling() const
+    float MPU9250::getMagScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.magScale)

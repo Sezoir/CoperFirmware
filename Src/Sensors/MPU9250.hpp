@@ -5,7 +5,10 @@
 #include <mbed.h>
 #include <units.h>
 // Project files
-#include "SensorInterface.hpp"
+#include "Interfaces/Accelerometer.hpp"
+#include "Interfaces/Gyroscope.hpp"
+#include "Interfaces/Magnetometer.hpp"
+#include "Interfaces/Thermometer.hpp"
 
 namespace Copter::Sensors
 {
@@ -14,7 +17,10 @@ namespace Copter::Sensors
     namespace temp = units::temperature;
     namespace magStr = units::magnetic_field_strength;
 
-    class MPU9250 : public SensorInterface
+    class MPU9250 : public Interfaces::Accelerometer,
+                    public Interfaces::Gyroscope,
+                    public Interfaces::Magnetometer,
+                    public Interfaces::Thermometer
     {
     public:
         struct Config
@@ -49,7 +55,7 @@ namespace Copter::Sensors
         /**
          *  @brief Deconstructor.
          */
-        ~MPU9250() override = default;
+        ~MPU9250() = default;
 
         /**
          * @brief: Initialise the hardware sensor.
@@ -82,30 +88,24 @@ namespace Copter::Sensors
          */
         [[nodiscard]] temp::celsius_t readTemp() const override;
 
-        /**
-         * @brief: Returns an struct describing all the sensors in the chip. E.g: accerelation, gyroscope, etc.
-         * @return SensorType: Struct describing sensor types of the chip.
-         */
-        [[nodiscard]] SensorType getType() const override;
-
     private:
         /**
          * @brief Returns the scaling for the acceleration measurements based on mConfig.
          * @return float: Scaling to meters per second squared.
          */
-        [[nodiscard]] constexpr float getAccScaling() const;
+        [[nodiscard]] float getAccScaling() const;
 
         /**
          * @brief: Returns the scaling for the gyroscope measurements based on mConfig.
          * @return float: Scaling to degrees per second.
          */
-        [[nodiscard]] constexpr float getGyroScaling() const;
+        [[nodiscard]] float getGyroScaling() const;
 
         /**
          * @brief Returns scaling for the magnetometer measurements based on mConfig.
          * @return float: Scaling to gauss.
          */
-        [[nodiscard]] constexpr float getMagScaling() const;
+        [[nodiscard]] float getMagScaling() const;
 
         /**
          * @brief: Calibrates the bias for the accelerometer and gyroscope

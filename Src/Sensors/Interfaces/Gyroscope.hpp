@@ -13,7 +13,7 @@ namespace Copter::Sensors::Interfaces
     public:
         [[nodiscard]] virtual std::array<units::angular_velocity::degrees_per_second_t, 3> readGyro() const = 0;
 
-    private:
+    protected:
         Gyroscope()
         {
             mType.gyroscope = true;

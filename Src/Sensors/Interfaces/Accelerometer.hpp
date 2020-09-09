@@ -13,7 +13,7 @@ namespace Copter::Sensors::Interfaces
     public:
         [[nodiscard]] virtual std::array<units::acceleration::meters_per_second_squared_t, 3> readAccel() const = 0;
 
-    private:
+    protected:
         Accelerometer()
         {
             mType.accelerometer = true;

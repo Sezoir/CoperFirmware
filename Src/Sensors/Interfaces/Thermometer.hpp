@@ -13,7 +13,7 @@ namespace Copter::Sensors::Interfaces
     public:
         [[nodiscard]] virtual units::temperature::celsius_t readTemp() const = 0;
 
-    private:
+    protected:
         Thermometer()
         {
             mType.thermometer = true;

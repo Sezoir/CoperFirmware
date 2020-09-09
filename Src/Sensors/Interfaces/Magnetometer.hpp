@@ -13,7 +13,7 @@ namespace Copter::Sensors::Interfaces
     public:
         [[nodiscard]] virtual std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() const = 0;
 
-    private:
+    protected:
         Magnetometer()
         {
             mType.magnetometer = true;

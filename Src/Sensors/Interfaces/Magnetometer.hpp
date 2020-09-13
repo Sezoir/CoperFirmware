@@ -4,19 +4,13 @@
 // External libs
 #include <units.h>
 // Project files
-#include "Sensor.hpp"
+#include "BaseSensor.hpp"
 
 namespace Copter::Sensors::Interfaces
 {
-    class Magnetometer : public virtual Sensor
+    class Magnetometer : public BaseSensor
     {
     public:
         [[nodiscard]] virtual std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() const = 0;
-
-    protected:
-        Magnetometer()
-        {
-            mType.magnetometer = true;
-        }
     };
 } // namespace Copter::Sensors::Interfaces

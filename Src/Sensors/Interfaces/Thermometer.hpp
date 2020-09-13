@@ -4,19 +4,13 @@
 // External libs
 #include <units.h>
 // Project files
-#include "Sensor.hpp"
+#include "BaseSensor.hpp"
 
 namespace Copter::Sensors::Interfaces
 {
-    class Thermometer : public virtual Sensor
+    class Thermometer : public BaseSensor
     {
     public:
         [[nodiscard]] virtual units::temperature::celsius_t readTemp() const = 0;
-
-    protected:
-        Thermometer()
-        {
-            mType.thermometer = true;
-        }
     };
 } // namespace Copter::Sensors::Interfaces

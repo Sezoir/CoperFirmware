@@ -5,6 +5,7 @@
 #include <mbed.h>
 #include <units.h>
 // Project files
+#include "Interfaces/Sensor.hpp"
 #include "Interfaces/Accelerometer.hpp"
 #include "Interfaces/Gyroscope.hpp"
 #include "Interfaces/Magnetometer.hpp"
@@ -17,7 +18,8 @@ namespace Copter::Sensors
     namespace temp = units::temperature;
     namespace magStr = units::magnetic_field_strength;
 
-    class MPU9250 : public Interfaces::Accelerometer,
+    class MPU9250 : public Interfaces::Sensor,
+                    public Interfaces::Accelerometer,
                     public Interfaces::Gyroscope,
                     public Interfaces::Magnetometer,
                     public Interfaces::Thermometer

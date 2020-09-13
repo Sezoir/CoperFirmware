@@ -5,7 +5,7 @@
 #include "Engine/Motor.hpp"
 #include "Sensors/MPU9250.hpp"
 #include "Engine/MotorContainer.hpp"
-#include "Sensors/SensorContainer.hpp"
+#include "Sensors/Repository.hpp"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
@@ -29,9 +29,6 @@ int main()
 
     motors.setup({MOTOR_PINS}, Copter::Engine::Motor::Profile::MOTOR_PROFILE, MOTOR_DELAY, MOTOR_PROTOCOL_PARAMETERS);
 
-    Copter::Sensors::SensorContainer<1> sensors;
-    sensors.addSensor<Copter::Sensors::MPU9250>(PD_13, PD_12);
-    sensors.init();
     //    Copter::Sensors::MPU9250 sensor(PD_13, PD_12);
     //    sensor.setup();
 
@@ -71,12 +68,6 @@ int main()
         //        motors.update();
         //        proto.sendSignal(0_sd);
 
-        for(int i = 0; i < 5; i++)
-        {
-            auto naccel = sensors.readMag();
-            for(int j = 0; j < 3; j++)
-                accel[j] += naccel[j];
-        }
         for(auto& i : accel)
             i = (i / 5) * 100;
         //        accel = sensor.readGyro();

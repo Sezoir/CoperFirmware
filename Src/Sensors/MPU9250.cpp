@@ -6,7 +6,8 @@ namespace Copter::Sensors
     using I2CInterface = Copter::Drivers::I2CInterface;
 
     MPU9250::MPU9250(PinName sda, PinName scl)
-        : Accelerometer()
+        : Sensor()
+        , Accelerometer()
         , Gyroscope()
         , Magnetometer()
         , Thermometer()
@@ -15,7 +16,8 @@ namespace Copter::Sensors
     }
 
     MPU9250::MPU9250(PinName sda, PinName scl, Config config)
-        : Accelerometer()
+        : Sensor()
+        , Accelerometer()
         , Gyroscope()
         , Magnetometer()
         , Thermometer()

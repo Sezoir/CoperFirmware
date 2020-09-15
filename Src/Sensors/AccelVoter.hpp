@@ -8,6 +8,7 @@
 namespace Copter::Sensors
 {
     using namespace units::literals;
+
     class AccelVoter : public Interfaces::Accelerometer, public Interfaces::Voter<Interfaces::Accelerometer>
     {
     public:

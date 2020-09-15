@@ -8,6 +8,8 @@
 // Project files
 #include "../Interfaces/Angle.hpp"
 #include "../SensorRepository.hpp"
+#include "HighPass.hpp"
+#include "LowPass.hpp"
 
 namespace Copter::Sensors::Filters
 {
@@ -34,9 +36,14 @@ namespace Copter::Sensors::Filters
             {
                 accel[i] = temp[i];
             }
-            //            std::array<units::acceleration::meters_per_second_squared_t, 3> accel =
-            //            mAccelVoter.readAccel();
             std::array<units::angular_velocity::degrees_per_second_t, 3> gyro = mGyroVoter.readGyro();
+
+            // Filter raw data
+            for(uint8_t i = 0; i < 3; i++)
+            {
+                accel[i] = mLowPass[i](accel[i]);
+                gyro[i] = mHighPass[i](gyro[i]);
+            }
 
             // Calculate difference in time between calls
             auto curTime = units::time::millisecond_t(Kernel::Clock::now().time_since_epoch().count());
@@ -68,6 +75,16 @@ namespace Copter::Sensors::Filters
         // Voters
         AccelVoter& mAccelVoter;
         GyroVoter& mGyroVoter;
+
+        // Filters
+        std::array<HighPass<units::angular_velocity::degrees_per_second_t>, 3> mHighPass = {
+            HighPass<units::angular_velocity::degrees_per_second_t>(0.1, 0_deg_per_s, 0_deg_per_s),
+            HighPass<units::angular_velocity::degrees_per_second_t>(0.1, 0_deg_per_s, 0_deg_per_s),
+            HighPass<units::angular_velocity::degrees_per_second_t>(0.1, 0_deg_per_s, 0_deg_per_s)};
+        std::array<LowPass<units::acceleration::standard_gravity_t>, 3> mLowPass = {
+            LowPass<units::acceleration::standard_gravity_t>(0.1, 0_SG),
+            LowPass<units::acceleration::standard_gravity_t>(0.1, 0_SG),
+            LowPass<units::acceleration::standard_gravity_t>(0.1, 0_SG)};
     };
 
 } // namespace Copter::Sensors::Filters

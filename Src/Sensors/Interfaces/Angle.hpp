@@ -3,8 +3,6 @@
 #include <array>
 // External libs
 #include <units.h>
-// Project files
-#include "Expansion.hpp"
 
 namespace Copter::Sensors::Interfaces
 {

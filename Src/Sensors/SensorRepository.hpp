@@ -7,6 +7,7 @@
 #include "GyroVoter.hpp"
 #include "MagVoter.hpp"
 #include "ThermoVoter.hpp"
+#include "Filters/Complementary.hpp"
 #include "MPU9250.hpp"
 
 namespace Copter::Sensors
@@ -49,6 +50,10 @@ namespace Copter::Sensors
             {
                 return mThermoVoter;
             }
+            else if constexpr(std::is_same<T, Interfaces::Angle>::value)
+            {
+                return mAngle;
+            }
         }
 
     private:
@@ -59,6 +64,7 @@ namespace Copter::Sensors
         ThermoVoter mThermoVoter = {};
 
         // Data expansions
+        Filters::Complementary mAngle = {mAccelVoter, mGyroVoter};
 
         // Sensors
         MPU9250 mSensor1 = {PD_13, PD_12};

@@ -5,7 +5,7 @@
 #include "Engine/Motor.hpp"
 #include "Sensors/MPU9250.hpp"
 #include "Engine/MotorContainer.hpp"
-#include "Sensors/Repository.hpp"
+#include "Sensors/SensorRepository.hpp"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
@@ -19,28 +19,28 @@ int main()
 {
     printf("Project started\n");
 
-    //    Copter::Engine::DShot proto(PB_8, 1200);
-    //    proto.setup();
-    //
-    //    Copter::Engine::Motor motor;
-    //    motor.init(proto, Copter::Engine::Motor::Profile::SlowRamp, 1ms);
-
+    // Create motors
     Copter::Engine::MotorContainer<Copter::Engine::MOTOR_PROTOCOL, MOTOR_COUNT> motors;
-
+    // Setup motors
     motors.setup({MOTOR_PINS}, Copter::Engine::Motor::Profile::MOTOR_PROFILE, MOTOR_DELAY, MOTOR_PROTOCOL_PARAMETERS);
-
-    //    Copter::Sensors::MPU9250 sensor(PD_13, PD_12);
-    //    sensor.setup();
-
-    char buf[5] = {0};
-    //    updater.attach(callback(&motor, &Copter::Engine::Motor::update), 1ms);
-
     updater.attach(
         callback(&motors, &Copter::Engine::MotorContainer<Copter::Engine::MOTOR_PROTOCOL, MOTOR_COUNT>::update), 1ms);
 
+    // Create sensor repo
+    Copter::Sensors::SensorRepository repo;
+    repo.build();
+
+    // Create variables
+    char buf[5] = {0};
     //    std::array<units::acceleration::meters_per_second_squared_t, 3> accel = {0_mps_sq, 0_mps_sq, 0_mps_sq};
     //    std::array<units::angular_velocity::degrees_per_second_t, 3> accel = {0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
-    std::array<units::magnetic_field_strength::gauss_t, 3> accel = {0_G, 0_G, 0_G};
+    //    std::array<units::magnetic_field_strength::gauss_t, 3> accel = {0_G, 0_G, 0_G};
+
+    units::angle::degree_t mRoll = 0_deg;
+    units::angle::degree_t mPitch = 0_deg;
+    units::angle::degree_t mYaw = 0_deg;
+
+    auto prevTime = units::time::millisecond_t(Kernel::Clock::now().time_since_epoch().count());
 
     while(true)
     {
@@ -66,21 +66,34 @@ int main()
         }
 
         //        motors.update();
-        //        proto.sendSignal(0_sd);
 
-        for(auto& i : accel)
-            i = (i / 5) * 100;
-        //        accel = sensor.readGyro();
+        // Calculate difference in time between calls
+        //        auto curTime = units::time::millisecond_t(Kernel::Clock::now().time_since_epoch().count());
+        //        auto diffTime = curTime - prevTime;
+        //        prevTime = curTime;
+        //        printf("%u\n", diffTime.to<uint16_t>());
 
-        std::array<int, 3> temp = {0, 0, 0};
-        for(int i = 0; i < 3; i++)
-        {
-            temp[i] = static_cast<int>(accel[i]);
-        }
-        printf("X: %d, Y: %d, Z: %d\n", temp[0], temp[1], temp[2]);
+        repo.get<Copter::Sensors::Interfaces::Angle>().update();
+        mRoll = repo.get<Copter::Sensors::Interfaces::Angle>().getRoll();
+        mPitch = repo.get<Copter::Sensors::Interfaces::Angle>().getPitch();
+        mYaw = repo.get<Copter::Sensors::Interfaces::Angle>().getYaw();
+
+        int roll = mRoll.to<int>();
+        int pitch = mPitch.to<int>();
+        int yaw = mYaw.to<int>();
+
+        printf("%d, %d, %d\n", roll, pitch, yaw);
+
+        //        accel = repo.get<Copter::Sensors::AccelVoter>().readAccel();
+        //        std::array<int, 3> temp = {0, 0, 0};
+        //        for(int i = 0; i < 3; i++)
+        //        {
+        //            temp[i] = static_cast<int>(accel[i] * 100);
+        //        }
+        //        printf("X: %d, Y: %d, Z: %d\n", temp[0], temp[1], temp[2]);
         //        accel = {0_mps_sq, 0_mps_sq, 0_mps_sq};
         //        accel = {0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
-        accel = {0_G, 0_G, 0_G};
+        //        accel = {0_G, 0_G, 0_G};
 
         ThisThread::sleep_for(250ms);
     }

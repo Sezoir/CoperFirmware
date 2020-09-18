@@ -40,7 +40,7 @@ int main()
     units::angle::degree_t mPitch = 0_deg;
     units::angle::degree_t mYaw = 0_deg;
 
-    auto prevTime = units::time::millisecond_t(Kernel::Clock::now().time_since_epoch().count());
+    //    auto prevTime = units::time::millisecond_t(Kernel::Clock::now().time_since_epoch().count());
 
     while(true)
     {
@@ -84,7 +84,7 @@ int main()
 
         printf("%d, %d, %d\n", roll, pitch, yaw);
 
-        //        accel = repo.get<Copter::Sensors::AccelVoter>().readAccel();
+        //        auto accel = repo.get<Copter::Sensors::AccelVoter>().readAccel();
         //        std::array<int, 3> temp = {0, 0, 0};
         //        for(int i = 0; i < 3; i++)
         //        {

@@ -7,7 +7,10 @@
 #include "GyroVoter.hpp"
 #include "MagVoter.hpp"
 #include "ThermoVoter.hpp"
+#include "AngleExtension.hpp"
 #include "Filters/Complementary.hpp"
+#include "Filters/None.hpp"
+#include "Interfaces/Angle.hpp"
 #include "MPU9250.hpp"
 
 namespace Copter::Sensors
@@ -31,6 +34,11 @@ namespace Copter::Sensors
             // Register data expansions
         }
 
+        /**
+         * @brief Returns a reference to the correct voter/expansion.
+         * @tparam T: The voter of expansion class @todo: look into changing this to use the Interface classes instead.
+         * @return
+         */
         template <typename T>
         constexpr auto& get()
         {
@@ -64,7 +72,8 @@ namespace Copter::Sensors
         ThermoVoter mThermoVoter = {};
 
         // Data expansions
-        Filters::Complementary mAngle = {mAccelVoter, mGyroVoter};
+        AngleExtension<Filters::Complementary, Filters::Complementary, Filters::None> mAngle = {mAccelVoter, mGyroVoter,
+                                                                                                mMagVoter};
 
         // Sensors
         MPU9250 mSensor1 = {PD_13, PD_12};

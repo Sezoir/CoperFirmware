@@ -99,7 +99,7 @@ namespace Copter::Sensors
         return true;
     }
 
-    std::array<acc::meters_per_second_squared_t, 3> MPU9250::readAccel() const
+    std::array<acc::meters_per_second_squared_t, 3> MPU9250::readAccel()
     {
         std::array<acc::meters_per_second_squared_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
@@ -116,7 +116,7 @@ namespace Copter::Sensors
         return returnData;
     }
 
-    std::array<angVel::degrees_per_second_t, 3> MPU9250::readGyro() const
+    std::array<angVel::degrees_per_second_t, 3> MPU9250::readGyro()
     {
         std::array<angVel::degrees_per_second_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
@@ -133,7 +133,7 @@ namespace Copter::Sensors
         return returnData;
     }
 
-    std::array<magStr::microtesla_t, 3> MPU9250::readMag() const
+    std::array<magStr::microtesla_t, 3> MPU9250::readMag()
     {
         const float scaling = getMagScaling();
         std::array<int16_t, 3> rawData = readRawMag();

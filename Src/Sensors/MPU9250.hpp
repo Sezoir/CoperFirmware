@@ -29,7 +29,7 @@ namespace Copter::Sensors
         {
             uint8_t address = (0x68 << 1);
             uint8_t gyroScale = 0x00;
-            uint8_t accelScale = 0x10;
+            uint8_t accelScale = 0x00;
             uint8_t clkSelect = 0x01;
             uint8_t gyroTempDigiFilter = 0x00;
             uint8_t accelDigiFilter = 0x00;
@@ -69,20 +69,20 @@ namespace Copter::Sensors
          * @brief Read accelerometer.
          * @return std::array<units::acceleration::meters_per_second_squared_t, 3>: Array of acceleration in (x,y,z).
          */
-        [[nodiscard]] std::array<acc::meters_per_second_squared_t, 3> readAccel() const override;
+        [[nodiscard]] std::array<acc::meters_per_second_squared_t, 3> readAccel() override;
 
         /**
          * @brief Read gyroscope.
          * @return std::array<units::angular_velocity::degrees_per_second_t, 3>: Array of acceleration in (x,y,z).
          */
-        [[nodiscard]] std::array<angVel::degrees_per_second_t, 3> readGyro() const override;
+        [[nodiscard]] std::array<angVel::degrees_per_second_t, 3> readGyro() override;
 
         /**
          * @brief Read magnetic strength.
          * @todo: Add calibration to result.
          * @return std::array<units::magnetic_field_strength::gauss_t, 3>: Array of magnetism in (x,y,z).
          */
-        [[nodiscard]] std::array<magStr::microtesla_t, 3> readMag() const override;
+        [[nodiscard]] std::array<magStr::microtesla_t, 3> readMag() override;
 
         /**
          * @brief Read temperature.

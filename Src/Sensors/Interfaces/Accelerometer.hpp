@@ -11,6 +11,6 @@ namespace Copter::Sensors::Interfaces
     class Accelerometer : public BaseSensor
     {
     public:
-        [[nodiscard]] virtual std::array<units::acceleration::meters_per_second_squared_t, 3> readAccel() const = 0;
+        [[nodiscard]] virtual std::array<units::acceleration::meters_per_second_squared_t, 3> readAccel() = 0;
     };
 } // namespace Copter::Sensors::Interfaces

@@ -11,6 +11,6 @@ namespace Copter::Sensors::Interfaces
     class Magnetometer : public BaseSensor
     {
     public:
-        [[nodiscard]] virtual std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() const = 0;
+        [[nodiscard]] virtual std::array<units::magnetic_field_strength::microtesla_t, 3> readMag() = 0;
     };
 } // namespace Copter::Sensors::Interfaces

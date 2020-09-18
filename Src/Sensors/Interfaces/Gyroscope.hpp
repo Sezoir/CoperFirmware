@@ -11,6 +11,6 @@ namespace Copter::Sensors::Interfaces
     class Gyroscope : public BaseSensor
     {
     public:
-        [[nodiscard]] virtual std::array<units::angular_velocity::degrees_per_second_t, 3> readGyro() const = 0;
+        [[nodiscard]] virtual std::array<units::angular_velocity::degrees_per_second_t, 3> readGyro() = 0;
     };
 } // namespace Copter::Sensors::Interfaces

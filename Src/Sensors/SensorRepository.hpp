@@ -10,6 +10,10 @@
 #include "AngleExtension.hpp"
 #include "Filters/Complementary.hpp"
 #include "Filters/None.hpp"
+#include "Interfaces/Accelerometer.hpp"
+#include "Interfaces/Gyroscope.hpp"
+#include "Interfaces/Magnetometer.hpp"
+#include "Interfaces/Thermometer.hpp"
 #include "Interfaces/Angle.hpp"
 #include "MPU9250.hpp"
 
@@ -36,25 +40,25 @@ namespace Copter::Sensors
 
         /**
          * @brief Returns a reference to the correct voter/expansion.
-         * @tparam T: The voter of expansion class @todo: look into changing this to use the Interface classes instead.
+         * @tparam T: The voter of expansion class
          * @return
          */
         template <typename T>
         constexpr auto& get()
         {
-            if constexpr(std::is_same<T, AccelVoter>::value)
+            if constexpr(std::is_same<T, AccelVoter>::value || std::is_same<T, Interfaces::Accelerometer>::value)
             {
                 return mAccelVoter;
             }
-            else if constexpr(std::is_same<T, GyroVoter>::value)
+            else if constexpr(std::is_same<T, GyroVoter>::value || std::is_same<T, Interfaces::Gyroscope>::value)
             {
                 return mGyroVoter;
             }
-            else if constexpr(std::is_same<T, MagVoter>::value)
+            else if constexpr(std::is_same<T, MagVoter>::value || std::is_same<T, Interfaces::Magnetometer>::value)
             {
                 return mMagVoter;
             }
-            else if constexpr(std::is_same<T, ThermoVoter>::value)
+            else if constexpr(std::is_same<T, ThermoVoter>::value || std::is_same<T, Interfaces::Thermometer>::value)
             {
                 return mThermoVoter;
             }

@@ -1,20 +1,25 @@
 #pragma once
-// Std libs
+// Std libs //
 #include <cstdlib>
 
-// Project files
+// Project files //
+// Voters
 #include "AccelVoter.hpp"
 #include "GyroVoter.hpp"
 #include "MagVoter.hpp"
 #include "ThermoVoter.hpp"
+// Extensions
 #include "AngleExtension.hpp"
+// Filters
 #include "Filters/Complementary.hpp"
 #include "Filters/None.hpp"
+// Interfaces
 #include "Interfaces/Accelerometer.hpp"
 #include "Interfaces/Gyroscope.hpp"
 #include "Interfaces/Magnetometer.hpp"
 #include "Interfaces/Thermometer.hpp"
 #include "Interfaces/Angle.hpp"
+// Sensors
 #include "MPU9250.hpp"
 
 namespace Copter::Sensors

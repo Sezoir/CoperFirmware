@@ -94,7 +94,7 @@ namespace Copter::Sensors
         ThisThread::sleep_for(10ms);
 
         // Calibrate magnetometer
-        calMagBias();
+        //        calMagBias();
 
         return true;
     }
@@ -103,7 +103,7 @@ namespace Copter::Sensors
     {
         std::array<acc::meters_per_second_squared_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
-        const float scaling = getAccScaling();
+        const double scaling = getAccScaling();
         rawData =
             I2CInterface::readConsBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_XOUT_H));
         for(int i = 0; i < 3; i++)
@@ -120,7 +120,7 @@ namespace Copter::Sensors
     {
         std::array<angVel::degrees_per_second_t, 3> returnData = {};
         std::array<uint8_t, 6> rawData = {};
-        const float scaling = getGyroScaling();
+        const double scaling = getGyroScaling();
         rawData =
             I2CInterface::readConsBytes<6>(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_XOUT_H));
         for(int i = 0; i < 3; i++)
@@ -135,7 +135,7 @@ namespace Copter::Sensors
 
     std::array<magStr::microtesla_t, 3> MPU9250::readMag()
     {
-        const float scaling = getMagScaling();
+        const double scaling = getMagScaling();
         std::array<int16_t, 3> rawData = readRawMag();
         std::array<magStr::microtesla_t, 3> returnData = {};
         for(int i = 0; i < 3; i++)
@@ -158,7 +158,7 @@ namespace Copter::Sensors
         return temperature;
     }
 
-    float MPU9250::getAccScaling() const
+    double MPU9250::getAccScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.accelScale)
@@ -181,7 +181,7 @@ namespace Copter::Sensors
         }
     }
 
-    float MPU9250::getGyroScaling() const
+    double MPU9250::getGyroScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.gyroScale)
@@ -204,7 +204,7 @@ namespace Copter::Sensors
         }
     }
 
-    float MPU9250::getMagScaling() const
+    double MPU9250::getMagScaling() const
     {
         // Note that 32769 is the maximum/minimum value of the acceleration
         switch(mConfig.magScale)
@@ -249,8 +249,9 @@ namespace Copter::Sensors
 
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::CONFIG), 0x01);
         I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::SMPLRT_DIV), 0x00);
-        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_CONFIG), 0x00);
-        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_CONFIG_ONE), 0x00);
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::GYRO_CONFIG), 0x00); // 0x00
+        I2CInterface::writeByte(mI2CID, mConfig.address, static_cast<char>(mFixedAddress::ACCEL_CONFIG_ONE),
+                                0x00); // 0x00
         /*-------------------------------------------------------------------------*/
 
         // Configure FIFO to capture accelerometer and gyro data

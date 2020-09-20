@@ -40,9 +40,9 @@ namespace Copter::Sensors
         }
 
     private:
-        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mXFilter = {0.5, 0_mps_sq};
-        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mYFilter = {0.5, 0_mps_sq};
-        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mZFilter = {0.5, 9.81_mps_sq};
+        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mXFilter = {0.002, 0_mps_sq};
+        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mYFilter = {0.002, 0_mps_sq};
+        Filters::LowPass<units::acceleration::meters_per_second_squared_t> mZFilter = {0.002, 9.81_mps_sq};
     };
 
 } // namespace Copter::Sensors

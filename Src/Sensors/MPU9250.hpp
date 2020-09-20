@@ -93,21 +93,21 @@ namespace Copter::Sensors
     private:
         /**
          * @brief Returns the scaling for the acceleration measurements based on mConfig.
-         * @return float: Scaling to meters per second squared.
+         * @return double: Scaling to meters per second squared.
          */
-        [[nodiscard]] float getAccScaling() const;
+        [[nodiscard]] double getAccScaling() const;
 
         /**
          * @brief: Returns the scaling for the gyroscope measurements based on mConfig.
-         * @return float: Scaling to degrees per second.
+         * @return double: Scaling to degrees per second.
          */
-        [[nodiscard]] float getGyroScaling() const;
+        [[nodiscard]] double getGyroScaling() const;
 
         /**
          * @brief Returns scaling for the magnetometer measurements based on mConfig.
-         * @return float: Scaling to gauss.
+         * @return double: Scaling to gauss.
          */
-        [[nodiscard]] float getMagScaling() const;
+        [[nodiscard]] double getMagScaling() const;
 
         /**
          * @brief: Calibrates the bias for the accelerometer and gyroscope

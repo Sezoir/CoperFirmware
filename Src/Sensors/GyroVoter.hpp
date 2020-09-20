@@ -40,9 +40,9 @@ namespace Copter::Sensors
         }
 
     private:
-        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mXFilter = {0.5, 0_deg_per_s, 0_deg_per_s};
-        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mYFilter = {0.5, 0_deg_per_s, 0_deg_per_s};
-        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mZFilter = {0.5, 0_deg_per_s, 0_deg_per_s};
+        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mXFilter = {0.00001, 0_deg_per_s, 0_deg_per_s};
+        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mYFilter = {0.00001, 0_deg_per_s, 0_deg_per_s};
+        Filters::HighPass<units::angular_velocity::degrees_per_second_t> mZFilter = {0.00001, 0_deg_per_s, 0_deg_per_s};
     };
 
 } // namespace Copter::Sensors

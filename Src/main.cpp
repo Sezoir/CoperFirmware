@@ -95,7 +95,7 @@ int main()
         //        accel = {0_deg_per_s, 0_deg_per_s, 0_deg_per_s};
         //        accel = {0_G, 0_G, 0_G};
 
-        ThisThread::sleep_for(250ms);
+        //        ThisThread::sleep_for(10ms);
     }
 }
 #pragma clang diagnostic pop

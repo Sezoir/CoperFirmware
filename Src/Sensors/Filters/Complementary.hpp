@@ -12,7 +12,7 @@ namespace Copter::Sensors::Filters
     {
     public:
         template <typename T>
-        T operator()(T major, T minor)
+        constexpr T operator()(T major, T minor)
         {
             return (0.98 * major) + (0.02 * minor);
         }

@@ -7,6 +7,7 @@
 #include "AccelVoter.hpp"
 #include "GyroVoter.hpp"
 #include "MagVoter.hpp"
+#include "Filters/LinearKalman.hpp"
 
 namespace Copter::Sensors
 {
@@ -65,6 +66,10 @@ namespace Copter::Sensors
             mRoll = mRollFilter(mGyroAngle[0], accelAngle[0]);
             mPitch = mPitchFilter(mGyroAngle[1], accelAngle[1]);
             mYaw = mYawFilter(mGyroAngle[2]);
+
+            mRoll = mRollKalmin(mRoll);
+            mPitch = mPitchKalmin(mPitch);
+            mYaw = mYawKalmin(mYaw);
         }
 
     private:
@@ -77,6 +82,9 @@ namespace Copter::Sensors
         RollFilter mRollFilter = {};
         PitchFilter mPitchFilter = {};
         YawFilter mYawFilter = {};
+        Filters::LinearKalman<units::angle::degree_t> mRollKalmin = {2_deg, 0_deg, 1_deg};
+        Filters::LinearKalman<units::angle::degree_t> mPitchKalmin = {2_deg, 0_deg, 1_deg};
+        Filters::LinearKalman<units::angle::degree_t> mYawKalmin = {2_deg, 0_deg, 1_deg};
 
         // Current angles
         units::angle::degree_t mRoll = 0_deg;

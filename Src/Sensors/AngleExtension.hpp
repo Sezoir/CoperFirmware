@@ -11,7 +11,8 @@
 
 namespace Copter::Sensors
 {
-    template <typename RollFilter, typename PitchFilter, typename YawFilter>
+    template <typename RollMix, typename PitchMix, typename YawMix, typename RollFilter, typename PitchFilter,
+              typename YawFilter>
     class AngleExtension
     {
     public:
@@ -82,9 +83,10 @@ namespace Copter::Sensors
         RollFilter mRollFilter = {};
         PitchFilter mPitchFilter = {};
         YawFilter mYawFilter = {};
-        Filters::LinearKalman<units::angle::degree_t> mRollKalmin = {2_deg, 0_deg, 1_deg};
-        Filters::LinearKalman<units::angle::degree_t> mPitchKalmin = {2_deg, 0_deg, 1_deg};
-        Filters::LinearKalman<units::angle::degree_t> mYawKalmin = {2_deg, 0_deg, 1_deg};
+
+        RollMix mRollKalmin = {2_deg, 0_deg, 2_deg};
+        PitchMix mPitchKalmin = {2_deg, 0_deg, 2_deg};
+        YawMix mYawKalmin = {2_deg, 0_deg, 2_deg};
 
         // Current angles
         units::angle::degree_t mRoll = 0_deg;

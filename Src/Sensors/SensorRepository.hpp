@@ -14,6 +14,7 @@
 #include "Filters/Complementary.hpp"
 #include "Filters/None.hpp"
 // Interfaces
+#include "Interfaces/Sensor.hpp"
 #include "Interfaces/Accelerometer.hpp"
 #include "Interfaces/Gyroscope.hpp"
 #include "Interfaces/Magnetometer.hpp"
@@ -32,7 +33,8 @@ namespace Copter::Sensors
         void build()
         {
             // Setup sensors
-            mSensor1.init();
+            init(mSensor1);
+            //            mSensor1.init();
 
             // Register sensors to voters
             mAccelVoter.assign(mSensor1);
@@ -74,6 +76,16 @@ namespace Copter::Sensors
         }
 
     private:
+        void init(Interfaces::Sensor& sensor)
+        {
+            bool success = sensor.init();
+            if(!success)
+            {
+                MBED_ERROR(MBED_MAKE_ERROR(MBED_MODULE_APPLICATION, MBED_ERROR_INITIALIZATION_FAILED),
+                           "Sensor initialisation failed.");
+            }
+        }
+
         // Voters
         AccelVoter mAccelVoter = {};
         GyroVoter mGyroVoter = {};
@@ -81,8 +93,10 @@ namespace Copter::Sensors
         ThermoVoter mThermoVoter = {};
 
         // Data expansions
-        AngleExtension<Filters::Complementary, Filters::Complementary, Filters::None> mAngle = {mAccelVoter, mGyroVoter,
-                                                                                                mMagVoter};
+        AngleExtension<Filters::LinearKalman<units::angle::degree_t>, Filters::LinearKalman<units::angle::degree_t>,
+                       Filters::LinearKalman<units::angle::degree_t>, Filters::Complementary, Filters::Complementary,
+                       Filters::None>
+            mAngle = {mAccelVoter, mGyroVoter, mMagVoter};
 
         // Sensors
         MPU9250 mSensor1 = {PD_13, PD_12};

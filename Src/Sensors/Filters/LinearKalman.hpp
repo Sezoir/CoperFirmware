@@ -8,8 +8,8 @@ namespace Copter::Sensors::Filters
     public:
         LinearKalman(T measurementError, T initEstimate, T initError)
             : mMeasureError(measurementError)
-            , mPreEstimate(initEstimate)
             , mEstError(initError)
+            , mPreEstimate(initEstimate)
             , mKalminGain(1)
         {
         }

@@ -36,7 +36,7 @@ namespace Copter::Controller
             else if(mIValue > mWindUpGuard)
                 mIValue = mWindUpGuard;
 
-            const Type dValue = diffError * diffTime;
+            const Type dValue = diffError / diffTime;
 
             // Update error
             mPrevError = error;

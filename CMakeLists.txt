@@ -26,3 +26,6 @@ add_subdirectory(Dependencies)
 # Add project
 add_subdirectory(Src)
 
+# Add unit tests
+add_subdirectory(UnitTests)
+

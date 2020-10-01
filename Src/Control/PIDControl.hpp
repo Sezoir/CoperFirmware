@@ -3,7 +3,7 @@
 #include <mbed.h>
 #include <units.h>
 
-namespace Copter::Controller
+namespace Copter::Control
 {
     template <typename Type>
     class PIDControl
@@ -65,4 +65,4 @@ namespace Copter::Controller
         const double mI;
         const double mD;
     };
-} // namespace Copter::Controller
+} // namespace Copter::Control

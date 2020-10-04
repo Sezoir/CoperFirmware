@@ -9,6 +9,7 @@
 
 namespace Copter::Control
 {
+    template <typename PIDType>
     class Controller
     {
     public:
@@ -28,8 +29,33 @@ namespace Copter::Control
          * @param pitch: New pitch angle.
          * @param yaw
          */
-        void update(units::protocol::speed_t throttle, units::angle::degree_t roll, units::angle::degree_t pitch,
-                    units::angle::degree_t yaw);
+        void update(units::protocol::speed_t throttle, PIDType roll, PIDType pitch, PIDType yaw)
+        {
+            // Get new pid adjustments
+            auto rollPID = mRollPID.update(roll);
+            auto pitchPID = mPitchPID.update(pitch);
+            auto yawPID = mYawPID.update(yaw);
+
+            // Get new motor values
+            // Front left
+            units::protocol::speed_t motorOne =
+                throttle + units::protocol::speed_t(units::unit_cast<double>(-rollPID - pitchPID + yawPID));
+            // Front right
+            units::protocol::speed_t motorTwo =
+                throttle + units::protocol::speed_t(units::unit_cast<double>(rollPID - pitchPID - yawPID));
+            // Rear left
+            units::protocol::speed_t motorThree =
+                throttle + units::protocol::speed_t(units::unit_cast<double>(-rollPID + pitchPID - yawPID));
+            // Rear right
+            units::protocol::speed_t motorFour =
+                throttle + units::protocol::speed_t(units::unit_cast<double>(rollPID + pitchPID + yawPID));
+
+            // Update motors
+            mMotors.setSpeed(0, motorOne);
+            mMotors.setSpeed(1, motorTwo);
+            mMotors.setSpeed(2, motorThree);
+            mMotors.setSpeed(3, motorFour);
+        }
 
         /**
          * @brief: Update the desired values for the pid controllers.
@@ -37,16 +63,21 @@ namespace Copter::Control
          * @param newPitch: New pitch angle.
          * @param newYaw: New yaw angle.
          */
-        void setDesValue(units::angle::degree_t newRoll, units::angle::degree_t newPitch,
-                         units::angle::degree_t newYaw);
+        void setDesValue(PIDType newRoll, PIDType newPitch, PIDType newYaw)
+        {
+            // Update pid desired values
+            mRollPID.setDesValue(newRoll);
+            mPitchPID.setDesValue(newPitch);
+            mYawPID.setDesValue(newYaw);
+        }
 
     private:
         // Motor container
         Engine::MotorContainer<Engine::MOTOR_PROTOCOL, MOTOR_COUNT>& mMotors;
 
         // PID Controllers
-        PIDControl<units::angle::degree_t> mRollPID = {ROLL_PID_P, ROLL_PID_I, ROLL_PID_D};
-        PIDControl<units::angle::degree_t> mPitchPID = {PITCH_PID_P, PITCH_PID_I, PITCH_PID_D};
-        PIDControl<units::angle::degree_t> mYawPID = {YAW_PID_P, YAW_PID_I, YAW_PID_D};
+        PIDControl<PIDType> mRollPID = {ROLL_PID_P, ROLL_PID_I, ROLL_PID_D};
+        PIDControl<PIDType> mPitchPID = {PITCH_PID_P, PITCH_PID_I, PITCH_PID_D};
+        PIDControl<PIDType> mYawPID = {YAW_PID_P, YAW_PID_I, YAW_PID_D};
     };
 } // namespace Copter::Control

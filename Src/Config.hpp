@@ -24,3 +24,7 @@
 #define YAW_PID_P 0.4
 #define YAW_PID_I 0.4
 #define YAW_PID_D 0.4
+
+#define THROTTLE_PID_P 0.4
+#define THROTTLE_PID_I 0.4
+#define THROTTLE_PID_D 0.4

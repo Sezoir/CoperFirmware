@@ -40,13 +40,5 @@ namespace Copter::Control
         void update() override;
 
     private:
-        /**
-         * @brief Calibrates the throttle per iteration.
-         * @return: bool: Returns false if not calibrated yet, otherwise true.
-         */
-        bool calibrateThrottle();
-
-        // Minimum throttle to counteract gravity
-        units::protocol::speed_t mThrottle{0};
     };
 } // namespace Copter::Control

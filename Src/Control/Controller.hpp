@@ -9,7 +9,7 @@
 
 namespace Copter::Control
 {
-    template <typename PIDType>
+    template <typename ThrottleType, typename AngleType>
     class Controller
     {
     public:
@@ -29,7 +29,7 @@ namespace Copter::Control
          * @param pitch: New pitch angle.
          * @param yaw
          */
-        void update(units::acceleration::meters_per_second_squared_t throttle, PIDType roll, PIDType pitch, PIDType yaw)
+        void update(ThrottleType throttle, AngleType roll, AngleType pitch, AngleType yaw)
         {
             // Get new pid adjustments
             auto throttlePID = mThrottle.update(throttle);
@@ -40,16 +40,16 @@ namespace Copter::Control
             // Get new motor values
             // Front left
             units::protocol::speed_t motorOne = units::protocol::speed_t(
-                throttlePID.to<double>() + units::unit_cast<double>(-rollPID - pitchPID + yawPID));
+                units::unit_cast<double>(throttlePID) + units::unit_cast<double>(-rollPID - pitchPID + yawPID));
             // Front right
             units::protocol::speed_t motorTwo = units::protocol::speed_t(
-                throttlePID.to<double>() + units::unit_cast<double>(rollPID - pitchPID - yawPID));
+                units::unit_cast<double>(throttlePID) + units::unit_cast<double>(rollPID - pitchPID - yawPID));
             // Rear left
             units::protocol::speed_t motorThree = units::protocol::speed_t(
-                throttlePID.to<double>() + units::unit_cast<double>(-rollPID + pitchPID - yawPID));
+                units::unit_cast<double>(throttlePID) + units::unit_cast<double>(-rollPID + pitchPID - yawPID));
             // Rear right
             units::protocol::speed_t motorFour = units::protocol::speed_t(
-                throttlePID.to<double>() + units::unit_cast<double>(rollPID + pitchPID + yawPID));
+                units::unit_cast<double>(throttlePID) + units::unit_cast<double>(rollPID + pitchPID + yawPID));
 
             // Update motors
             mMotors.setSpeed(0, motorOne);
@@ -64,8 +64,7 @@ namespace Copter::Control
          * @param newPitch: New pitch angle.
          * @param newYaw: New yaw angle.
          */
-        void setDesValue(units::acceleration::meters_per_second_squared_t throttle, PIDType newRoll, PIDType newPitch,
-                         PIDType newYaw)
+        void setDesValue(ThrottleType throttle, AngleType newRoll, AngleType newPitch, AngleType newYaw)
         {
             // Update pid desired values
             mThrottle.setDesValue(throttle);
@@ -79,10 +78,9 @@ namespace Copter::Control
         Engine::MotorContainer<Engine::MOTOR_PROTOCOL, MOTOR_COUNT>& mMotors;
 
         // PID Controllers
-        PIDControl<PIDType> mRollPID = {ROLL_PID_P, ROLL_PID_I, ROLL_PID_D};
-        PIDControl<PIDType> mPitchPID = {PITCH_PID_P, PITCH_PID_I, PITCH_PID_D};
-        PIDControl<PIDType> mYawPID = {YAW_PID_P, YAW_PID_I, YAW_PID_D};
-        PIDControl<units::acceleration::meters_per_second_squared_t> mThrottle = {THROTTLE_PID_P, THROTTLE_PID_I,
-                                                                                  THROTTLE_PID_D};
+        PIDControl<AngleType> mRollPID = {ROLL_PID_P, ROLL_PID_I, ROLL_PID_D};
+        PIDControl<AngleType> mPitchPID = {PITCH_PID_P, PITCH_PID_I, PITCH_PID_D};
+        PIDControl<AngleType> mYawPID = {YAW_PID_P, YAW_PID_I, YAW_PID_D};
+        PIDControl<ThrottleType> mThrottle = {THROTTLE_PID_P, THROTTLE_PID_I, THROTTLE_PID_D};
     };
 } // namespace Copter::Control

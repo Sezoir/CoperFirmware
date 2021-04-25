@@ -24,7 +24,7 @@ namespace Copter::Control
             const Type diffError = error - mPrevError;
 
             // Calculate time difference
-            double curTime = Kernel::Clock::now().time_since_epoch().count();
+            double curTime = static_cast<double>(Kernel::Clock::now().time_since_epoch().count());
             double diffTime = (curTime - mPrevTime) / 1000;
             mPrevTime = curTime;
 

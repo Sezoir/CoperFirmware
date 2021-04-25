@@ -16,9 +16,12 @@ namespace Copter::Control
     /**
      * @brief A control scheme for a self leveling quadcopter. In this case we are controlling the angles of the copter.
      */
-    class SelfLevelControl : public ControlScheme<units::angle::degree_t>
+    class SelfLevelControl : public ControlScheme
     {
     public:
+        typedef units::length::meter_t ThrottleType;
+        typedef units::angle::degree_t AngleType;
+
         /**
          * @brief Constructor
          * @param motorContainer: Reference to the container of motors.
@@ -40,5 +43,7 @@ namespace Copter::Control
         void update() override;
 
     private:
+        Controller<ThrottleType, AngleType> mController;
+        Sensors::SensorRepository& mData;
     };
 } // namespace Copter::Control

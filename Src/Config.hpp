@@ -1,12 +1,16 @@
 #pragma once
 
+// @TODO: Look at adding a json config file, with a python script that will then process and auto generate this file.
+// @TODO: Also look at reworking without defines.
+// @TODO: Seperate Config.hpp file from project, so unit tests can have there own Config.hpp files.
+
 /**
  * Motor Config
  */
-#define MOTOR_COUNT               2
+#define MOTOR_COUNT               2 //@TODO: Remove
 #define MOTOR_PROTOCOL            DShot
-#define MOTOR_PROTOCOL_PARAMETERS 1200
-#define MOTOR_PINS                PB_8, PC_6
+#define MOTOR_PROTOCOL_PARAMETERS 1200       // Look at std::any
+#define MOTOR_PINS                PB_8, PC_6 // Add check for 4 pins. Maybe even split into 4 defines?
 #define MOTOR_DELAY               1ms
 #define MOTOR_PROFILE             SlowRamp
 

@@ -116,4 +116,8 @@ namespace Copter::Engine
             mSpeed = newSpeed;
         }
     }
+    units::protocol::speed_t Motor::getCurrentSpeed() const
+    {
+        return mSpeed;
+    }
 } // namespace Copter::Engine

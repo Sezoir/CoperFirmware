@@ -53,6 +53,12 @@ namespace Copter::Engine
         void setSpeed(units::protocol::speed_t speed);
 
         /**
+         * @brief: Gets the current speed of the motor
+         * @return: units::protocol::speed_t: The desired speed
+         */
+        units::protocol::speed_t getCurrentSpeed() const;
+
+        /**
          * @brief: Send the signal and update the speed based on the current profile.
          * @note: This function should be called at regular intervals.
          */

@@ -83,6 +83,11 @@ namespace Copter::Engine
             mContainer[id].motor.setSpeed(speed);
         }
 
+        units::protocol::speed_t getCurrentSpeed(uint8_t id) const
+        {
+            return mContainer[id].motor.getCurrentSpeed();
+        }
+
     private:
         // Setup for each motor
         struct MotorSetup

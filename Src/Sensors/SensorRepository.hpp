@@ -10,6 +10,7 @@
 #include "ThermoVoter.hpp"
 // Extensions
 #include "AngleExtension.hpp"
+#include "AltitudeExtension.hpp"
 // Filters
 #include "Filters/Complementary.hpp"
 #include "Filters/None.hpp"
@@ -20,6 +21,7 @@
 #include "Interfaces/Magnetometer.hpp"
 #include "Interfaces/Thermometer.hpp"
 #include "Interfaces/Angle.hpp"
+#include "Interfaces/Altitude.hpp"
 // Sensors
 #include "MPU9250.hpp"
 
@@ -34,15 +36,12 @@ namespace Copter::Sensors
         {
             // Setup sensors
             init(mSensor1);
-            //            mSensor1.init();
 
             // Register sensors to voters
             mAccelVoter.assign(mSensor1);
             mGyroVoter.assign(mSensor1);
             mMagVoter.assign(mSensor1);
             mThermoVoter.assign(mSensor1);
-
-            // Register data expansions
         }
 
         /**
@@ -73,6 +72,10 @@ namespace Copter::Sensors
             {
                 return mAngle;
             }
+            else if constexpr(std::is_same<T, Interfaces::Altitude>::value)
+            {
+                return mAltitude;
+            }
         }
 
     private:
@@ -87,16 +90,17 @@ namespace Copter::Sensors
         }
 
         // Voters
-        AccelVoter mAccelVoter = {};
-        GyroVoter mGyroVoter = {};
-        MagVoter mMagVoter = {};
-        ThermoVoter mThermoVoter = {};
+        AccelVoter mAccelVoter{};
+        GyroVoter mGyroVoter{};
+        MagVoter mMagVoter{};
+        ThermoVoter mThermoVoter{};
 
         // Data expansions
         AngleExtension<Filters::LinearKalman<units::angle::degree_t>, Filters::LinearKalman<units::angle::degree_t>,
                        Filters::LinearKalman<units::angle::degree_t>, Filters::Complementary, Filters::Complementary,
                        Filters::None>
-            mAngle = {mAccelVoter, mGyroVoter, mMagVoter};
+            mAngle{mAccelVoter, mGyroVoter, mMagVoter};
+        AltitudeExtension<Filters::LinearKalman<units::length::meter_t>> mAltitude{mAccelVoter};
 
         // Sensors
         MPU9250 mSensor1 = {PD_13, PD_12};

@@ -8,11 +8,15 @@
 #include "GyroVoter.hpp"
 #include "MagVoter.hpp"
 #include "Filters/LinearKalman.hpp"
+#include "Filters/Complementary.hpp"
 
 namespace Copter::Sensors
 {
-    template <typename RollMix, typename PitchMix, typename YawMix, typename RollFilter, typename PitchFilter,
-              typename YawFilter>
+    template <typename RollFilter = Filters::LinearKalman<units::angle::degree_t>,
+              typename PitchFilter = Filters::LinearKalman<units::angle::degree_t>,
+              typename YawFilter = Filters::LinearKalman<units::angle::degree_t>,
+              typename RollMix = Filters::Complementary, typename PitchMix = Filters::Complementary,
+              typename YawMix = Filters::Complementary>
     class AngleExtension
     {
     public:
@@ -80,13 +84,13 @@ namespace Copter::Sensors
         MagVoter& mMag;
 
         // Filters
-        RollFilter mRollFilter = {};
-        PitchFilter mPitchFilter = {};
-        YawFilter mYawFilter = {};
+        RollMix mRollFilter = {};
+        PitchMix mPitchFilter = {};
+        YawMix mYawFilter = {};
 
-        RollMix mRollKalmin = {2_deg, 0_deg, 2_deg};
-        PitchMix mPitchKalmin = {2_deg, 0_deg, 2_deg};
-        YawMix mYawKalmin = {2_deg, 0_deg, 2_deg};
+        RollFilter mRollKalmin = {2_deg, 0_deg, 2_deg};
+        PitchFilter mPitchKalmin = {2_deg, 0_deg, 2_deg};
+        YawFilter mYawKalmin = {2_deg, 0_deg, 2_deg};
 
         // Current angles
         units::angle::degree_t mRoll = 0_deg;
